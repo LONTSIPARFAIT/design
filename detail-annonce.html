@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appartement F3 meublé à Bonapriso - Home Cameroun</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'orange': '#E54801',
+                        'bordeaux': '#913327',
+                        'violet': '#1B0B38',
+                        'cream': '#FAF9F5',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Pour simuler les hover sur les boutons SVG */
+        button svg { transition: all 0.3s; }
+        button:hover svg { transform: scale(1.2); }
+    </style>
+</head>
+<body class="bg-cream">
+
+    <!-- Header -->
+    <header class="bg-violet text-white py-6 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h1 class="text-3xl font-bold">Home Cameroun</h1>
+            <a href="#" class="flex items-center gap-2 hover:underline">
+                <i class="fas fa-arrow-left"></i> Retour aux annonces
+            </a>
+        </div>
+    </header>
+
+    <!-- Filtre de catégories -->
+    <section class="bg-white shadow-md py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-2xl font-bold text-violet mb-6">Parcourir par catégorie</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <a href="#" class="bg-cream hover:bg-orange/10 border-2 border-transparent hover:border-orange text-violet font-semibold text-center py-4 rounded-xl transition">Studio</a>
+                <a href="#" class="bg-cream hover:bg-orange/10 border-2 border-transparent hover:border-orange text-violet font-semibold text-center py-4 rounded-xl transition">Chambre</a>
+                <a href="#" class="bg-orange text-white font-bold text-center py-4 rounded-xl shadow-lg">Appartement</a>
+                <a href="#" class="bg-cream hover:bg-orange/10 border-2 border-transparent hover:border-orange text-violet font-semibold text-center py-4 rounded-xl transition">Maison</a>
+                <a href="#" class="bg-cream hover:bg-orange/10 border-2 border-transparent hover:border-orange text-violet font-semibold text-center py-4 rounded-xl transition">Villa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Détail de l'annonce -->
+    <section class="py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Titre et infos principales -->
+            <div class="mb-10">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-violet mb-4">
+                    Appartement F3 meublé de luxe à Bonapriso
+                </h1>
+                <div class="flex flex-wrap gap-6 text-bordeaux text-lg">
+                    <span class="flex items-center gap-2"><i class="fas fa-map-marker-alt"></i> Bonapriso, Douala</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-calendar-alt"></i> Publié le 29 décembre 2025</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-eye"></i> 342 vues</span>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-10">
+
+                <!-- Colonne gauche : Photos + Description + Avis -->
+                <div class="lg:col-span-2 space-y-10">
+
+                    <!-- Photo principale -->
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://sacrevoyage.com/wp-content/uploads/2024/11/Appartement-meuble-Luxe-Priso-4.jpg" alt="Appartement F3 Bonapriso" class="w-full h-96 md:h-[600px] object-cover">
+                        <div class="absolute top-4 left-4 bg-orange text-white px-5 py-2 rounded-full text-lg font-bold shadow">À louer</div>
+                    </div>
+
+                    <!-- Miniatures -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <img src="https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/489501460.jpg" alt="Salon" class="rounded-xl object-cover h-32 shadow hover:opacity-90 transition">
+                        <img src="https://a0.muscache.com/im/pictures/1ff6d909-5ba6-42f3-9d2c-fa2327780936.jpg" alt="Cuisine" class="rounded-xl object-cover h-32 shadow hover:opacity-90 transition">
+                        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-781296909794916636/original/efeb93b2-71cb-4772-b9ea-becc75970f7e.jpeg?im_w=720" alt="Chambre" class="rounded-xl object-cover h-32 shadow hover:opacity-90 transition">
+                        <img src="https://media.vrbo.com/lodging/97000000/96840000/96837700/96837666/e0a2066c.jpg" alt="Salle de bain" class="rounded-xl object-cover h-32 shadow hover:opacity-90 transition">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl">
+                        <h2 class="text-3xl font-bold text-violet mb-6">Description</h2>
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Magnifique appartement F3 entièrement meublé et équipé, situé dans une résidence sécurisée à Bonapriso.
+                            Idéal pour cadre expatrié ou famille. Vue imprenable sur la ville, finitions haut de gamme.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6 text-gray-700">
+                            <div class="flex items-center gap-3"><i class="fas fa-bed text-orange text-xl"></i><span>3 chambres</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-bath text-orange text-xl"></i><span>2 salles de bain</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-utensils text-orange text-xl"></i><span>Cuisine équipée</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-couch text-orange text-xl"></i><span>Salon meublé</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-wifi text-orange text-xl"></i><span>Wi-Fi haut débit</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-car text-orange text-xl"></i><span>Parking inclus</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-shield-alt text-orange text-xl"></i><span>Sécurité 24/7</span></div>
+                            <div class="flex items-center gap-3"><i class="fas fa-fan text-orange text-xl"></i><span>Climatisation complète</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Avis clients (déjà présent) -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl">
+                        <h2 class="text-3xl font-bold text-violet mb-8">Avis clients</h2>
+                        <!-- (contenu des avis comme avant) -->
+                        <div class="flex items-center gap-6 mb-10 border-b pb-8">
+                            <div class="text-6xl font-extrabold text-orange">4.8</div>
+                            <div>
+                                <div class="flex text-orange text-3xl mb-2">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <p class="text-gray-600 text-lg">Basé sur 12 avis</p>
+                            </div>
+                        </div>
+                        <!-- 3 avis comme dans la version précédente -->
+                    </div>
+
+                </div>
+
+                <!-- Colonne droite : Prix + Contact + Annonceur + Localisation -->
+                <div class="space-y-8">
+                    <!-- Prix et contact -->
+                    <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                        <div class="text-5xl font-extrabold text-orange mb-2">800 000 FCFA</div>
+                        <div class="text-2xl text-gray-600 mb-6">/ mois</div>
+                        <div class="text-bordeaux mb-8 space-y-1">
+                            <p>Caution : 2 mois</p>
+                            <p>Avance : 1 mois</p>
+                        </div>
+                        <button class="w-full bg-orange hover:bg-orange/90 text-white font-bold py-4 rounded-xl transition text-xl shadow-lg">
+                            <i class="fas fa-phone-alt mr-3"></i> Contacter l'annonceur
+                        </button>
+                        <button class="w-full mt-4 bg-violet hover:bg-violet/90 text-white font-bold py-4 rounded-xl transition text-xl flex items-center justify-center gap-3 shadow-lg">
+                            <i class="fab fa-whatsapp text-2xl"></i> Envoyer sur WhatsApp
+                        </button>
+                    </div>
+
+                    <!-- Annonceur -->
+                    <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                        <h3 class="text-2xl font-bold text-violet mb-6">Annonceur</h3>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-violet">JD</div>
+                            <div>
+                                <p class="font-bold text-lg">Jean Dupont</p>
+                                <p class="text-gray-600">Membre depuis 2023</p>
+                            </div>
+                        </div>
+                        <p class="text-green-600 font-medium"><i class="fas fa-check-circle mr-2"></i> Profil vérifié</p>
+                    </div>
+
+                    <!-- Localisation déplacée ici -->
+                    <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                        <h3 class="text-2xl font-bold text-violet mb-6">Localisation</h3>
+                        <p class="text-gray-700 mb-6">
+                            Situé au cœur de Bonapriso, quartier prestigieux de Douala. Proche des hôtels (Hôtel La Falaise, Star Land Hotel, Sky Hotel), restaurants (Le Grilladin, L'Ethnic Restaurant, Piccola Venezia) et centres commerciaux.
+                        </p>
+                        <div class="rounded-2xl overflow-hidden shadow-lg">
+                            <img src="https://www.mdpi.com/environments/environments-11-00121/article_deploy/html/images/environments-11-00121-g001.png" alt="Carte de Bonapriso, Douala" class="w-full h-64 md:h-80 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biens similaires avec ton nouveau style de carte -->
+            <div class="mt-20">
+                <h2 class="text-3xl font-bold text-violet mb-8 text-left">Biens similaires dans la catégorie Appartement</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+                    <!-- Carte similaire (répétée 8 fois dans ton exemple, je mets 4 pour la démo) -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 group hover:shadow-md transition-all overflow-hidden">
+                        <div class="p-2.5 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="aubin.jpg" class="h-7 w-7 rounded-full object-cover" alt="Bailleur">
+                                <div class="flex flex-col -space-y-0.5">
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-[11px] font-bold text-slate-800">Jean Bailleur</span>
+                                        <svg class="h-2.5 w-2.5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-[9px] text-slate-400">il y a 2h</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative h-40 overflow-hidden">
+                            <img src="im1.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Bien similaire">
+                            <div class="absolute right-2 top-4 flex flex-col gap-3.5">
+                                <div class="flex flex-col items-center gap-0.5">
+                                    <button class="text-white/90 hover:text-red-500 drop-shadow-md transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+                                    </button>
+                                    <span class="text-[8px] text-white font-medium drop-shadow-md">24</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-0.5">
+                                    <button class="text-white/90 hover:text-blue-400 drop-shadow-md transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                        </svg>
+                                    </button>
+                                    <span class="text-[8px] text-white font-medium drop-shadow-md">12</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-0.5">
+                                    <div class="text-white/90 drop-shadow-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-[8px] text-white font-medium drop-shadow-md">1.2k</span>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-2 left-2 bg-black/20 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded-full flex items-center gap-1">
+                                <svg class="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                </svg>
+                                12
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex flex-col -space-y-1 mb-2">
+                                <span class="text-base font-black text-slate-900">60 000 F <span class="text-[9px] text-slate-400 font-normal">/mois</span></span>
+                                <h3 class="text-[12px] font-bold text-slate-700 truncate">Studio moderne en duplex</h3>
+                            </div>
+                            <div class="flex items-center gap-2.5 text-[9px] text-slate-500 font-bold mb-3">
+                                <span class="flex items-center gap-1">2 ch</span>
+                                <span class="flex items-center gap-1">1 sdb</span>
+                                <span>45 m²</span>
+                            </div>
+                            <button class="w-full py-1.5 bg-slate-50 hover:bg-slate-900 text-slate-900 hover:text-white text-[10px] font-bold rounded-lg border border-slate-200 transition-all">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Répète la carte ci-dessus 3 fois pour avoir 4 biens similaires -->
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-violet text-white py-10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-lg">&copy; 2025 Home Cameroun - Tous droits réservés</p>
+        </div>
+    </footer>
+
+</body>
+</html>
