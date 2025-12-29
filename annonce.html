@@ -38,57 +38,22 @@
     </header>
 
     <!-- Barre de recherche -->
-<!-- Barre de recherche + tri + bouton filtres (style Trip.com amélioré) -->
-<section class="bg-white shadow-md py-6 sticky top-0 z-30">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            <!-- Filtre By + Clear all + Recherche -->
-            <div class="flex items-center gap-4 w-full lg:w-auto">
-                <span class="text-lg font-semibold text-gray-800 hidden lg:block">Filtrer par</span>
-                <button id="clearFilters" class="text-orange hover:underline text-sm hidden lg:block">Tout effacer</button>
+    <section class="bg-white shadow-md py-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-4 items-center">
                 <div class="flex-1 relative">
-                    <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 text-lg"></i>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="Rechercher par ville, quartier ou mot-clé..." 
-                        class="w-full pl-14 pr-6 py-4 bg-gray-100 rounded-full border border-gray-200 focus:outline-none focus:border-orange focus:ring-4 focus:ring-orange/10 transition text-gray-800 text-lg"
-                    >
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="searchInput" placeholder="Rechercher par ville, quartier ou mot-clé..." class="w-full pl-12 pr-6 py-4 rounded-full border border-gray-300 focus:outline-none focus:border-orange text-gray-800">
                 </div>
-            </div>
-
-            <!-- Tri + Bouton filtres mobile -->
-            <div class="flex items-center gap-4 w-full lg:w-auto">
-                <!-- Sélecteur de tri -->
-                <div class="relative">
-                    <select 
-                        id="sortSelect" 
-                        class="pl-5 pr-12 py-4 bg-gray-100 rounded-full border border-gray-200 focus:outline-none focus:border-orange focus:ring-4 focus:ring-orange/10 appearance-none cursor-pointer text-gray-800 text-lg min-w-64"
-                    >
-                        <option value="recent">Plus récentes</option>
-                        <option value="top-rated">Mieux notés</option>
-                        <option value="prix-asc">Prix croissant</option>
-                        <option value="prix-desc">Prix décroissant</option>
-                        <option value="surface-asc">Surface croissante</option>
-                        <option value="surface-desc">Surface décroissante</option>
-                        <option value="alpha-asc">Alphabetique A → Z</option>
-                        <option value="alpha-desc">Alphabetique Z → A</option>
-                    </select>
-                    <i class="fas fa-chevron-down absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
-                </div>
-
-                <!-- Bouton filtres mobile -->
-                <button 
-                    id="mobileFilterBtn"
-                    class="lg:hidden bg-violet hover:bg-violet/90 text-white font-bold px-6 py-4 rounded-full transition shadow-lg flex items-center gap-3"
-                >
-                    <i class="fas fa-filter"></i>
-                    Filtres
-                </button>
+                <select id="sortSelect" class="px-6 py-4 rounded-full border border-gray-300 focus:outline-none focus:border-orange text-gray-800">
+                    <option value="recent">Plus récentes</option>
+                    <option value="prix-asc">Prix croissant</option>
+                    <option value="prix-desc">Prix décroissant</option>
+                    <option value="surface">Surface</option>
+                </select>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Contenu principal -->
     <section class="py-12 px-4">
@@ -834,5 +799,79 @@
             <p class="text-lg">&copy; 2025 Home Cameroun - Tous droits réservés</p>
         </div>
     </footer>
+
+    <!-- Script pour filtre direct -->
+    <script>
+        const annonces = document.querySelectorAll('.annonce');
+        const resultsCount = document.getElementById('resultsCount');
+
+        function filterAnnonces() {
+            let visibleCount = 0;
+
+            annonces.forEach(annonce => {
+                let show = true;
+
+                // Type
+                const checkedTypes = document.querySelectorAll('.filter-checkbox[data-filter="type"]:checked');
+                if (checkedTypes.length > 0) {
+                    const types = Array.from(checkedTypes).map(cb => cb.value);
+                    if (!types.includes(annonce.dataset.type)) show = false;
+                }
+
+                // Ville
+                const city = document.getElementById('cityFilter').value;
+                if (city && annonce.dataset.ville !== city) show = false;
+
+                // Prix
+                const maxPrice = document.getElementById('priceRange').value;
+                if (parseInt(annonce.dataset.prix) > parseInt(maxPrice)) show = false;
+
+                // Surface
+                const maxSurface = document.getElementById('surfaceRange').value;
+                if (parseInt(annonce.dataset.surface) > parseInt(maxSurface)) show = false;
+
+                // Commodités
+                const checkedAmenities = document.querySelectorAll('.filter-checkbox[data-filter="amenity"]:checked');
+                if (checkedAmenities.length > 0) {
+                    const amenities = Array.from(checkedAmenities).map(cb => cb.value);
+                    const annonceAmenities = annonce.dataset.amenities.split(',');
+                    if (!amenities.every(a => annonceAmenities.includes(a))) show = false;
+                }
+
+                // Recherche texte
+                const search = document.getElementById('searchInput').value.toLowerCase();
+                if (search && !annonce.textContent.toLowerCase().includes(search)) show = false;
+
+                if (show) {
+                    annonce.style.display = '';
+                    visibleCount++;
+                } else {
+                    annonce.style.display = 'none';
+                }
+            });
+
+            resultsCount.textContent = visibleCount + ' annonces trouvées';
+        }
+
+        // Événements pour filtre direct
+        document.querySelectorAll('.filter-checkbox, #cityFilter, #priceRange, #surfaceRange, #searchInput').forEach(el => {
+            el.addEventListener('change', filterAnnonces);
+            el.addEventListener('input', filterAnnonces); // pour recherche et sliders
+        });
+
+        // Réinitialiser
+        document.getElementById('clearFilters').addEventListener('click', () => {
+            document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+            document.getElementById('cityFilter').value = '';
+            document.getElementById('priceRange').value = 3000000;
+            document.getElementById('surfaceRange').value = 500;
+            document.getElementById('searchInput').value = '';
+            filterAnnonces();
+        });
+
+        // Initialisation
+        filterAnnonces();
+    </script>
+
 </body>
 </html>
