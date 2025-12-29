@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Cameroun | Annonces</title>
+
+<style>
+:root {
+  --violet:#2B154F;
+  --bordeaux:#8C2F23;
+  --orange:#E36B0A;
+  --light:#f4f5fa;
+  --white:#fff;
+  --dark:#222;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
+body{background:var(--light);color:var(--dark);}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--violet),var(--bordeaux));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  padding:40px 20px;
+}
+.hero img{width:120px;margin-bottom:20px;}
+.hero h1{font-size:3.2rem;}
+.hero p{max-width:700px;margin:15px auto 30px;font-size:1.2rem;}
+.search{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.search input,.search select{
+  padding:14px 18px;
+  border-radius:30px;
+  border:none;
+  min-width:180px;
+}
+.search button{
+  padding:14px 30px;
+  border:none;
+  border-radius:30px;
+  background:var(--orange);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+.search button:hover{opacity:.9}
+
+/* ================= SECTION ================= */
+section{padding:80px 8%;}
+.title{
+  text-align:center;
+  font-size:2.3rem;
+  color:var(--violet);
+  margin-bottom:40px;
+}
+
+/* ================= SLIDER ================= */
+.slider{
+  overflow:hidden;
+  position:relative;
+}
+.slider-track{
+  display:flex;
+  gap:20px;
+  animation:scroll 25s linear infinite;
+}
+.category{
+  min-width:220px;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+.category h3{color:var(--bordeaux);margin-top:10px;}
+@keyframes scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ================= FILTERS ================= */
+.filters{text-align:center;margin-bottom:30px;}
+.filters button{
+  padding:10px 20px;
+  border-radius:20px;
+  border:none;
+  background:var(--violet);
+  color:white;
+  margin:5px;
+  cursor:pointer;
+}
+.filters button.active{background:var(--orange);}
+
+/* ================= ADS ================= */
+.ads{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.ad{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  transition:.3s;
+}
+.ad:hover{transform:translateY(-5px);}
+.ad img{width:100%;height:170px;object-fit:cover;}
+.ad-body{padding:20px;}
+.badge{
+  background:var(--orange);
+  color:white;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:.8rem;
+}
+.price{color:var(--bordeaux);font-weight:bold;margin-top:5px;}
+
+/* ================= OWNERS ================= */
+.owners{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+.owner{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+.owner img{width:80px;border-radius:50%;}
+.certified{color:var(--orange);font-weight:bold;margin:10px 0}
+
+/* ================= FOOTER ================= */
+footer{
+  background:var(--violet);
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <img src="logopng.png">
+    <h1>Home Cameroun</h1>
+    <p>La plateforme sécurisée pour louer sans arnaques au Cameroun</p>
+    <div class="search">
+      <input placeholder="Ville ou quartier">
+      <select>
+        <option>Type de bien</option>
+        <option>Chambre</option>
+        <option>Studio</option>
+        <option>Appartement</option>
+      </select>
+      <button>Rechercher</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES SLIDER -->
+<section>
+  <h2 class="title">Catégories d'annonces</h2>
+  <div class="slider">
+    <div class="slider-track">
+      <div class="category"><h3>Chambre</h3></div>
+      <div class="category"><h3>Studio</h3></div>
+      <div class="category"><h3>Appartement</h3></div>
+      <div class="category"><h3>Maison</h3></div>
+      <div class="category"><h3>Colocation</h3></div>
+      <div class="category"><h3>Local commercial</h3></div>
+
+      <!-- duplication pour effet infini -->
+      <div class="category"><h3>Chambre</h3></div>
+      <div class="category"><h3>Studio</h3></div>
+      <div class="category"><h3>Appartement</h3></div>
+      <div class="category"><h3>Maison</h3></div>
+      <div class="category"><h3>Colocation</h3></div>
+      <div class="category"><h3>Local commercial</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADS -->
+<section>
+  <h2 class="title">Annonces disponibles</h2>
+
+  <div class="filters">
+    <button data-filter="all" class="active">Tous</button>
+    <button data-filter="certified">Certifiés</button>
+    <button data-filter="studio">Studios</button>
+    <button data-filter="chambre">Chambres</button>
+  </div>
+
+  <div class="ads">
+    <div class="ad" data-type="studio" data-certified="true">
+      <img src="https://picsum.photos/400/300?1">
+      <div class="ad-body">
+        <span class="badge">Certifié HMC</span>
+        <h4>Studio – Bastos</h4>
+        <p class="price">80 000 FCFA / mois</p>
+      </div>
+    </div>
+
+    <div class="ad" data-type="chambre" data-certified="false">
+      <img src="https://picsum.photos/400/300?2">
+      <div class="ad-body">
+        <h4>Chambre – Logpom</h4>
+        <p class="price">35 000 FCFA / mois</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNERS -->
+<section>
+  <h2 class="title">Bailleurs certifiés</h2>
+  <div class="owners">
+    <div class="owner">
+      <img src="https://i.pravatar.cc/150?1">
+      <div class="certified">✔ Certifié HMC</div>
+      <h4>Jean M.</h4>
+      <p>6 biens • ⭐ 4.8</p>
+    </div>
+
+    <div class="owner">
+      <img src="https://i.pravatar.cc/150?2">
+      <div class="certified">✔ Certifié HMC</div>
+      <h4>Alice K.</h4>
+      <p>4 biens • ⭐ 4.6</p>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Home Cameroun</footer>
+
+<script>
+const buttons=document.querySelectorAll(".filters button");
+const ads=document.querySelectorAll(".ad");
+
+buttons.forEach(btn=>{
+  btn.onclick=()=>{
+    buttons.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const f=btn.dataset.filter;
+
+    ads.forEach(ad=>{
+      const type=ad.dataset.type;
+      const cert=ad.dataset.certified==="true";
+
+      if(f==="all") ad.style.display="block";
+      else if(f==="certified") ad.style.display=cert?"block":"none";
+      else ad.style.display=type===f?"block":"none";
+    });
+  }
+});
+</script>
+
+</body>
+</html>
