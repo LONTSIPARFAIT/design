@@ -4,132 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Cameroun - Parcourir les catégories</title>
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome pour les icônes -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .category-section {
+            padding: 100px 0;
             background: linear-gradient(to bottom, #f8f9fa, #ffffff);
-            padding: 80px 0;
         }
-        .category-card {
-            transition: all 0.4s ease;
-            border: none;
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #212529;
+            text-align: center;
+        }
+
+        .intro-paragraph {
+            font-size: 1.3rem;
+            color: #555;
+            text-align: center;
+            max-width: 900px;
+            margin: 20px auto 60px auto;
+            line-height: 1.6;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .category-item {
+            position: relative;
+            height: 380px;
             border-radius: 20px;
             overflow: hidden;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        .category-card:hover {
+
+        .category-item:hover {
             transform: translateY(-15px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.25);
         }
-        .category-icon {
-            font-size: 60px;
-            color: #007bff;
-            margin-bottom: 20px;
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
         }
-        h1 {
-            font-size: 2.8rem;
+
+        .category-item:hover .category-image {
+            transform: scale(1.1);
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 40px 30px 30px;
+            text-align: left;
+        }
+
+        .category-overlay h3 {
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
-        .intro-text {
-            font-size: 1.2rem;
-            color: #555;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+
+        .category-overlay p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .view-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            color: #007bff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-item:hover .view-link {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 
-    <!-- Section Catégories -->
     <section class="category-section">
         <div class="container">
-            <!-- Titre H1 demandé -->
+            <!-- Titre et paragraphe demandé -->
             <h1 class="text-center">Parcourir les catégories</h1>
-            <p class="intro-text mb-5">Découvrez toutes nos annonces immobilières organisées par type de bien</p>
-
-            <div class="row g-4 justify-content-center">
-                <!-- Appartements -->
-                <div class="col-md-4 col-sm-6">
-                    <a href="annonces.php?cat=appartements" class="text-decoration-none">
-                        <div class="card category-card text-center p-5">
-                            <i class="fas fa-building category-icon"></i>
-                            <h4 class="fw-bold">Appartements</h4>
-                            <p class="text-muted">Studio, 2 à 5 pièces, à Yaoundé, Douala...</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Maisons / Villas -->
-                <div class="col-md-4 col-sm-6">
-                    <a href="annonces.php?cat=maisons" class="text-decoration-none">
-                        <div class="card category-card text-center p-5">
-                            <i class="fas fa-home category-icon"></i>
-                            <h4 class="fw-bold">Maisons & Villas</h4>
-                            <p class="text-muted">Duplex, villas avec piscine, résidences...</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Terrains -->
-                <div class="col-md-4 col-sm-6">
-                    <a href="annonces.php?cat=terrains" class="text-decoration-none">
-                        <div class="card category-card text-center p-5">
-                            <i class="fas fa-map-marked-alt category-icon"></i>
-                            <h4 class="fw-bold">Terrains</h4>
-                            <p class="text-muted">Titres fonciers, terrains constructibles</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Bureaux & Commerces -->
-                <div class="col-md-4 col-sm-6">
-                    <a href="annonces.php?cat=bureaux" class="text-decoration-none">
-                        <div class="card category-card text-center p-5">
-                            <i class="fas fa-briefcase category-icon"></i>
-                            <h4 class="fw-bold">Bureaux & Commerces</h4>
-                            <p class="text-muted">Locaux professionnels, boutiques, bureaux</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Locations meublées -->
-                <div class="col-md-4 col-sm-6">
-                    <a href="annonces.php?cat=meuble" class="text-decoration-none">
-                        <div class="card category-card text-center p-5">
-                            <i class="fas fa-couch category-icon"></i>
-                            <h4 class="fw-bold">Locations Meublées</h4>
-                            <p class="text-muted">Appartements et studios déjà meublés</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Autres -->
-                <div class="col-md-4 col-sm-6">
-                    <a href="annonces.php?cat=autres" class="text-decoration-none">
-                        <div class="card category-card text-center p-5">
-                            <i class="fas fa-ellipsis-h category-icon"></i>
-                            <h4 class="fw-bold">Autres biens</h4>
-                            <p class="text-muted">Chambres, hôtels, immeubles...</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Le paragraphe demandé en bas -->
-            <p class="text-center mt-5 lead fw-bold text-primary">
+            <p class="intro-paragraph">
                 Trouvez rapidement le type de bien qui vous correspond
             </p>
+
+            <!-- Grille des catégories avec images -->
+            <div class="category-grid">
+                <!-- Appartements -->
+                <a href="annonces.php?cat=appartements" class="text-decoration-none">
+                    <div class="category-item">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt="Appartements modernes" class="category-image">
+                        <div class="view-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="category-overlay">
+                            <h3>Appartements</h3>
+                            <p>Studios, F2 à F5, neufs ou rénovés à Yaoundé, Douala et ailleurs</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Maisons & Villas -->
+                <a href="annonces.php?cat=maisons" class="text-decoration-none">
+                    <div class="category-item">
+                        <img src="https://images.unsplash.com/photo-1605146769289-440e835e1d4b?w=800&q=80" alt="Villas et maisons" class="category-image">
+                        <div class="view-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="category-overlay">
+                            <h3>Maisons & Villas</h3>
+                            <p>Duplex, villas avec piscine, résidences haut standing</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Terrains -->
+                <a href="annonces.php?cat=terrains" class="text-decoration-none">
+                    <div class="category-item">
+                        <img src="https://images.unsplash.com/photo-1500384066616-8a8d547abfc9?w=800&q=80" alt="Terrains titrés" class="category-image">
+                        <div class="view-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="category-overlay">
+                            <h3>Terrains</h3>
+                            <p>Titres fonciers, parcelles constructibles en ville et périphérie</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Bureaux & Commerces -->
+                <a href="annonces.php?cat=bureaux" class="text-decoration-none">
+                    <div class="category-item">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Bureaux professionnels" class="category-image">
+                        <div class="view-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="category-overlay">
+                            <h3>Bureaux & Commerces</h3>
+                            <p>Locaux commerciaux, plateaux de bureaux, boutiques</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Locations meublées -->
+                <a href="annonces.php?cat=meuble" class="text-decoration-none">
+                    <div class="category-item">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d0820fbf1f91?w=800&q=80" alt="Appartements meublés" class="category-image">
+                        <div class="view-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="category-overlay">
+                            <h3>Locations Meublées</h3>
+                            <p>Appartements et studios prêts à habiter avec tout le confort</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Autres biens -->
+                <a href="annonces.php?cat=autres" class="text-decoration-none">
+                    <div class="category-item">
+                        <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80" alt="Autres biens immobiliers" class="category-image">
+                        <div class="view-link">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="category-overlay">
+                            <h3>Autres Biens</h3>
+                            <p>Immeubles, chambres, hôtels, fermes et plus</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Bootstrap JS (optionnel) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
