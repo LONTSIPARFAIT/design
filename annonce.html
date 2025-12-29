@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annonces immobilières - Home Cameroun</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'orange': '#E54801',
+                        'bordeaux': '#913327',
+                        'violet': '#1B0B38',
+                        'cream': '#FAF9F5',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-cream">
+
+    <!-- Header -->
+    <header class="bg-violet text-white py-6 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h1 class="text-3xl font-bold">Home Cameroun</h1>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:underline">Accueil</a>
+                <a href="#" class="hover:underline">Publier une annonce</a>
+                <a href="#" class="hover:underline">Connexion</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barre de recherche -->
+<!-- Barre de recherche + tri + bouton filtres (style Trip.com amélioré) -->
+<section class="bg-white shadow-md py-6 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            <!-- Filtre By + Clear all + Recherche -->
+            <div class="flex items-center gap-4 w-full lg:w-auto">
+                <span class="text-lg font-semibold text-gray-800 hidden lg:block">Filtrer par</span>
+                <button id="clearFilters" class="text-orange hover:underline text-sm hidden lg:block">Tout effacer</button>
+                <div class="flex-1 relative">
+                    <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 text-lg"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Rechercher par ville, quartier ou mot-clé..." 
+                        class="w-full pl-14 pr-6 py-4 bg-gray-100 rounded-full border border-gray-200 focus:outline-none focus:border-orange focus:ring-4 focus:ring-orange/10 transition text-gray-800 text-lg"
+                    >
+                </div>
+            </div>
+
+            <!-- Tri + Bouton filtres mobile -->
+            <div class="flex items-center gap-4 w-full lg:w-auto">
+                <!-- Sélecteur de tri -->
+                <div class="relative">
+                    <select 
+                        id="sortSelect" 
+                        class="pl-5 pr-12 py-4 bg-gray-100 rounded-full border border-gray-200 focus:outline-none focus:border-orange focus:ring-4 focus:ring-orange/10 appearance-none cursor-pointer text-gray-800 text-lg min-w-64"
+                    >
+                        <option value="recent">Plus récentes</option>
+                        <option value="top-rated">Mieux notés</option>
+                        <option value="prix-asc">Prix croissant</option>
+                        <option value="prix-desc">Prix décroissant</option>
+                        <option value="surface-asc">Surface croissante</option>
+                        <option value="surface-desc">Surface décroissante</option>
+                        <option value="alpha-asc">Alphabetique A → Z</option>
+                        <option value="alpha-desc">Alphabetique Z → A</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                </div>
+
+                <!-- Bouton filtres mobile -->
+                <button 
+                    id="mobileFilterBtn"
+                    class="lg:hidden bg-violet hover:bg-violet/90 text-white font-bold px-6 py-4 rounded-full transition shadow-lg flex items-center gap-3"
+                >
+                    <i class="fas fa-filter"></i>
+                    Filtres
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contenu principal -->
+    <section class="py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Sidebar gauche : Filtres -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl p-6 shadow-xl sticky top-24">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-violet">Filtrer par</h3>
+                            <button id="clearFilters" class="text-orange hover:underline text-sm">Tout effacer</button>
+                        </div>
+
+                        <!-- Type de bien -->
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Type de bien</h4>
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="filter-checkbox" data-filter="type" value="appartement">
+                                    <span class="text-gray-700">Appartement (55)</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="filter-checkbox" data-filter="type" value="studio">
+                                    <span class="text-gray-700">Studio (40)</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="filter-checkbox" data-filter="type" value="chambre">
+                                    <span class="text-gray-700">Chambre (35)</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="filter-checkbox" data-filter="type" value="villa">
+                                    <span class="text-gray-700">Villa (15)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Ville -->
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Ville</h4>
+                            <select id="cityFilter" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-orange text-gray-700">
+                                <option value="">Toutes les villes</option>
+                                <option value="douala">Douala</option>
+                                <option value="yaounde">Yaoundé</option>
+                                <option value="limbe">Limbe</option>
+                                <option value="buea">Buea</option>
+                                <option value="bamenda">Bamenda</option>
+                            </select>
+                        </div>
+
+                        <!-- Prix par mois -->
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Prix par mois</h4>
+                            <input type="range" id="priceRange" min="0" max="3000000" value="1500000" class="w-full">
+                            <div class="flex justify-between text-sm text-gray-600 mt-2">
+                                <span id="priceMin">0 F</span>
+                                <span id="priceMax">3 000 000 F</span>
+                            </div>
+                        </div>
+
+                        <!-- Surface -->
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Surface (m²)</h4>
+                            <input type="range" id="surfaceRange" min="20" max="500" value="250" class="w-full">
+                            <div class="flex justify-between text-sm text-gray-600 mt-2">
+                                <span>20 m²</span>
+                                <span>500 m²</span>
+                            </div>
+                        </div>
+
+                        <!-- Commodités -->
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Commodités</h4>
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="filter-checkbox" data-filter="amenity" value="securite">
+                                    <span class="text-gray-700">Sécurité 24/7</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="filter-checkbox" data-filter="amenity" value="climatisation">
+                                    <span class="text-gray-700">Climatisation</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenu droit : 12 annonces horizontales  es -->
+                <div class="lg:col-span-3">
+                    <div class="mb-8 flex justify-between items-center">
+                        <h2 class="text-3xl font-bold text-violet" id="resultsCount">145 annonces trouvées</h2>
+                    </div>
+
+                    <div class="space-y-8" id="annoncesList">
+
+                        <!-- Annonce 1 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="appartement" data-ville="douala" data-prix="600000" data-surface="90" data-amenities="securite">
+                            <div class="relative md:w-96">
+                                <img src="/img/1.jpg" alt="Appartement vide Bonapriso" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">42</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">18</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">2.3k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 10 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Appartement F2   Bonapriso</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Appartement F2 vide, lumineux et spacieux dans résidence sécurisée à Bonapriso. Idéal pour personnalisation.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Bonapriso, Douala
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Sécurité 24/7</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">600 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 2 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="studio" data-ville="douala" data-prix="250000" data-surface="35" data-amenities="securite">
+                            <div class="relative md:w-96">
+                                <img src="/img/4.jpg" alt="Studio vide Akwa" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">27</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">9</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">1.5k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 8 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Studio   Akwa centre</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Studio vide et lumineux au centre d'Akwa. Sécurité incluse, parfait pour jeune professionnel.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Akwa, Douala
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Sécurité 24/7</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">250 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 3 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="chambre" data-ville="douala" data-prix="80000" data-surface="18" data-amenities="">
+                            <div class="relative md:w-96">
+                                <img src="/img/10.jpg" alt="Chambre vide Deido" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">15</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">5</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">980</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 6 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Chambre  e Deido</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Chambre vide dans maison partagée à Deido. Calme et propre, idéale pour étudiant.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Deido, Douala
+                                    </p>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">80 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 4 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="villa" data-ville="yaounde" data-prix="2500000" data-surface="300" data-amenities="securite,climatisation">
+                            <div class="relative md:w-96">
+                                <img src="/img/11.jpg" alt="Villa vide Bastos" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">68</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">25</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">4.1k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 20 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Villa  e Bastos</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Grande villa vide haut standing à Bastos avec jardin. Sécurité 24/7 et climatisation.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Bastos, Yaoundé
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Sécurité 24/7</span>
+                                        <span class="bg-cream px-3 py-1 rounded-full">Climatisation</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">2 500 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 5 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="appartement" data-ville="douala" data-prix="450000" data-surface="75" data-amenities="climatisation">
+                            <div class="relative md:w-96">
+                                <img src="/img/7.jpg" alt="Appartement vide Makepe" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">33</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">12</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">1.8k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 9 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Appartement F2   Makepe</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Appartement F2 vide à Makepe, quartier calme. Climatisation installée.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Makepe, Douala
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Climatisation</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">450 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 6 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="studio" data-ville="yaounde" data-prix="200000" data-surface="30" data-amenities="">
+                            <div class="relative md:w-96">
+                                <img src="/img/5.jpg" alt="Studio vide Hippodrome" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">19</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">7</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">1.2k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 7 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Studio   Hippodrome</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Studio vide proche université à Hippodrome. Calme et lumineux.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Hippodrome, Yaoundé
+                                    </p>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">200 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 7 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="appartement" data-ville="douala" data-prix="700000" data-surface="100" data-amenities="climatisation">
+                            <div class="relative md:w-96">
+                                <img src="/img/2.jpg" alt="Appartement vide Logbessou" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">35</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">14</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">2.0k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 12 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Appartement F3   Logbessou</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Appartement F3 vide à Logbessou avec climatisation. Spacieux et bien ventilé.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Logbessou, Douala
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Climatisation</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">700 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 8 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="chambre" data-ville="yaounde" data-prix="60000" data-surface="15" data-amenities="">
+                            <div class="relative md:w-96">
+                                <img src="/img/13.jpg" alt="Chambre vide Essos" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">12</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">4</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">850</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 5 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Chambre  e Essos</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Chambre vide dans résidence à Essos. Calme et proche transports.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Essos, Yaoundé
+                                    </p>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">60 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 9 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="appartement" data-ville="limbe" data-prix="400000" data-surface="70" data-amenities="securite">
+                            <div class="relative md:w-96">
+                                <img src="/img/13.jpg" alt="Appartement vide Limbe" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">28</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">10</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">1.6k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 9 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Appartement F2   Limbe</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Appartement F2 vide à Limbe, proche plage. Sécurité incluse.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Limbe
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Sécurité 24/7</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">400 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 10 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="studio" data-ville="buea" data-prix="180000" data-surface="28" data-amenities="">
+                            <div class="relative md:w-96">
+                                <img src="/img/12.jpg" alt="Studio vide Buea" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">22</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">8</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">1.3k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 7 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Studio   Buea</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Studio vide à Buea, proche université. Calme et fonctionnel.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Buea
+                                    </p>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">180 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 11 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="villa" data-ville="douala" data-prix="1800000" data-surface="250" data-amenities="securite">
+                            <div class="relative md:w-96">
+                                <img src="/img/3.jpg" alt="Villa vide Bonamoussadi" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">55</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">22</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">3.5k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 18 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Villa Bonamoussadi</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Villa vide avec grand jardin à Bonamoussadi. Sécurité 24/7.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Bonamoussadi, Douala
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Sécurité 24/7</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">1 800 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Annonce 12 -->
+                        <div class="annonce bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition" data-type="appartement" data-ville="bamenda" data-prix="350000" data-surface="80" data-amenities="climatisation">
+                            <div class="relative md:w-96">
+                                <img src="/img/13.jpg" alt="Appartement vide Bamenda" class="w-full h-64 md:h-full object-cover">
+                                <div class="absolute right-4 top-4 flex flex-col gap-3">
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-red-500 transition">
+                                            <i class="fas fa-heart text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">30</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700 hover:text-blue-500 transition">
+                                            <i class="fas fa-share-alt text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">11</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-2">
+                                        <button class="text-gray-700">
+                                            <i class="fas fa-eye text-lg"></i>
+                                        </button>
+                                        <span class="text-xs font-medium">1.9k</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 bg-black/30 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full flex items-center gap-2">
+                                    <i class="fas fa-camera"></i> 11 photos
+                                </div>
+                            </div>
+                            <div class="flex-1 p-8 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-violet mb-2">Appartement F2 Bamenda</h3>
+                                    <p class="text-gray-700 mb-4 line-clamp-3">
+                                        Appartement F2 vide à Bamenda avec climatisation. Quartier résidentiel calme.
+                                    </p>
+                                    <p class="text-gray-600 flex items-center gap-2 mb-4">
+                                        <i class="fas fa-map-marker-alt text-orange"></i> Bamenda
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 text-sm">
+                                        <span class="bg-cream px-3 py-1 rounded-full">Climatisation</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between items-end">
+                                    <div>
+                                        <p class="text-sm text-gray-600">À partir de</p>
+                                        <p class="text-3xl font-extrabold text-orange">350 000 F</p>
+                                        <p class="text-sm text-green-600">/ mois</p>
+                                    </div>
+                                    <button class="bg-violet hover:bg-violet/90 text-white font-bold px-8 py-4 rounded-full transition shadow-lg">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-violet text-white py-10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-lg">&copy; 2025 Home Cameroun - Tous droits réservés</p>
+        </div>
+    </footer>
+</body>
+</html>
