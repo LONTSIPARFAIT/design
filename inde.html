@@ -4,207 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Cameroun - Parcourir les catégories</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome pour les icônes (optionnel) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .category-section {
-            padding: 100px 0;
-            background: linear-gradient(to bottom, #f8f9fa, #ffffff);
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #212529;
-            text-align: center;
-        }
-
-        .intro-paragraph {
-            font-size: 1.3rem;
-            color: #555;
-            text-align: center;
-            max-width: 900px;
-            margin: 20px auto 60px auto;
-            line-height: 1.6;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .category-item {
-            position: relative;
-            height: 380px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .category-item:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 40px rgba(0,0,0,0.25);
-        }
-
-        .category-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .category-item:hover .category-image {
-            transform: scale(1.1);
-        }
-
-        .category-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            padding: 40px 30px 30px;
-            text-align: left;
-        }
-
-        .category-overlay h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .category-overlay p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 0;
-        }
-
-        .view-link {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.9);
-            color: #007bff;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .category-item:hover .view-link {
-            opacity: 1;
-        }
-    </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-    <section class="category-section">
-        <div class="container">
-            <!-- Titre et paragraphe demandé -->
-            <h1 class="text-center">Parcourir les catégories</h1>
-            <p class="intro-paragraph">
+    <!-- Section Catégories -->
+    <section class="py-16 px-4 md:py-24 lg:py-32">
+        <div class="max-w-7xl mx-auto text-center">
+            <!-- Titre H1 -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
+                Parcourir les catégories
+            </h1>
+            <!-- Paragraphe juste en dessous -->
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12 md:mb-16">
                 Trouvez rapidement le type de bien qui vous correspond
             </p>
 
-            <!-- Grille des catégories avec images -->
-            <div class="category-grid">
+            <!-- Grille des catégories - Responsive -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
                 <!-- Appartements -->
-                <a href="annonces.php?cat=appartements" class="text-decoration-none">
-                    <div class="category-item">
-                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt="Appartements modernes" class="category-image">
-                        <div class="view-link">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="category-overlay">
-                            <h3>Appartements</h3>
-                            <p>Studios, F2 à F5, neufs ou rénovés à Yaoundé, Douala et ailleurs</p>
-                        </div>
+                <a href="annonces.php?cat=appartements" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <img src="https://www.karmod.eu/media/blog/89/Low-cost-housing-in-cameroon.jpg" 
+                         alt="Appartements au Cameroun" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Appartements</h3>
+                        <p class="text-base md:text-lg opacity-90 mb-4">Studios, F2 à F5, neufs ou rénovés à Yaoundé, Douala...</p>
+                        <span class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold border border-white/30">
+                            248 annonces
+                        </span>
+                    </div>
+                    <!-- Flèche "voir plus" visible au hover (desktop only) -->
+                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
                 <!-- Maisons & Villas -->
-                <a href="annonces.php?cat=maisons" class="text-decoration-none">
-                    <div class="category-item">
-                        <img src="https://images.unsplash.com/photo-1605146769289-440e835e1d4b?w=800&q=80" alt="Villas et maisons" class="category-image">
-                        <div class="view-link">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="category-overlay">
-                            <h3>Maisons & Villas</h3>
-                            <p>Duplex, villas avec piscine, résidences haut standing</p>
-                        </div>
+                <a href="annonces.php?cat=maisons" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <img src="https://a0.muscache.com/im/pictures/miso/Hosting-586085343339885237/original/969eb3a7-7077-498c-a709-2d8ff6fa9a6c.jpeg" 
+                         alt="Villas au Cameroun" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Maisons & Villas</h3>
+                        <p class="text-base md:text-lg opacity-90 mb-4">Duplex, villas avec piscine, résidences haut standing</p>
+                        <span class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold border border-white/30">
+                            189 annonces
+                        </span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
                 <!-- Terrains -->
-                <a href="annonces.php?cat=terrains" class="text-decoration-none">
-                    <div class="category-item">
-                        <img src="https://images.unsplash.com/photo-1500384066616-8a8d547abfc9?w=800&q=80" alt="Terrains titrés" class="category-image">
-                        <div class="view-link">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="category-overlay">
-                            <h3>Terrains</h3>
-                            <p>Titres fonciers, parcelles constructibles en ville et périphérie</p>
-                        </div>
+                <a href="annonces.php?cat=terrains" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <img src="https://media.vrbo.com/lodging/35000000/34600000/34590700/34590648/ab2e5b5d.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" 
+                         alt="Terrains titrés" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Terrains</h3>
+                        <p class="text-base md:text-lg opacity-90 mb-4">Titres fonciers, parcelles constructibles</p>
+                        <span class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold border border-white/30">
+                            312 annonces
+                        </span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
                 <!-- Bureaux & Commerces -->
-                <a href="annonces.php?cat=bureaux" class="text-decoration-none">
-                    <div class="category-item">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Bureaux professionnels" class="category-image">
-                        <div class="view-link">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="category-overlay">
-                            <h3>Bureaux & Commerces</h3>
-                            <p>Locaux commerciaux, plateaux de bureaux, boutiques</p>
-                        </div>
+                <a href="annonces.php?cat=bureaux" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3519282708339060285" 
+                         alt="Bureaux à Douala" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Bureaux & Commerces</h3>
+                        <p class="text-base md:text-lg opacity-90 mb-4">Locaux commerciaux, boutiques, plateaux</p>
+                        <span class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold border border-white/30">
+                            97 annonces
+                        </span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
-                <!-- Locations meublées -->
-                <a href="annonces.php?cat=meuble" class="text-decoration-none">
-                    <div class="category-item">
-                        <img src="https://images.unsplash.com/photo-1522708323590-d0820fbf1f91?w=800&q=80" alt="Appartements meublés" class="category-image">
-                        <div class="view-link">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="category-overlay">
-                            <h3>Locations Meublées</h3>
-                            <p>Appartements et studios prêts à habiter avec tout le confort</p>
-                        </div>
+                <!-- Locations Meublées -->
+                <a href="annonces.php?cat=meuble" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <img src="https://media.vrbo.com/lodging/35000000/34600000/34590700/34590648/ab2e5b5d.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" 
+                         alt="Appartements meublés" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Locations Meublées</h3>
+                        <p class="text-base md:text-lg opacity-90 mb-4">Prêts à habiter avec tout le confort</p>
+                        <span class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold border border-white/30">
+                            156 annonces
+                        </span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
-                <!-- Autres biens -->
-                <a href="annonces.php?cat=autres" class="text-decoration-none">
-                    <div class="category-item">
-                        <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80" alt="Autres biens immobiliers" class="category-image">
-                        <div class="view-link">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="category-overlay">
-                            <h3>Autres Biens</h3>
-                            <p>Immeubles, chambres, hôtels, fermes et plus</p>
-                        </div>
+                <!-- Autres Biens -->
+                <a href="annonces.php?cat=autres" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <img src="https://www.karmod.eu/media/blog/89/Low-cost-housing-in-cameroon.jpg" 
+                         alt="Autres biens immobiliers" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Autres Biens</h3>
+                        <p class="text-base md:text-lg opacity-90 mb-4">Immeubles, chambres, hôtels, fermes...</p>
+                        <span class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold border border-white/30">
+                            74 annonces
+                        </span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
+
             </div>
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
