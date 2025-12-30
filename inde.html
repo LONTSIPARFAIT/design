@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Cameroun - Parcourir les catégories</title>
-    
-    <!-- Google Fonts : Montserrat (titres immobiliers modernes) + Open Sans (corps lisible) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -21,41 +15,45 @@
                         'bordeaux': '#913327',
                         'violet': '#1B0B38',
                         'cream': '#FAF9F5',
-                    },
-                    fontFamily: {
-                        'heading': ['Montserrat', 'sans-serif'],
-                        'body': ['"Open Sans"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         .footer-bg {
-            background-image: url('https://images.unsplash.com/photo-1519909312698-995b1e8d97e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-image: url('https://images.unsplash.com/photo-1506905926826-21bfaac8ff0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center bottom;
             background-attachment: fixed;
         }
     </style>
 </head>
-<body class="bg-cream font-body">
+<body class="bg-cream">
 
-    <!-- Section Catégories -->
+    <!-- Header amélioré avec recherche et navigation -->
+    <!-- <heade -->
+
+    <!-- Script pour menu mobile -->
+    <!-- <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script> -->
+
+    <!-- Section Catégories (inchangée) -->
     <section class="py-16 px-4 md:py-24 lg:py-32">
         <div class="max-w-7xl mx-auto text-left">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-black text-violet mb-6">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-violet mb-6">
                 Parcourir les catégories
             </h1>
-            <p class="text-xl md:text-2xl text-bordeaux max-w-3xl mb-12 md:mb-16 font-medium">
+            <p class="text-xl md:text-2xl text-bordeaux max-w-3xl mb-12 md:mb-16">
                 Trouvez rapidement le type de bien qui vous correspond
             </p>
 
-            <!-- Grille responsive -->
+            <!-- Grille responsive (inchangée) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <!-- Studio -->
@@ -65,9 +63,9 @@
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-heading font-bold mb-3">Studio</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Studio</h3>
                         <p class="text-base md:text-lg opacity-90 mb-4">Confortable, moderne et fonctionnel</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-heading font-semibold">
+                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
                             156 annonces
                         </span>
                     </div>
@@ -83,9 +81,9 @@
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-heading font-bold mb-3">Chambre</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Chambre</h3>
                         <p class="text-base md:text-lg opacity-90 mb-4">Chambres à louer dans résidences sécurisées</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-heading font-semibold">
+                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
                             89 annonces
                         </span>
                     </div>
@@ -101,9 +99,9 @@
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-heading font-bold mb-3">Appartement</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Appartement</h3>
                         <p class="text-base md:text-lg opacity-90 mb-4">F2 à F5 modernes, bien situés à Yaoundé et Douala</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-heading font-semibold">
+                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
                             248 annonces
                         </span>
                     </div>
@@ -119,9 +117,9 @@
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-heading font-bold mb-3">Maison</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Maison</h3>
                         <p class="text-base md:text-lg opacity-90 mb-4">Maisons familiales avec jardin et confort</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-heading font-semibold">
+                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
                             167 annonces
                         </span>
                     </div>
@@ -137,9 +135,9 @@
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-heading font-bold mb-3">Villa</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Villa</h3>
                         <p class="text-base md:text-lg opacity-90 mb-4">Villas haut standing avec piscine et vue</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-heading font-semibold">
+                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
                             95 annonces
                         </span>
                     </div>
@@ -152,16 +150,15 @@
         </div>
     </section>
 
-    <!-- Footer avec image de fond plus visible -->
-    <footer class="footer-bg relative text-cream py-16">
-        <!-- Overlay réduit pour laisser l'image plus visible -->
-        <div class="absolute inset-0 bg-violet/70"></div>
+    <!-- Footer (inchangé) -->
+    <footer class="bg-violet text-cream py-16 footer-bg relative">
+        <div class="absolute inset-0 bg-violet/90"></div>
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 
                 <!-- Colonne 1 : Description -->
                 <div class="space-y-6">
-                    <h3 class="text-4xl font-heading font-black text-orange">Home Cameroun</h3>
+                    <h3 class="text-4xl font-extrabold text-orange">Home Cameroun</h3>
                     <p class="text-cream/80 leading-relaxed">
                         La plateforme n°1 pour trouver votre logement idéal au Cameroun. Studios, chambres, appartements, maisons et villas modernes à Yaoundé, Douala et partout au pays.
                     </p>
@@ -169,7 +166,7 @@
 
                 <!-- Colonne 2 : Quick Links -->
                 <div>
-                    <h4 class="text-2xl font-heading font-bold text-orange mb-6">Quick Links</h4>
+                    <h4 class="text-2xl font-bold text-orange mb-6">Quick Links</h4>
                     <ul class="space-y-4 text-cream/90">
                         <li><a href="index.php" class="hover:text-orange transition">Accueil</a></li>
                         <li><a href="categories.php" class="hover:text-orange transition">Catégories</a></li>
@@ -182,7 +179,7 @@
 
                 <!-- Colonne 3 : Contact Info -->
                 <div>
-                    <h4 class="text-2xl font-heading font-bold text-orange mb-6">Contact Info</h4>
+                    <h4 class="text-2xl font-bold text-orange mb-6">Contact Info</h4>
                     <ul class="space-y-5 text-cream/90">
                         <li class="flex items-center gap-4">
                             <i class="fas fa-phone text-orange text-xl"></i>
@@ -201,7 +198,7 @@
 
                 <!-- Colonne 4 : Réseaux sociaux -->
                 <div>
-                    <h4 class="text-2xl font-heading font-bold text-orange mb-6">Suivez-nous</h4>
+                    <h4 class="text-2xl font-bold text-orange mb-6">Suivez-nous</h4>
                     <div class="flex space-x-6">
                         <a href="#" class="w-14 h-14 bg-orange/20 rounded-full flex items-center justify-center hover:bg-orange transition text-cream text-2xl">
                             <i class="fab fa-facebook-f"></i>
@@ -222,7 +219,7 @@
 
             <hr class="border-cream/30 my-12">
             <div class="text-center text-cream/70 flex items-center justify-center gap-3">
-                <p>&copy; 2025 <span class="text-orange font-heading font-bold">Home Cameroun</span> - Tous droits réservés.</p>
+                <p>&copy; 2026 <span class="text-orange font-bold">Home Cameroun</span> - Tous droits réservés.</p>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Cameroon.svg/800px-Flag_of_Cameroon.svg.png" alt="Drapeau Cameroun" class="h-6 inline-block">
             </div>
             <div class="text-center mt-4 space-x-6 text-cream/70 text-sm">
