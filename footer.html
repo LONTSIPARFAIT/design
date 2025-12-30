@@ -1,138 +1,79 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Cameroun - Parcourir les catégories</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'orange': '#E54801',
-                        'bordeaux': '#913327',
-                        'violet': '#1B0B38',
-                        'cream': '#FAF9F5',
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Font Awesome pour la flèche -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-cream">
+<footer class="bg-violet text-cream py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 
-    <!-- Section Catégories -->
-    <section class="py-16 px-4 md:py-24 lg:py-32">
-        <div class="max-w-7xl mx-auto text-left">
-            <!-- Titre H1 -->
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-violet mb-6">
-                Parcourir les catégories
-            </h1>
-            <!-- Paragraphe -->
-            <p class="text-xl md:text-2xl text-bordeaux max-w-3xl mx-2 mb-12 md:mb-16">
-                Trouvez rapidement le type de bien qui vous correspond
-            </p>
+            <!-- Colonne 1 : Logo / Nom et description -->
+            <div class="space-y-4">
+                <h3 class="text-3xl font-extrabold text-orange">Home Cameroun</h3>
+                <p class="text-sm leading-relaxed text-cream/80">
+                    La plateforme n°1 pour trouver votre logement idéal au Cameroun : studios, chambres, appartements, maisons et villas à Yaoundé, Douala et partout ailleurs.
+                </p>
+            </div>
 
-            <!-- Grille responsive -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Studio -->
-                <a href="annonces.php?cat=studio" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
-                    <img src="https://q-xx.bstatic.com/xdata/images/hotel/max500/408888677.jpg?k=31753eec425b6554a9c48bf329358f1eeb27ea003e9658d34bad21b5cbea050f&o=" 
-                         alt="Studio moderne à Douala" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Studio</h3>
-                        <p class="text-base md:text-lg opacity-90 mb-4">Confortable, moderne et fonctionnel</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
-                            156 annonces
-                        </span>
-                    </div>
-                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-orange text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+            <!-- Colonne 2 : Liens rapides -->
+            <div>
+                <h4 class="text-xl font-bold mb-6 text-orange">Navigation</h4>
+                <ul class="space-y-3 text-cream/90">
+                    <li><a href="index.php" class="hover:text-orange transition">Accueil</a></li>
+                    <li><a href="categories.php" class="hover:text-orange transition">Parcourir les catégories</a></li>
+                    <li><a href="annonces.php" class="hover:text-orange transition">Toutes les annonces</a></li>
+                    <li><a href="publier-annonce.php" class="hover:text-orange transition">Publier une annonce</a></li>
+                    <li><a href="a-propos.php" class="hover:text-orange transition">À propos</a></li>
+                    <li><a href="contact.php" class="hover:text-orange transition">Contact</a></li>
+                </ul>
+            </div>
 
-                <!-- Chambre -->
-                <a href="annonces.php?cat=chambre" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/544446973.jpg?k=7b01941bf1d27401ba7ae5c0cbb280fde763335c747dfa10f77bec645c7a1982&o=" 
-                         alt="Chambre cosy moderne" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Chambre</h3>
-                        <p class="text-base md:text-lg opacity-90 mb-4">Chambres à louer dans résidences sécurisées</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
-                            89 annonces
-                        </span>
-                    </div>
-                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-orange text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+            <!-- Colonne 3 : Contact -->
+            <div>
+                <h4 class="text-xl font-bold mb-6 text-orange">Contactez-nous</h4>
+                <ul class="space-y-3 text-cream/90 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-map-marker-alt mt-1 text-orange"></i>
+                        <span>Yaoundé & Douala, Cameroun</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-phone text-orange"></i>
+                        <a href="tel:+237699999999" class="hover:text-orange transition">+237 6 99 99 99 99</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-envelope text-orange"></i>
+                        <a href="mailto:contact@homecameroun.cm" class="hover:text-orange transition">contact@homecameroun.cm</a>
+                    </li>
+                </ul>
+            </div>
 
-                <!-- Appartement -->
-                <a href="annonces.php?cat=appartement" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
-                    <img src="https://sacrevoyage.com/wp-content/uploads/2024/11/Appartement-meuble-Luxe-Priso-4.jpg" 
-                         alt="Appartement de luxe à Bonapriso" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Appartement</h3>
-                        <p class="text-base md:text-lg opacity-90 mb-4">F2 à F5 modernes, bien situés à Yaoundé et Douala</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
-                            248 annonces
-                        </span>
-                    </div>
-                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-orange text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+            <!-- Colonne 4 : Réseaux sociaux -->
+            <div>
+                <h4 class="text-xl font-bold mb-6 text-orange">Suivez-nous</h4>
+                <div class="flex space-x-5">
+                    <a href="#" class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center hover:bg-orange transition text-cream text-xl">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center hover:bg-orange transition text-cream text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center hover:bg-orange transition text-cream text-xl">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-orange/20 rounded-full flex items-center justify-center hover:bg-orange transition text-cream text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
 
-                <!-- Maison -->
-                <a href="annonces.php?cat=maison" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
-                    <img src="https://africa-housing.com/wp-content/uploads/2023/01/20180404_075004-scaled.jpg" 
-                         alt="Maison familiale moderne" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Maison</h3>
-                        <p class="text-base md:text-lg opacity-90 mb-4">Maisons familiales avec jardin et confort</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
-                            167 annonces
-                        </span>
-                    </div>
-                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-orange text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+        </div>
 
-                <!-- Villa -->
-                <a href="annonces.php?cat=villa" class="group block relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
-                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/30/b0/23/2b/caption.jpg?w=1200&h=-1&s=1" 
-                         alt="Villa de luxe avec piscine" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Villa</h3>
-                        <p class="text-base md:text-lg opacity-90 mb-4">Villas haut standing avec piscine et vue</p>
-                        <span class="inline-block bg-orange/80 backdrop-blur-sm px-6 py-3 rounded-full text-lg font-semibold">
-                            95 annonces
-                        </span>
-                    </div>
-                    <div class="absolute top-6 right-6 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-orange text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-
+        <!-- Ligne de séparation et mentions légales -->
+        <hr class="border-cream/20 my-10">
+        <div class="text-center text-sm text-cream/70">
+            <p>&copy; 2025 <span class="text-orange font-semibold">Home Cameroun</span> - Tous droits réservés.</p>
+            <div class="mt-3 space-x-4">
+                <a href="mentions-legales.php" class="hover:text-orange transition">Mentions légales</a>
+                <span>•</span>
+                <a href="confidentialite.php" class="hover:text-orange transition">Politique de confidentialité</a>
+                <span>•</span>
+                <a href="cgu.php" class="hover:text-orange transition">Conditions d'utilisation</a>
             </div>
         </div>
-    </section>
-
-</body>
-</html>
+    </div>
+</footer>
