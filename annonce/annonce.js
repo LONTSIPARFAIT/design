@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     thumbs.forEach(thumb => {
         thumb.addEventListener('click', () => {
+            // Changer l'image principale
             mainImg.src = thumb.src;
+
+            // Gestion de la classe active
             document.querySelector('.thumb.active')?.classList.remove('active');
             thumb.classList.add('active');
         });
