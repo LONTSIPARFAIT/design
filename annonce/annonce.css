@@ -44,7 +44,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent; 
+  background: #330203; /* fond sombre pour faire ressortir le logo */
   box-shadow: 0 4px 12px rgba(51, 2, 3, 0.3);
 }
 
@@ -193,6 +193,7 @@ body {
   background: white;
   padding: 25px;
   border-radius: 20px;
+  margin-top: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 .features {
