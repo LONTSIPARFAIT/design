@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Programmer une visite - Home Cameroun</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hmc-primary': '#E54801',
+                        'hmc-secondary': '#913327',
+                        'hmc-dark': '#1B0B38',
+                        'hmc-light': '#FAF9F5',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .time-slot.selected {
+            background-color: #E54801 !important;
+            color: white !important;
+            border-color: #E54801 !important;
+        }
+        .payment-method.selected {
+            border-color: #E54801;
+            background-color: rgba(229, 72, 1, 0.1);
+            transform: scale(1.03);
+        }
+        .form-input:focus {
+            border-color: #E54801 !important;
+            box-shadow: 0 0 0 3px rgba(229, 72, 1, 0.2) !important;
+        }
+        .logo-img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+        @media (min-width: 1024px) {
+            .desktop-only-details { display: block !important; }
+            .mobile-minimized { display: none !important; }
+        }
+        @media (max-width: 1023px) {
+            .desktop-only-details { display: none !important; }
+            .logo-img { height: 36px; }
+        }
+    </style>
+</head>
+<body class="bg-hmc-light text-gray-800 min-h-screen">
+
+<!-- Header avec logo image -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-3.5">
+            <!-- Logo + Nom -->
+            <a href="/" class="flex items-center space-x-3 hover:opacity-90 transition-opacity">
+                <img 
+                    src="/annonce/logo.png" 
+                    alt="Home Cameroun Logo" 
+                    class="logo-img"
+                />
+                <span class="text-xl md:text-2xl font-bold text-hmc-dark">
+                    Home<span class="text-hmc-primary">Cameroon</span>
+                </span>
+            </a>
+
+            <!-- Lien retour -->
+            <a href="#" class="text-sm md:text-base text-hmc-primary hover:text-hmc-secondary hover:underline transition-colors">
+                ← Retour aux annonces
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
+
+    <!-- Bloc bien sélectionné -->
+    <div class="bg-white rounded-xl shadow-lg p-5 md:p-6 mb-6 md:mb-8 text-center">
+        <h1 class="text-2xl md:text-3xl font-bold text-hmc-dark mb-3">Programmer votre visite</h1>
+        <div class="inline-block">
+            <h2 class="text-xl md:text-2xl font-bold text-hmc-dark">
+                Villa Moderne 4 chambres - Bonamoussadi, Douala
+            </h2>
+            <p class="text-2xl md:text-3xl font-bold text-hmc-primary mt-2">
+                185 000 000 FCFA
+            </p>
+        </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+
+        <!-- Formulaire + Paiement (priorité mobile) -->
+        <div class="lg:w-2/3 order-1 lg:order-none">
+            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+
+                <form id="visitForm" class="space-y-8 md:space-y-10">
+
+                    <!-- Vos informations -->
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-hmc-dark mb-5">Vos informations</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Nom <span class="text-hmc-primary">*</span></label>
+                                <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Prénom <span class="text-hmc-primary">*</span></label>
+                                <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-gray-700 font-medium mb-2">
+                                    Numéro de paiement Mobile Money <span class="text-hmc-primary">*</span>
+                                </label>
+                                <input type="tel" required placeholder="6XX XXX XXX" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date & Créneau -->
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-hmc-dark mb-5">Quand souhaitez-vous visiter ?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Date <span class="text-hmc-primary">*</span></label>
+                                <input type="date" id="visitDate" required class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Créneau <span class="text-hmc-primary">*</span></label>
+                                <div class="grid grid-cols-2 gap-3 mt-1">
+                                    <div class="time-slot py-3.5 px-3 text-center border rounded-lg cursor-pointer bg-gray-50 hover:bg-orange-50 selected text-sm md:text-base" data-time="09:00">09:00-10:00</div>
+                                    <div class="time-slot py-3.5 px-3 text-center border rounded-lg cursor-pointer bg-gray-50 hover:bg-orange-50 text-sm md:text-base" data-time="10:30">10:30-11:30</div>
+                                    <div class="time-slot py-3.5 px-3 text-center border rounded-lg cursor-pointer bg-gray-50 hover:bg-orange-50 text-sm md:text-base" data-time="14:00">14:00-15:00</div>
+                                    <div class="time-slot py-3.5 px-3 text-center border rounded-lg cursor-pointer bg-gray-50 hover:bg-orange-50 text-sm md:text-base" data-time="15:30">15:30-16:30</div>
+                                </div>
+                                <input type="hidden" id="selectedTime" value="09:00" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paiement -->
+                    <div class="bg-gray-50 rounded-xl p-6 md:p-7 border border-gray-200 mt-8">
+                        <h3 class="text-xl md:text-2xl font-bold text-hmc-dark mb-5">Paiement des frais de visite</h3>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-base md:text-lg">
+                                <span>Frais d'accompagnement & carburant</span>
+                                <span class="font-bold">15 000 FCFA</span>
+                            </div>
+                            <hr class="border-gray-200"/>
+                            <div class="flex justify-between text-xl md:text-2xl font-bold text-hmc-primary">
+                                <span>Total</span>
+                                <span>15 000 FCFA</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-4">Mode de paiement</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button type="button" class="payment-method border-2 border-gray-300 rounded-xl py-5 md:py-6 flex flex-col items-center selected transition-all" data-method="orange">
+                                    <i class="fab fa-orange text-3xl md:text-4xl text-orange-600 mb-2"></i>
+                                    <span class="font-medium text-sm md:text-base">Orange Money</span>
+                                </button>
+                                <button type="button" class="payment-method border-2 border-gray-300 rounded-xl py-5 md:py-6 flex flex-col items-center transition-all" data-method="mtn">
+                                    <i class="fas fa-mobile-alt text-3xl md:text-4xl text-yellow-600 mb-2"></i>
+                                    <span class="font-medium text-sm md:text-base">MTN MoMo</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="paymentMethod" value="orange" required>
+                        </div>
+
+                        <div class="text-sm md:text-base text-gray-600 mb-6 space-y-2">
+                            <p>Confirmation par <strong>SMS</strong> après validation du paiement</p>
+                            <label class="flex items-start gap-3">
+                                <input type="checkbox" required class="mt-1 h-5 w-5 text-hmc-primary rounded">
+                                <span>J'accepte payer immédiatement 15 000 FCFA (non remboursable sauf annulation 48h avant)</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full bg-hmc-primary hover:bg-hmc-secondary text-white font-bold py-5 rounded-xl text-base md:text-lg transition shadow-lg">
+                            <i class="fas fa-lock mr-3"></i> PAYER 15 000 FCFA ET RÉSERVER LA VISITE
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Blocs infos (complets sur desktop, minimisés sur mobile) -->
+        <div class="lg:w-1/3 order-2 lg:order-none space-y-5 md:space-y-6">
+
+            <!-- Version complète desktop -->
+            <div class="desktop-only-details bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-hmc-dark mb-4">
+                    <i class="fas fa-info-circle text-hmc-primary mr-2"></i>Informations importantes
+                </h3>
+                <ul class="space-y-4 text-gray-600 text-sm">
+                    <li class="flex items-start"><i class="fas fa-clock text-hmc-primary mt-1 mr-3"></i>Lun-Ven: 8h-18h, Sam: 9h-13h</li>
+                    <li class="flex items-start"><i class="fas fa-map-marker-alt text-hmc-primary mt-1 mr-3"></i>Rue 1.234, Quartier Bastos, Yaoundé</li>
+                    <li class="flex items-start"><i class="fas fa-phone-alt text-hmc-primary mt-1 mr-3"></i>+237 6XX XX XX XX</li>
+                </ul>
+            </div>
+
+            <!-- Version mobile minimisée -->
+            <div class="mobile-minimized bg-white rounded-xl shadow-lg p-5">
+                <h3 class="text-lg font-semibold text-hmc-dark mb-2 flex justify-between items-center">
+                    Infos importantes
+                    <i class="fas fa-chevron-down text-hmc-primary text-sm"></i>
+                </h3>
+                <p class="text-sm text-gray-600">Horaires 8h-18h (sam 9h-13h) • Bastos • Paiement sécurisé</p>
+            </div>
+
+            <!-- Autres blocs desktop -->
+            <div class="desktop-only-details bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-hmc-dark mb-4">
+                    <i class="fas fa-list-ol text-hmc-primary mr-2"></i>Déroulement
+                </h3>
+                <ol class="space-y-4 text-gray-600 text-sm">
+                    <li class="flex items-start"><div class="w-7 h-7 bg-hmc-primary/10 rounded-full flex items-center justify-center font-bold mr-3 flex-shrink-0">1</div>Paiement & soumission</li>
+                    <li class="flex items-start"><div class="w-7 h-7 bg-hmc-primary/10 rounded-full flex items-center justify-center font-bold mr-3 flex-shrink-0">2</div>Confirmation SMS rapide</li>
+                    <li class="flex items-start"><div class="w-7 h-7 bg-hmc-primary/10 rounded-full flex items-center justify-center font-bold mr-3 flex-shrink-0">3</div>Visite sur place</li>
+                </ol>
+            </div>
+
+            <div class="desktop-only-details bg-hmc-dark text-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold mb-4">
+                    <i class="fas fa-exclamation-circle mr-2"></i>À noter
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start"><i class="fas fa-check text-hmc-primary mt-1 mr-3"></i>10 min avant l'heure</li>
+                    <li class="flex items-start"><i class="fas fa-check text-hmc-primary mt-1 mr-3"></i>Pièce d'identité obligatoire</li>
+                    <li class="flex items-start"><i class="fas fa-check text-hmc-primary mt-1 mr-3"></i>Non remboursable sauf 48h avant</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+// Gestion créneaux
+document.querySelectorAll('.time-slot').forEach(el => {
+    el.addEventListener('click', () => {
+        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('selectedTime').value = el.dataset.time;
+    });
+});
+
+// Gestion modes paiement
+document.querySelectorAll('.payment-method').forEach(el => {
+    el.addEventListener('click', () => {
+        document.querySelectorAll('.payment-method').forEach(s => s.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('paymentMethod').value = el.dataset.method;
+    });
+});
+
+// Date minimale = demain (10 janvier 2026)
+document.getElementById('visitDate').min = '2026-01-10';
+
+// Simulation soumission
+document.getElementById('visitForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!e.target.checkValidity()) {
+        alert("Veuillez remplir tous les champs obligatoires.");
+        return;
+    }
+    alert("Paiement simulé avec succès !\n\nLes détails de votre visite vous seront envoyés par SMS.");
+});
+</script>
+</body>
+</html>
