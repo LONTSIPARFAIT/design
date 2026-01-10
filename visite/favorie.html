@@ -12,131 +12,104 @@
     body {
       font-family: 'Inter', sans-serif;
     }
-    
-    .gradient-primary {
-      background: linear-gradient(135deg, #E54801 0%, #913327 100%);
-    }
-    
-    .gradient-dark {
-      background: linear-gradient(135deg, #1B0B38 0%, #2a1157 100%);
-    }
-    
-    .gradient-subtle {
-      background: linear-gradient(135deg, #FAF9F5 0%, #f0ede5 100%);
-    }
-    
-    .text-gradient {
-      background: linear-gradient(135deg, #E54801 0%, #913327 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .shadow-soft {
-      box-shadow: 0 10px 40px rgba(27, 11, 56, 0.08);
-    }
-    
-    .shadow-card {
-      box-shadow: 0 8px 30px rgba(27, 11, 56, 0.12);
-    }
-    
-    .header-gradient {
-      background: linear-gradient(135deg, #E54801 0%, #913327 100%);
-    }
-    
-    .social-icon {
-      width: 45px;
-      height: 45px;
-      background: #2a1157;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 20px;
-      transition: all 0.3s;
-    }
-    
-    .social-icon:hover {
-      background: #E54801;
-      transform: translateY(-3px);
-    }
   </style>
 </head>
 <body class="bg-[#FAF9F5] min-h-screen font-sans antialiased">
 
-  <!-- VOTRE HEADER PERSONNALISÉ -->
-  <header class="sticky top-0 z-50 header-gradient text-white">
-    <!-- Première ligne -->
-    <div class="border-b border-white/20">
-      <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
-        <div class="flex items-center justify-between py-2 text-sm">
-          <div class="flex items-center gap-6">
+  <!-- HEADER selon l'image -->
+  <header class="sticky top-0 z-50 bg-white shadow-md">
+    <!-- Barre du haut (Inscrire une location et © HomeCameroon) -->
+    <div class="bg-[#E54801] text-white py-2">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center text-sm">
+          <div>
             <a href="#" class="hover:text-white/90 transition duration-200">
               <i class="fa-solid fa-plus mr-1"></i> Inscrire une location
             </a>
           </div>
-          <div class="flex items-center gap-4">
+          <div>
             <span>© HomeCameroon</span>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- Deuxième ligne : Navigation -->
-    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
-      <div class="flex items-center justify-between py-4">
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center">
-            <i class="fa-solid fa-house text-2xl"></i>
+    <!-- Navigation principale -->
+    <div class="bg-white py-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <!-- Logo avec image -->
+          <div class="flex items-center space-x-3">
+            <!-- Logo image - Remplacez src par votre logo -->
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center">
+              <img src="/annonce/logo.png" alt="" class="text-white text-xl">
+            </div>
+            <div>
+              <div class="text-2xl font-bold">
+                <span class="text-[#1B0B38]">Home</span>
+                <span class="text-[#E54801]">Cameroon</span>
+              </div>
+              <div class="text-xs text-[#913327] mt-1">Trouvez votre logement idéal</div>
+            </div>
           </div>
-          <div>
-            <h1 class="text-2xl font-bold">Home Cameroon</h1>
-            <p class="text-white/80 text-sm">Trouvez votre logement idéal</p>
-          </div>
+          
+          <!-- Menu burger pour mobile -->
+          <button class="lg:hidden p-2 rounded-md text-[#1B0B38]" id="burgerMenu">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          
+          <!-- Navigation desktop -->
+          <nav class="hidden lg:flex items-center space-x-8" id="navMenu">
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200">
+              Accueil
+            </a>
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200">
+              Annonces
+            </a>
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200">
+              À propos
+            </a>
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200">
+              Nos partenaires
+            </a>
+            <a href="#" class="w-10 h-10 bg-[#E54801] text-white rounded-full flex items-center justify-center hover:bg-[#913327] transition duration-200">
+              <i class="fa-solid fa-user"></i>
+            </a>
+          </nav>
         </div>
         
-        <!-- Navigation -->
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="#" class="text-white font-medium hover:text-white/90 transition duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-            Accueil
-          </a>
-          <a href="#" class="text-white font-medium hover:text-white/90 transition duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-            Annonces
-          </a>
-          <a href="#" class="text-white font-medium hover:text-white/90 transition duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-            A propos
-          </a>
-          <a href="#" class="text-white font-medium hover:text-white/90 transition duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-            Nos partenaires
-          </a>
-          <a href="#" class="ml-4 px-6 py-3 bg-white text-[#E54801] font-bold rounded-lg hover:bg-white/95 transition duration-200 shadow-lg">
-            <i class="fa-solid fa-heart mr-2"></i> Mes Favoris
-          </a>
-          <a href="#" class="p-2 hover:bg-white/10 rounded-lg transition duration-200">
-            <i class="fa-solid fa-user text-xl"></i>
-          </a>
-        </nav>
-        
-        <!-- Menu mobile -->
-        <div class="md:hidden flex items-center gap-4">
-          <a href="#" class="relative p-2">
-            <i class="fa-solid fa-heart text-xl"></i>
-          </a>
-          <button class="p-2">
-            <i class="fa-solid fa-bars text-2xl"></i>
-          </button>
+        <!-- Navigation mobile -->
+        <div class="lg:hidden mt-4 hidden" id="mobileMenu">
+          <div class="flex flex-col space-y-4 bg-white p-4 rounded-lg shadow-lg">
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200 py-2">
+              Accueil
+            </a>
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200 py-2">
+              Annonces
+            </a>
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200 py-2">
+              À propos
+            </a>
+            <a href="#" class="text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200 py-2">
+              Nos partenaires
+            </a>
+            <a href="#" class="flex items-center space-x-2 text-[#1B0B38] font-medium hover:text-[#E54801] transition duration-200 py-2">
+              <div class="w-8 h-8 bg-[#E54801] text-white rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-user text-sm"></i>
+              </div>
+              <span>Mon profil</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
   <!-- CONTENU PRINCIPAL -->
-  <main class="max-w-screen-xl mx-auto px-4 sm:px-6 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     
     <!-- En-tête de la page Favoris -->
-    <div class="bg-white rounded-2xl p-6 sm:p-8 mb-8 shadow-soft border border-gray-100">
+    <div class="bg-white rounded-2xl p-6 sm:p-8 mb-8 shadow-md border border-gray-100">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div>
           <h1 class="text-3xl font-bold text-[#1B0B38] mb-3">Mes Annonces Favorites</h1>
@@ -144,8 +117,8 @@
         </div>
         
         <!-- Statistiques UNIQUEMENT location -->
-        <div class="bg-gradient-subtle rounded-xl p-5 min-w-[280px] border border-gray-200/50">
-          <div class="grid grid-cols-3 gap-4">
+        <div class="bg-[#FAF9F5] rounded-xl p-5 min-w-[280px] border border-gray-200">
+          <div class="grid grid-cols-2 gap-4">
             <div class="text-center">
               <div class="text-3xl font-bold text-[#E54801]">4</div>
               <div class="text-sm text-[#1B0B38] font-medium">Total</div>
@@ -153,10 +126,6 @@
             <div class="text-center">
               <div class="text-3xl font-bold text-[#913327]">4</div>
               <div class="text-sm text-[#1B0B38] font-medium">À louer</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-[#1B0B38]">0</div>
-              <div class="text-sm text-[#1B0B38] font-medium">À vendre</div>
             </div>
           </div>
         </div>
@@ -166,19 +135,19 @@
     <!-- FILTRES ET TRI - UNIQUEMENT LOCATION -->
     <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
       <div class="flex flex-wrap gap-2">
-        <button class="px-5 py-2.5 gradient-primary text-white rounded-full font-medium shadow-md">
+        <button class="px-5 py-2.5 bg-[#E54801] text-white rounded-full font-medium shadow-md hover:bg-[#913327] transition duration-200">
           Tous les favoris
         </button>
-        <button class="px-5 py-2.5 bg-white rounded-full shadow-card text-[#1B0B38] font-medium border border-gray-100 hover:border-[#E54801] transition duration-200">
+        <button class="px-5 py-2.5 bg-white rounded-full shadow-md text-[#1B0B38] font-medium border border-gray-200 hover:border-[#E54801] hover:text-[#E54801] transition duration-200">
           Appartements
         </button>
-        <button class="px-5 py-2.5 bg-white rounded-full shadow-card text-[#1B0B38] font-medium border border-gray-100 hover:border-[#E54801] transition duration-200">
+        <button class="px-5 py-2.5 bg-white rounded-full shadow-md text-[#1B0B38] font-medium border border-gray-200 hover:border-[#E54801] hover:text-[#E54801] transition duration-200">
           Maisons
         </button>
-        <button class="px-5 py-2.5 bg-white rounded-full shadow-card text-[#1B0B38] font-medium border border-gray-100 hover:border-[#E54801] transition duration-200">
+        <button class="px-5 py-2.5 bg-white rounded-full shadow-md text-[#1B0B38] font-medium border border-gray-200 hover:border-[#E54801] hover:text-[#E54801] transition duration-200">
           Villas
         </button>
-        <button class="px-5 py-2.5 bg-white rounded-full shadow-card text-[#1B0B38] font-medium border border-gray-100 hover:border-[#E54801] transition duration-200">
+        <button class="px-5 py-2.5 bg-white rounded-full shadow-md text-[#1B0B38] font-medium border border-gray-200 hover:border-[#E54801] hover:text-[#E54801] transition duration-200">
           Récemment ajoutés
         </button>
       </div>
@@ -186,7 +155,7 @@
       <div class="flex items-center gap-3 text-[#1B0B38]">
         <i class="fa-solid fa-arrow-down-wide-short text-[#E54801]"></i>
         <span class="font-medium">Trier par :</span>
-        <select class="bg-white px-4 py-2.5 rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#E54801]/30 focus:border-[#E54801] font-medium">
+        <select class="bg-white px-4 py-2.5 rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#E54801]/30 focus:border-[#E54801] font-medium text-[#1B0B38]">
           <option>Plus récents</option>
           <option>Prix croissant</option>
           <option>Prix décroissant</option>
@@ -200,10 +169,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
       <!-- Carte 1 -->
-      <div class="group bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
+      <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
         <div class="relative h-56">
           <img 
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+            src="/img/11.jpg" 
             alt="Villa moderne Bonapriso"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
@@ -212,22 +181,19 @@
 
           <!-- Badges - UNIQUEMENT À LOUER -->
           <div class="absolute top-4 left-4 flex gap-2">
-            <span class="px-3 py-1.5 gradient-primary text-white text-xs font-bold rounded-full shadow-md">
+            <span class="px-3 py-1.5 bg-[#E54801] text-white text-xs font-bold rounded-full shadow-md">
               À louer
-            </span>
-            <span class="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-[#E54801] text-xs font-bold rounded-full shadow-sm">
-              <i class="fa-solid fa-star mr-1"></i> Premium
             </span>
           </div>
 
           <!-- Bouton favori -->
-          <button class="absolute top-4 right-4 w-10 h-10 gradient-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95">
+          <button class="absolute top-4 right-4 w-10 h-10 bg-[#E54801] rounded-full flex items-center justify-center shadow-lg hover:bg-[#913327] hover:shadow-xl transition-all duration-200 active:scale-95">
             <i class="fa-solid fa-heart text-white text-lg"></i>
           </button>
           
           <!-- Prix -->
           <div class="absolute bottom-4 left-4">
-            <div class="text-2xl font-bold text-white">950 000 <span class="text-lg font-medium">FCFA/mois</span></div>
+            <div class="text-2xl font-bold text-white">90 000 <span class="text-lg font-medium">FCFA/mois</span></div>
           </div>
         </div>
 
@@ -245,7 +211,7 @@
             Magnifique villa moderne avec piscine, jardin, garage double et vue dégagée. Idéale pour famille.
           </p>
           
-          <div class="flex items-center justify-between text-sm text-gray-700 font-medium border-t border-gray-100 pt-4">
+          <div class="flex items-center justify-between text-sm text-[#1B0B38] font-medium border-t border-gray-100 pt-4">
             <div class="flex items-center gap-1.5">
               <i class="fa-solid fa-bed text-[#913327]"></i>
               <span>5 chambres</span>
@@ -273,10 +239,10 @@
       </div>
 
       <!-- Carte 2 -->
-      <div class="group bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
+      <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
         <div class="relative h-56">
           <img 
-            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" 
+            src="/img/3.jpg" 
             alt="Appartement Yaoundé"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
@@ -284,20 +250,17 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#1B0B38]/70 via-transparent to-transparent opacity-70"></div>
 
           <div class="absolute top-4 left-4 flex gap-2">
-            <span class="px-3 py-1.5 gradient-primary text-white text-xs font-bold rounded-full shadow-md">
+            <span class="px-3 py-1.5 bg-[#E54801] text-white text-xs font-bold rounded-full shadow-md">
               À louer
-            </span>
-            <span class="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-[#E54801] text-xs font-bold rounded-full shadow-sm">
-              Meublé
             </span>
           </div>
 
-          <button class="absolute top-4 right-4 w-10 h-10 gradient-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95">
+          <button class="absolute top-4 right-4 w-10 h-10 bg-[#E54801] rounded-full flex items-center justify-center shadow-lg hover:bg-[#913327] hover:shadow-xl transition-all duration-200 active:scale-95">
             <i class="fa-solid fa-heart text-white text-lg"></i>
           </button>
           
           <div class="absolute bottom-4 left-4">
-            <div class="text-2xl font-bold text-white">450 000 <span class="text-lg font-medium">FCFA/mois</span></div>
+            <div class="text-2xl font-bold text-white">80 000 <span class="text-lg font-medium">FCFA/mois</span></div>
           </div>
         </div>
 
@@ -315,7 +278,7 @@
             Appartement haut standing avec vue panoramique, proche des ambassades et centres commerciaux.
           </p>
           
-          <div class="flex items-center justify-between text-sm text-gray-700 font-medium border-t border-gray-100 pt-4">
+          <div class="flex items-center justify-between text-sm text-[#1B0B38] font-medium border-t border-gray-100 pt-4">
             <div class="flex items-center gap-1.5">
               <i class="fa-solid fa-bed text-[#913327]"></i>
               <span>4 chambres</span>
@@ -343,7 +306,7 @@
       </div>
 
       <!-- Carte 3 -->
-      <div class="group bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
+      <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
         <div class="relative h-56">
           <img 
             src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80" 
@@ -354,17 +317,17 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#1B0B38]/70 via-transparent to-transparent opacity-70"></div>
 
           <div class="absolute top-4 left-4 flex gap-2">
-            <span class="px-3 py-1.5 gradient-primary text-white text-xs font-bold rounded-full shadow-md">
+            <span class="px-3 py-1.5 bg-[#E54801] text-white text-xs font-bold rounded-full shadow-md">
               À louer
             </span>
           </div>
 
-          <button class="absolute top-4 right-4 w-10 h-10 gradient-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95">
+          <button class="absolute top-4 right-4 w-10 h-10 bg-[#E54801] rounded-full flex items-center justify-center shadow-lg hover:bg-[#913327] hover:shadow-xl transition-all duration-200 active:scale-95">
             <i class="fa-solid fa-heart text-white text-lg"></i>
           </button>
           
           <div class="absolute bottom-4 left-4">
-            <div class="text-2xl font-bold text-white">350 000 <span class="text-lg font-medium">FCFA/mois</span></div>
+            <div class="text-2xl font-bold text-white">45 000 <span class="text-lg font-medium">FCFA/mois</span></div>
           </div>
         </div>
 
@@ -382,7 +345,7 @@
             Maison spacieuse avec grand jardin, garage et dépendances. Quartier calme et résidentiel.
           </p>
           
-          <div class="flex items-center justify-between text-sm text-gray-700 font-medium border-t border-gray-100 pt-4">
+          <div class="flex items-center justify-between text-sm text-[#1B0B38] font-medium border-t border-gray-100 pt-4">
             <div class="flex items-center gap-1.5">
               <i class="fa-solid fa-bed text-[#913327]"></i>
               <span>3 chambres</span>
@@ -410,10 +373,10 @@
       </div>
 
       <!-- Carte 4 -->
-      <div class="group bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
+      <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#E54801]/30">
         <div class="relative h-56">
           <img 
-            src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80" 
+            src="/img/12.jpg" 
             alt="Studio Douala"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
@@ -421,7 +384,7 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#1B0B38]/70 via-transparent to-transparent opacity-70"></div>
 
           <div class="absolute top-4 left-4 flex gap-2">
-            <span class="px-3 py-1.5 gradient-primary text-white text-xs font-bold rounded-full shadow-md">
+            <span class="px-3 py-1.5 bg-[#E54801] text-white text-xs font-bold rounded-full shadow-md">
               À louer
             </span>
             <span class="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-[#E54801] text-xs font-bold rounded-full shadow-sm">
@@ -429,12 +392,12 @@
             </span>
           </div>
 
-          <button class="absolute top-4 right-4 w-10 h-10 gradient-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95">
+          <button class="absolute top-4 right-4 w-10 h-10 bg-[#E54801] rounded-full flex items-center justify-center shadow-lg hover:bg-[#913327] hover:shadow-xl transition-all duration-200 active:scale-95">
             <i class="fa-solid fa-heart text-white text-lg"></i>
           </button>
           
           <div class="absolute bottom-4 left-4">
-            <div class="text-2xl font-bold text-white">120 000 <span class="text-lg font-medium">FCFA/mois</span></div>
+            <div class="text-2xl font-bold text-white">50 000 <span class="text-lg font-medium">FCFA/mois</span></div>
           </div>
         </div>
 
@@ -445,14 +408,14 @@
           </div>
           
           <h3 class="font-bold text-lg text-[#1B0B38] mb-3 line-clamp-2">
-            Studio meublé moderne - Akwa
+            Studio moderne - Akwa
           </h3>
           
           <p class="text-sm text-gray-600 mb-4 line-clamp-2">
-            Studio moderne entièrement meublé, cuisine équipée, climatisation. Idéal étudiant ou jeune actif.
+            Studio moderne, cuisine. Idéal étudiant ou jeune actif.
           </p>
           
-          <div class="flex items-center justify-between text-sm text-gray-700 font-medium border-t border-gray-100 pt-4">
+          <div class="flex items-center justify-between text-sm text-[#1B0B38] font-medium border-t border-gray-100 pt-4">
             <div class="flex items-center gap-1.5">
               <i class="fa-solid fa-bed text-[#913327]"></i>
               <span>1 chambre</span>
@@ -483,7 +446,7 @@
 
     <!-- Bouton action -->
     <div class="mt-10 mb-16 flex justify-center">
-      <button class="px-8 py-4 gradient-primary text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 flex items-center gap-3">
+      <button class="px-8 py-4 bg-[#E54801] text-white font-bold rounded-xl shadow-lg hover:bg-[#913327] hover:shadow-xl transition-all duration-200 active:scale-95 flex items-center gap-3">
         <i class="fa-solid fa-magnifying-glass"></i>
         Explorer plus d'annonces de location
       </button>
@@ -491,9 +454,9 @@
 
   </main>
 
-  <!-- FOOTER (VOTRE VERSION) -->
-  <footer class="footer-bg text-white pt-12 pb-8">
-    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+  <!-- FOOTER -->
+  <footer class="bg-[#1B0B38] text-white pt-12 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         
         <!-- Colonne 1: Logo et description -->
@@ -540,16 +503,16 @@
         <div>
           <h3 class="text-lg font-bold text-[#E54801] mb-6">Suivez-nous</h3>
           <div class="flex gap-3 mb-8">
-            <a href="#" class="social-icon">
+            <a href="#" class="w-10 h-10 bg-[#2a1157] rounded-full flex items-center justify-center text-white hover:bg-[#E54801] transition duration-200">
               <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="#" class="social-icon">
+            <a href="#" class="w-10 h-10 bg-[#2a1157] rounded-full flex items-center justify-center text-white hover:bg-[#E54801] transition duration-200">
               <i class="fab fa-instagram"></i>
             </a>
-            <a href="#" class="social-icon">
+            <a href="#" class="w-10 h-10 bg-[#2a1157] rounded-full flex items-center justify-center text-white hover:bg-[#E54801] transition duration-200">
               <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="#" class="social-icon">
+            <a href="#" class="w-10 h-10 bg-[#2a1157] rounded-full flex items-center justify-center text-white hover:bg-[#E54801] transition duration-200">
               <i class="fab fa-twitter"></i>
             </a>
           </div>
@@ -586,6 +549,30 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Script pour le menu burger mobile
+    const burgerMenu = document.getElementById('burgerMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    burgerMenu.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Fermer le menu en cliquant en dehors sur mobile
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !burgerMenu.contains(e.target) && window.innerWidth < 1024) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Fermer le menu quand on redimensionne l'écran
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
 
 </body>
 </html>

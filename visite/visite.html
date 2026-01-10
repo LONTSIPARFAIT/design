@@ -47,20 +47,32 @@
             width: 52px;
             height: 52px;
         }
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s;
-        }
-        .social-icon:hover {
-            background: #E54801;
-            transform: translateY(-3px);
-        }
+       /* Styles pour le footer */
+    .footer-bg {
+      background: #1B0B38;
+    }
+    
+    .footer-secondary {
+      background: #16092e;
+    }
+    
+    .social-icon {
+      width: 45px;
+      height: 45px;
+      background: #2a1157;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+      transition: all 0.3s;
+    }
+    
+    .social-icon:hover {
+      background: #E54801;
+      transform: translateY(-3px);
+    }
         @media (max-width: 768px) {
             .logo-container { width: 44px; height: 44px; }
         }
@@ -83,7 +95,7 @@
                     />
                 </div>
                 <span class="text-[1.65rem] md:text-3xl lg:text-[2.1rem] font-bold text-hmc-dark tracking-tight">
-                    Home<span class="text-hmc-primary">Cameroon</span>
+                    Home<span class="text-hmc-primary">Cameron</span>
                 </span>
             </a>
 
@@ -294,7 +306,7 @@
 </main>
 
 <!-- ===================== FOOTER (exactement comme ton code) ===================== -->
-<footer class="footer-bg text-white pt-12 pb-8" style="background: linear-gradient(to bottom, #1B0B38, #330203);">
+<footer class="footer-bg text-white pt-12 pb-8">
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             

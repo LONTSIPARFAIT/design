@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Villa F4 Premium • Bonamoussadi</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --primary:    #E54801;
+      --secondary:  #913327;
+      --dark:       #1B0B38;
+      --light:      #FAF9F5;
+      --gray:       #6B5E7A;
+      --gray-light: #A89BB8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Hero */
+    .hero-header {
+      background: linear-gradient(to bottom, var(--dark) 0%, #2a154f 100%);
+      color: white;
+      padding: clamp(5rem, 12vw, 9rem) 5% 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(229,72,1,0.12) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 8vw, 5.8rem);
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -2px;
+      margin-bottom: 0.8rem;
+      line-height: 0.92;
+    }
+
+    .logo-main span {
+      color: white;
+      font-weight: 600;
+    }
+
+    .tagline {
+      font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+      font-weight: 300;
+      opacity: 0.9;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Quick actions */
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem 2rem;
+      margin: 2.5rem 0 4rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 2px solid transparent;
+    }
+
+    .action-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .action-primary:hover {
+      background: var(--secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(145,51,39,0.35);
+    }
+
+    .action-outline {
+      background: transparent;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .action-outline:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    /* Main content */
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    .gallery-hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 1.8rem;
+      margin: -8rem auto 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .gallery-photo {
+      aspect-ratio: 4/3;
+      background: center/cover no-repeat;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(27,11,56,0.28);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(229,72,1,0.08);
+    }
+
+    .gallery-photo:hover {
+      transform: scale(1.03) translateY(-12px);
+      box-shadow: 0 40px 90px rgba(229,72,1,0.25);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: var(--secondary);
+      margin-bottom: 1.8rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 120px;
+      height: 5px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2.2rem;
+      margin: 4rem 0 6rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2.4rem;
+      border-radius: 20px;
+      border-left: 6px solid var(--primary);
+      box-shadow: 0 10px 40px rgba(27,11,56,0.08);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(229,72,1,0.18);
+    }
+
+    .feature-icon {
+      font-size: 3.2rem;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+    }
+
+    .description {
+      font-size: 1.08rem;
+      color: #3a2b52;
+      max-width: 780px;
+      margin: 0 auto 5rem;
+    }
+
+    /* Footer (simplifié et premium) */
+    footer {
+      background: var(--dark);
+      color: #d4d0e0;
+      padding: 6rem 5% 4rem;
+      margin-top: 8rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 4rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(212,208,224,0.12);
+      font-size: 0.92rem;
+    }
+
+    .footer-bottom a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-hero { grid-template-columns: 1fr; }
+      .quick-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero-header">
+    <div class="logo-main">Villa<span>F4</span></div>
+    <div class="tagline">Résidence contemporaine d'exception • Bonamoussadi, Douala</div>
+
+    <div class="quick-actions">
+      <a href="factures.html" class="action-btn action-outline">
+        <i class="fas fa-file-invoice-dollar"></i> Mes Factures
+      </a>
+      <a href="assurance.html" class="action-btn action-outline">
+        <i class="fas fa-shield-alt"></i> Mon Assurance
+      </a>
+      <a href="tel:+237699999999" class="action-btn action-primary">
+        <i class="fas fa-phone"></i> Contacter Propriétaire
+      </a>
+    </div>
+  </header>
+
+  <div class="main-container">
+
+    <div class="gallery-hero">
+      <div class="gallery-photo" style="background-image:url('https://a0.muscache.com/im/pictures/miso/Hosting-586085343339885237/original/969eb3a7-7077-498c-a709-2d8ff6fa9a6c.jpeg')"></div>
+      <div class="gallery-photo" style="background-image:url('https://a0.muscache.com/im/pictures/miso/Hosting-1340737269903712887/original/39df62ec-0692-4d0e-a126-b47320e39ce2.jpeg')"></div>
+      <div class="gallery-photo" style="background-image:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/630480363.jpg')"></div>
+    </div>
+
+    <h2 class="section-title">Caractéristiques principales</h2>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-ruler-combined"></i></div>
+        <h3>Superficie</h3>
+        <p>Habitable : 150 m²<br>Terrain : ~380 m²<br>Jardin clos paysager : 80–85 m²<br>Terrasse couverte : 28 m²</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bed"></i></div>
+        <h3>Chambres</h3>
+        <p>4 chambres spacieuses<br>• Suite parentale 22 m² + dressing 5 m²<br>• 3 chambres 14–17 m² avec rangements intégrés</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bath"></i></div>
+        <h3>Salles d'eau</h3>
+        <p>4 salles de bain/salles d'eau<br>• Suite parentale privée<br>• Salle familiale avec baignoire<br>• 2 douches italiennes modernes</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Équipements premium</h3>
+        <p>• 5 climatiseurs split dernière génération<br>• Groupe électrogène 15 kVA automatique<br>• Forage + cuve 3000 L<br>• Ballon eau chaude 200 L</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Description détaillée</h2>
+
+    <div class="description">
+      <p>Villa F4 contemporaine construite en 2021-2022 selon les plus hauts standards de qualité (parpaings + hourdis + dalle pleine).<br><br>
+
+      Séjour double volume spectaculaire avec immense baie vitrée de 7,80 m donnant sur le jardin • Cuisine américaine haut de gamme avec plan de travail en granit • Suite parentale digne d'un hôtel 5* avec dressing et salle privée • Jardin paysager clos et très calme • Terrasse couverte équipée barbecue fixe • Parking sous car-port pour 2 véhicules + espace supplémentaire • Système de vidéo-surveillance complet 8 caméras.<br><br>
+
+      Une résidence pensée pour le confort absolu dans l'un des quartiers les plus prisés de Douala.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Home Cameroon</div>
+        <p>Votre référence pour l'immobilier d'exception au Cameroun</p>
+      </div>
+
+      <div>
+        <h3>Navigation</h3>
+        <ul style="list-style:none; padding:0; line-height:2.1;">
+          <li><a href="#" style="color:#d4d0e0; text-decoration:none;">Accueil</a></li>
+          <li><a href="#" style="color:#d4d0e0; text-decoration:none;">Villas</a></li>
+          <li><a href="#" style="color:#d4d0e0; text-decoration:none;">Appartements</a></li>
+          <li><a href="#" style="color:#d4d0e0; text-decoration:none;">Publier une annonce</a></li>
+          <li><a href="#" style="color:#d4d0e0; text-decoration:none;">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <p style="margin:0.8rem 0;">📞 +237 6 99 99 99 99<br>
+        ✉️ contact@homecameroun.cm<br>
+        📍 Douala & Yaoundé</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Home Cameroon • Tous droits réservés <span style="font-size:1.3rem;">🇨🇲</span><br><br>
+      <a href="#">Mentions légales</a> • <a href="#">Confidentialité</a> • <a href="#">CGU</a>
+    </div>
+  </footer>
+
+</body>
+</html>

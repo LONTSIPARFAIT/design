@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Cameroon - Paiement Factures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles Mobile First */
+        :root {
+            --primary: #E54801;
+            --primary-dark: #913327;
+            --secondary: #1B0B38;
+            --light: #FAF9F5;
+            --text: #333333;
+            --text-light: #666666;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--light);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--light);
+            padding: 20px;
+            color: var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(27, 11, 56, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Menu Burger */
+        .menu-burger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 24px;
+            padding: 0;
+        }
+
+        .menu-burger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-burger:hover span {
+            background-color: var(--primary);
+        }
+
+        .menu-burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Menu déroulant */
+        .dropdown-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(27, 11, 56, 0.15);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dropdown-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .dropdown-user-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-user-info p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .dropdown-items {
+            padding: 10px 0;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(229, 72, 1, 0.05);
+            color: var(--primary);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 10px 0;
+        }
+
+        /* Overlay pour menu ouvert */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Page Title */
+        .page-title-section {
+            padding: 25px 20px;
+            background: linear-gradient(135deg, rgba(229, 72, 1, 0.05) 0%, rgba(145, 51, 39, 0.03) 100%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .page-title {
+            color: var(--secondary);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Section Titre avec icône */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        /* Cartes de sélection de service */
+        .service-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(229, 72, 1, 0.05) 0%, rgba(145, 51, 39, 0.03) 100%);
+        }
+
+        .service-card.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+
+        .eneo-icon {
+            background: linear-gradient(135deg, #ff6b35 0%, #e54801 100%);
+        }
+
+        .camwater-icon {
+            background: linear-gradient(135deg, #3498db 0%, #1B4B7A 100%);
+        }
+
+        .service-info h3 {
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .service-info p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Formulaire de paiement */
+        .payment-form {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(229, 72, 1, 0.1);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .input-with-icon input {
+            padding-left: 50px;
+        }
+
+        /* Montant à payer */
+        .amount-section {
+            background: linear-gradient(135deg, rgba(27, 11, 56, 0.03) 0%, rgba(229, 72, 1, 0.05) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .amount-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .amount-title {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .amount-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .amount-details {
+            font-size: 14px;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+        }
+
+        /* Méthodes de paiement */
+        .payment-methods {
+            margin-bottom: 25px;
+        }
+
+        .payment-method-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .payment-method-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method-card:hover {
+            border-color: var(--primary);
+        }
+
+        .payment-method-card.active {
+            border-color: var(--primary);
+            background-color: rgba(229, 72, 1, 0.05);
+        }
+
+        .payment-method-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .payment-method-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Bouton de paiement */
+        .pay-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 6px 15px rgba(229, 72, 1, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(229, 72, 1, 0.3);
+        }
+
+        .pay-btn:active {
+            transform: translateY(0);
+        }
+
+        .pay-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Historique des paiements */
+        .history-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: rgba(27, 11, 56, 0.02);
+            border-left: 4px solid var(--success);
+        }
+
+        .history-item.pending {
+            border-left-color: var(--warning);
+        }
+
+        .history-item.failed {
+            border-left-color: #e74c3c;
+        }
+
+        .history-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .history-details {
+            flex: 1;
+        }
+
+        .history-service {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .history-date {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .history-amount {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .history-status {
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        .status-failed {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary);
+            color: var(--light);
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        /* Animation d'entrée */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-cards, .payment-form, .history-section {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Styles pour tablettes */
+        @media (min-width: 768px) {
+            .page-title-section {
+                padding: 30px 40px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .main-content {
+                padding: 30px 40px;
+            }
+            
+            .service-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .payment-method-cards {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .history-list {
+                gap: 20px;
+            }
+        }
+
+        /* Styles pour desktop */
+        @media (min-width: 1024px) {
+            body {
+                display: grid;
+                grid-template-columns: 280px 1fr;
+                grid-template-rows: auto 1fr auto;
+                min-height: 100vh;
+            }
+            
+            .header {
+                grid-column: 1 / -1;
+                padding: 20px 40px;
+            }
+            
+            .page-title-section {
+                grid-column: 2 / -1;
+                padding: 30px 40px;
+            }
+            
+            .main-content {
+                grid-column: 2 / -1;
+                display: grid;
+                grid-template-columns: 1fr 350px;
+                gap: 30px;
+                padding: 30px 40px;
+                overflow-y: auto;
+            }
+            
+            .sidebar {
+                grid-column: 1;
+                grid-row: 2 / 4;
+                background: var(--secondary);
+                color: var(--light);
+                padding: 40px 20px;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 30px;
+            }
+            
+            .sidebar-item {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
+                border-radius: 10px;
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+            
+            .sidebar-item:hover, .sidebar-item.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
+            
+            .sidebar-item.active {
+                background-color: var(--primary);
+            }
+            
+            .sidebar-item i {
+                font-size: 18px;
+            }
+            
+            .sidebar-footer {
+                margin-top: auto;
+                padding-top: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.6);
+            }
+            
+            .payment-section {
+                grid-column: 1;
+            }
+            
+            .history-section {
+                grid-column: 2;
+                grid-row: 1;
+                align-self: start;
+                margin-bottom: 0;
+            }
+            
+            /* Masquer le menu burger sur desktop si on utilise la sidebar */
+            .menu-burger {
+                display: none;
+            }
+        }
+
+        /* Animation pour les éléments */
+        .service-card, .form-group, .history-item {
+            animation: fadeInUp 0.4s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Amélioration du focus visible pour accessibilité */
+        .form-input:focus, 
+        .pay-btn:focus,
+        .service-card:focus,
+        .payment-method-card:focus,
+        .menu-burger:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay pour menu mobile -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo Home Cameroon">
+            <div class="logo-text">Home<span>Cameroon</span></div>
+        </div>
+        <div class="user-menu">
+            <i class="fas fa-bell" style="color: var(--secondary); font-size: 20px; cursor: pointer;" id="bellIcon"></i>
+            <button class="menu-burger" id="menuBurger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Menu déroulant -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-header">
+                <div class="dropdown-avatar">JD</div>
+                <div class="dropdown-user-info">
+                    <h3>John Doe</h3>
+                    <p>Locataire</p>
+                </div>
+            </div>
+            <div class="dropdown-items">
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Mon profil</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-home"></i>
+                    <span>Mes logements</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Mes factures</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-history"></i>
+                    <span>Historique</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Aide & Support</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title-section">
+        <h1 class="page-title">Paiement des Factures</h1>
+        <p class="page-subtitle">Réglez vos factures d'électricité et d'eau en toute sécurité</p>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Section Paiement -->
+        <section class="payment-section">
+            <div class="section-title">
+                <i class="fas fa-bolt"></i>
+                <h2>Service à payer</h2>
+            </div>
+            
+            <!-- Cartes de sélection de service -->
+            <div class="service-cards">
+                <div class="service-card active" id="eneo-card">
+                    <div class="service-header">
+                        <div class="service-icon eneo-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>ENEO</h3>
+                            <p>Électricité - Facture d'électricité</p>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-light); font-size: 14px;">
+                        Paiement de votre facture d'électricité. Entrez votre numéro de compteur.
+                    </p>
+                </div>
+                
+                <div class="service-card" id="camwater-card">
+                    <div class="service-header">
+                        <div class="service-icon camwater-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="service-info">
+                            <h3>Camwater</h3>
+                            <p>Eau - Facture d'eau potable</p>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-light); font-size: 14px;">
+                        Paiement de votre facture d'eau. Entrez votre numéro de compte client.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Formulaire de paiement -->
+            <form id="payment-form" class="payment-form">
+                <div class="form-group">
+                    <label for="account-number" class="form-label" id="account-label">Numéro de compteur ENEO</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-hashtag"></i>
+                        <input type="text" id="account-number" class="form-input" placeholder="Ex: 123456789" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount" class="form-label">Montant à payer (FCFA)</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <input type="number" id="amount" class="form-input" placeholder="Ex: 15000" min="1000" step="100" required>
+                    </div>
+                </div>
+                
+                <!-- Montant affiché -->
+                <div class="amount-section">
+                    <div class="amount-header">
+                        <div class="amount-title">Total à payer</div>
+                        <div class="amount-fees" style="font-size: 14px; color: var(--text-light);">
+                            Frais: 100 FCFA
+                        </div>
+                    </div>
+                    <div class="amount-value" id="display-amount">0 FCFA</div>
+                    <div class="amount-details">
+                        <span>Montant facture:</span>
+                        <span id="invoice-amount">0 FCFA</span>
+                    </div>
+                </div>
+                
+                <!-- Méthodes de paiement -->
+                <div class="payment-methods">
+                    <div class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        <h2>Méthode de paiement</h2>
+                    </div>
+                    
+                    <div class="payment-method-cards">
+                        <div class="payment-method-card active" data-method="mobile">
+                            <div class="payment-method-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="payment-method-name">Mobile Money</div>
+                        </div>
+                        
+                        <div class="payment-method-card" data-method="card">
+                            <div class="payment-method-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="payment-method-name">Carte</div>
+                        </div>
+                        
+                        <div class="payment-method-card" data-method="bank">
+                            <div class="payment-method-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="payment-method-name">Virement</div>
+                        </div>
+                        
+                        <div class="payment-method-card" data-method="wallet">
+                            <div class="payment-method-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="payment-method-name">Portefeuille</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouton de paiement -->
+                <button type="submit" class="pay-btn" id="pay-button">
+                    <i class="fas fa-lock"></i>
+                    Payer maintenant
+                </button>
+                
+                <p style="text-align: center; margin-top: 15px; color: var(--text-light); font-size: 14px;">
+                    <i class="fas fa-shield-alt" style="color: var(--primary); margin-right: 5px;"></i>
+                    Paiement 100% sécurisé avec chiffrement SSL
+                </p>
+            </form>
+        </section>
+        
+        <!-- Historique des paiements -->
+        <section class="history-section">
+            <div class="section-title">
+                <i class="fas fa-history"></i>
+                <h2>Historique récent</h2>
+            </div>
+            
+            <div class="history-list">
+                <div class="history-item">
+                    <div class="history-icon eneo-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="history-details">
+                        <div class="history-service">Facture ENEO</div>
+                        <div class="history-date">15 Mars 2025 • Compteur: 789456123</div>
+                        <div class="history-amount">23 500 FCFA</div>
+                    </div>
+                    <div class="history-status status-success">Payé</div>
+                </div>
+                
+                <div class="history-item">
+                    <div class="history-icon camwater-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="history-details">
+                        <div class="history-service">Facture Camwater</div>
+                        <div class="history-date">10 Mars 2025 • Compte: CW456789</div>
+                        <div class="history-amount">18 200 FCFA</div>
+                    </div>
+                    <div class="history-status status-success">Payé</div>
+                </div>
+                
+                <div class="history-item pending">
+                    <div class="history-icon eneo-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="history-details">
+                        <div class="history-service">Facture ENEO</div>
+                        <div class="history-date">5 Mars 2025 • Compteur: 789456123</div>
+                        <div class="history-amount">21 750 FCFA</div>
+                    </div>
+                    <div class="history-status status-pending">En attente</div>
+                </div>
+            </div>
+            
+            <button style="width: 100%; padding: 15px; background: transparent; border: 2px dashed #ddd; border-radius: 12px; color: var(--text-light); font-weight: 600; margin-top: 20px; cursor: pointer;" id="viewHistoryBtn">
+                <i class="fas fa-list" style="margin-right: 8px;"></i>
+                Voir tout l'historique
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="copyright">
+            © 2025 Home Cameroon (HMC). Tous droits réservés.
+        </div>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Conditions d'utilisation</a>
+            <a href="#" class="footer-link">Politique de confidentialité</a>
+            <a href="#" class="footer-link">Support</a>
+            <a href="#" class="footer-link">À propos</a>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion du menu burger
+        const menuBurger = document.getElementById('menuBurger');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const bellIcon = document.getElementById('bellIcon');
+        
+        menuBurger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuBurger.classList.toggle('active');
+            dropdownMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            closeMenu();
+        });
+        
+        // Fermer le menu en cliquant en dehors
+        document.addEventListener('click', (e) => {
+            if (!dropdownMenu.contains(e.target) && !menuBurger.contains(e.target)) {
+                closeMenu();
+            }
+        });
+        
+        function closeMenu() {
+            menuBurger.classList.remove('active');
+            dropdownMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        }
+        
+        // Gestion des clics sur les éléments du menu déroulant
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const text = item.querySelector('span').textContent;
+                showMessage(`Redirection vers: ${text}`, 'info');
+                closeMenu();
+            });
+        });
+        
+        // Sélection des services
+        const eneoCard = document.getElementById('eneo-card');
+        const camwaterCard = document.getElementById('camwater-card');
+        const accountLabel = document.getElementById('account-label');
+        const accountInput = document.getElementById('account-number');
+        
+        eneoCard.addEventListener('click', () => {
+            eneoCard.classList.add('active');
+            camwaterCard.classList.remove('active');
+            accountLabel.textContent = 'Numéro de compteur ENEO';
+            accountInput.placeholder = 'Ex: 123456789';
+        });
+        
+        camwaterCard.addEventListener('click', () => {
+            camwaterCard.classList.add('active');
+            eneoCard.classList.remove('active');
+            accountLabel.textContent = 'Numéro de compte Camwater';
+            accountInput.placeholder = 'Ex: CW789456';
+        });
+        
+        // Sélection des méthodes de paiement
+        const paymentMethodCards = document.querySelectorAll('.payment-method-card');
+        let selectedMethod = 'mobile';
+        
+        paymentMethodCards.forEach(card => {
+            card.addEventListener('click', () => {
+                paymentMethodCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                selectedMethod = card.getAttribute('data-method');
+            });
+        });
+        
+        // Calcul du montant total
+        const amountInput = document.getElementById('amount');
+        const displayAmount = document.getElementById('display-amount');
+        const invoiceAmount = document.getElementById('invoice-amount');
+        
+        amountInput.addEventListener('input', updateAmount);
+        
+        function updateAmount() {
+            let amount = parseFloat(amountInput.value) || 0;
+            let fees = 100; // Frais fixes
+            let total = amount + fees;
+            
+            displayAmount.textContent = total.toLocaleString('fr-FR') + ' FCFA';
+            invoiceAmount.textContent = amount.toLocaleString('fr-FR') + ' FCFA';
+        }
+        
+        // Initialisation
+        updateAmount();
+        
+        // Gestion de la soumission du formulaire
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const accountNumber = document.getElementById('account-number').value;
+            const amount = parseFloat(amountInput.value) || 0;
+            const service = eneoCard.classList.contains('active') ? 'ENEO' : 'Camwater';
+            
+            // Validation
+            if (!accountNumber) {
+                showMessage('Veuillez entrer votre numéro de compte/compteur.', 'error');
+                return;
+            }
+            
+            if (amount < 1000) {
+                showMessage('Le montant minimum est de 1 000 FCFA.', 'error');
+                return;
+            }
+            
+            // Simulation de paiement
+            const payButton = document.getElementById('pay-button');
+            const originalText = payButton.innerHTML;
+            
+            payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement en cours...';
+            payButton.disabled = true;
+            
+            // Simulation d'un délai de traitement
+            setTimeout(() => {
+                showMessage(`Paiement de ${amount.toLocaleString('fr-FR')} FCFA pour ${service} effectué avec succès!`, 'success');
+                
+                // Réinitialiser le formulaire
+                document.getElementById('payment-form').reset();
+                updateAmount();
+                
+                payButton.innerHTML = originalText;
+                payButton.disabled = false;
+                
+                // Ajouter à l'historique (simulation)
+                addToHistory(service, accountNumber, amount);
+                
+            }, 3000);
+        });
+        
+        // Fonction pour ajouter à l'historique
+        function addToHistory(service, account, amount) {
+            const historyList = document.querySelector('.history-list');
+            const newItem = document.createElement('div');
+            newItem.className = 'history-item';
+            
+            const isEneo = service === 'ENEO';
+            const iconClass = isEneo ? 'eneo-icon' : 'camwater-icon';
+            const icon = isEneo ? 'fa-bolt' : 'fa-tint';
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('fr-FR', { 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            
+            newItem.innerHTML = `
+                <div class="history-icon ${iconClass}">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="history-details">
+                    <div class="history-service">Facture ${service}</div>
+                    <div class="history-date">${dateStr} • ${isEneo ? 'Compteur' : 'Compte'}: ${account}</div>
+                    <div class="history-amount">${amount.toLocaleString('fr-FR')} FCFA</div>
+                </div>
+                <div class="history-status status-success">Payé</div>
+            `;
+            
+            // Ajouter en première position
+            historyList.insertBefore(newItem, historyList.firstChild);
+            
+            // Limiter à 5 éléments
+            if (historyList.children.length > 5) {
+                historyList.removeChild(historyList.lastChild);
+            }
+        }
+        
+        // Notification de la cloche
+        bellIcon.addEventListener('click', () => {
+            showMessage('Vous avez 2 notifications non lues.', 'info');
+        });
+        
+        // Bouton "Voir tout l'historique"
+        document.getElementById('viewHistoryBtn').addEventListener('click', () => {
+            showMessage('Affichage de tout l\'historique des paiements...', 'info');
+        });
+        
+        // Fonction pour afficher des messages
+        function showMessage(message, type) {
+            // Créer un élément pour le message
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 15px 25px;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 1000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: fadeInUp 0.3s ease-out;
+                text-align: center;
+                max-width: 90%;
+            `;
+            
+            // Appliquer les couleurs selon le type
+            if (type === 'error') {
+                messageDiv.style.backgroundColor = '#e74c3c';
+            } else if (type === 'success') {
+                messageDiv.style.backgroundColor = '#2ecc71';
+            } else {
+                messageDiv.style.backgroundColor = var(--primary);
+            }
+            
+            document.body.appendChild(messageDiv);
+            
+            // Retirer le message après 3 secondes
+            setTimeout(() => {
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    document.body.removeChild(messageDiv);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Animation au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // Focus sur le champ de numéro de compte
+            document.getElementById('account-number').focus();
+        });
+    </script>
+</body>
+</html>
