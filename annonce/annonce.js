@@ -6,7 +6,7 @@
     const mainImg = document.getElementById('mainImg');
     const thumbs = document.querySelectorAll('.thumb');
 
-    // Toggle men
+    // Toggle menu
     burger.addEventListener('click', (e) => {
       e.stopPropagation();
       navLinks.classList.toggle('active');
