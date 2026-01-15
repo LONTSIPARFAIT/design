@@ -22,7 +22,7 @@
 </head>
 <body class="bg-cream min-h-screen font-sans antialiased">
 
-  <!-- ================= HEADER ================= -->
+  <!-- HEADER + BARRE PROGRESSION MOBILE -->
   <header class="bg-darkPurple text-white sticky top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -31,83 +31,50 @@
         </div>
         <h1 class="text-xl font-semibold">Home Cameroon</h1>
       </div>
-      <div class="text-sm opacity-80 hidden sm:block">
-        Étape 1/4 • Infos du bien
+      <div class="text-sm opacity-80">
+        Étape <span id="currentStep">1</span>/4
       </div>
     </div>
 
-    <!-- Barre de progression -->
+    <!-- Barre de progression toujours visible -->
     <div class="bg-darkPurple/90 border-t border-primary/30">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div class="flex justify-between text-xs sm:text-sm font-medium">
-          <span class="text-primary font-bold">1. Infos principales</span>
-          <span class="opacity-60">2. Photos</span>
-          <span class="opacity-60">3. Vérif</span>
-          <span class="opacity-60">4. Publi</span>
+        <div class="flex justify-between text-xs font-medium">
+          <span id="step1" class="text-primary font-bold">1. Infos</span>
+          <span id="step2" class="opacity-60">2. Photos</span>
+          <span id="step3" class="opacity-60">3. Vérif</span>
+          <span id="step4" class="opacity-60">4. Publi</span>
         </div>
         <div class="mt-2 h-2 bg-gray-600/50 rounded-full overflow-hidden">
-          <div class="h-full bg-primary w-1/4"></div>
+          <div id="progressBar" class="h-full bg-primary w-1/4 transition-all duration-700"></div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ================= MAIN ================= -->
-  <main class="flex flex-col lg:flex-row min-h-[calc(100vh-140px)]">
+  <div class="flex min-h-[calc(100vh-140px)]">
 
-    <!-- IMAGE – uniquement sur desktop (lg+) -->
-    <div class="hidden lg:block lg:w-2/5 xl:w-5/12 bg-darkPurple relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-darkPurple via-darkPurple to-primary/40 opacity-80"></div>
-      
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center"></div>
-      
-      <div class="relative h-full flex items-center justify-center p-8 xl:p-12 text-white text-center">
-        <div class="max-w-lg">
-          <h2 class="text-3xl xl:text-4xl font-bold mb-6 drop-shadow-lg">
-            Mettez votre bien <br/>en valeur facilement
-          </h2>
-          <p class="text-lg opacity-90 mb-8">
-            Contrat automatique • Paiement sécurisé • Gestion complète par Home Cameroon
-          </p>
-          <div class="inline-flex bg-white/15 backdrop-blur-sm px-6 py-4 rounded-xl border border-white/20">
-            <span class="text-2xl font-bold">Publication</span>
-            <span class="text-2xl font-bold mx-3">•</span>
-            <span class="text-2xl font-bold">Gratuite</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Contenu principal -->
+    <main class="flex-1 px-4 sm:px-6 lg:px-10 xl:px-16 py-8 bg-white">
+      <div class="max-w-4xl mx-auto">
 
-    <!-- FORMULAIRE – pleine largeur sur mobile, droite sur desktop -->
-    <div class="flex-1 px-4 sm:px-6 lg:px-10 xl:px-16 py-8 lg:py-12 bg-white">
-      <div class="max-w-3xl mx-auto">
-
-        <!-- Titre mobile -->
         <div class="lg:hidden text-center mb-8">
-          <h2 class="text-2xl sm:text-3xl font-bold text-darkPurple">
-            Publier votre bien
-          </h2>
-          <p class="text-gray-600 mt-2">
-            Étape 1 sur 4 • Informations principales
-          </p>
+          <h2 class="text-2xl font-bold text-darkPurple">Publier votre bien</h2>
         </div>
 
-        <!-- Warning légal -->
+        <!-- Warning très visible -->
         <div class="bg-red-50 border-l-4 border-red-600 p-5 mb-8 rounded-r-xl">
           <p class="text-red-800 font-medium leading-relaxed">
-            <strong>Attention :</strong> Les informations saisies (loyer, caution, durée, modalités…) seront utilisées pour générer automatiquement le contrat de bail conforme à la loi camerounaise. Vous ne pourrez pas modifier les clauses principales ensuite.
+            <strong>Attention :</strong> Les informations que vous saisissez (loyer, caution, durée, modalités de paiement…) seront utilisées pour générer automatiquement le contrat de bail conforme à la loi camerounaise. Vous ne pourrez pas modifier les clauses principales par la suite.
           </p>
         </div>
 
-        <!-- Formulaire -->
-        <form class="space-y-7">
+        <form id="propertyForm" class="space-y-7">
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div>
-              <label class="block text-gray-700 font-medium mb-2">
-                Type de bien <span class="text-primary">*</span>
-              </label>
-              <select class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition">
+              <label class="block text-gray-700 font-medium mb-2">Type de bien <span class="text-primary">*</span></label>
+              <select required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary">
                 <option value="">Sélectionner...</option>
                 <option>Appartement</option>
                 <option>Studio</option>
@@ -120,49 +87,53 @@
             </div>
 
             <div>
-              <label class="block text-gray-700 font-medium mb-2">
-                Surface habitable <span class="text-primary">*</span>
-              </label>
+              <label class="block text-gray-700 font-medium mb-2">Surface habitable <span class="text-primary">*</span></label>
               <div class="relative">
-                <input type="number" min="10" class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="75"/>
+                <input type="number" min="10" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="75"/>
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">m²</span>
               </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Nombre de chambres</label>
+              <select class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary">
+                <option value="">Choisir</option>
+                <option>Studio</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4+</option>
+              </select>
             </div>
           </div>
 
           <div>
-            <label class="block text-gray-700 font-medium mb-2">
-              Adresse complète <span class="text-primary">*</span>
-            </label>
-            <input type="text" class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="Bonanjo, Rue 3.456, Douala"/>
+            <label class="block text-gray-700 font-medium mb-2">Adresse complète <span class="text-primary">*</span></label>
+            <input type="text" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="Bonanjo, Rue 3.456, Douala"/>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-xl border border-gray-200">
             <div>
-              <label class="block text-gray-700 font-medium mb-2">
-                Loyer mensuel <span class="text-primary">*</span>
-              </label>
+              <label class="block text-gray-700 font-medium mb-2">Loyer mensuel <span class="text-primary">*</span></label>
               <div class="relative">
-                <input type="number" class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="180000"/>
+                <input type="number" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="180000"/>
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-700 font-semibold">FCFA</span>
               </div>
             </div>
 
             <div>
-              <label class="block text-gray-700 font-medium mb-2">
-                Caution <span class="text-primary">*</span>
-              </label>
+              <label class="block text-gray-700 font-medium mb-2">Caution <span class="text-primary">*</span></label>
               <div class="relative">
-                <input type="number" class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="360000"/>
+                <input type="number" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="360000"/>
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-700 font-semibold">FCFA</span>
               </div>
             </div>
 
             <div>
-              <label class="block text-gray-700 font-medium mb-2">
-                Durée du bail <span class="text-primary">*</span>
-              </label>
-              <select class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition">
+              <label class="block text-gray-700 font-medium mb-2">Durée du bail <span class="text-primary">*</span></label>
+              <select required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary">
+                <option value="">Choisir</option>
+                <option>6 mois renouvelable</option>
                 <option>1 an renouvelable</option>
                 <option>2 ans renouvelable</option>
                 <option>3 ans renouvelable</option>
@@ -170,36 +141,120 @@
             </div>
 
             <div>
-              <label class="block text-gray-700 font-medium mb-2">
-                Disponibilité <span class="text-primary">*</span>
-              </label>
-              <input type="date" class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition"/>
+              <label class="block text-gray-700 font-medium mb-2">Date de disponibilité <span class="text-primary">*</span></label>
+              <input type="date" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary"/>
             </div>
           </div>
 
           <!-- Boutons -->
-          <div class="flex flex-col sm:flex-row gap-4 pt-6">
+          <div class="flex flex-col sm:flex-row gap-4 pt-8">
             <button type="button" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-4 px-6 rounded-xl transition">
               ← Retour
             </button>
-            <button type="submit" class="flex-1 bg-primary hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-xl transition shadow-md hover:shadow-lg">
-              Continuer → Photos & documents
+            <button type="button" id="nextBtn" class="flex-1 bg-primary hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-xl transition shadow-md">
+              Continuer → Étape suivante
             </button>
           </div>
 
         </form>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="bg-darkPurple text-white/80 text-center py-6 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 text-sm">
-      © 2026 Home Cameroon • Tous droits réservés • 
-      <a href="#" class="hover:text-primary transition">CGU</a> • 
-      <a href="#" class="hover:text-primary transition">Confidentialité</a>
-    </div>
-  </footer>
+    <!-- SIDEBAR PROGRESSION (desktop seulement) -->
+    <aside class="hidden lg:block lg:w-80 xl:w-96 bg-darkPurple/95 text-white border-l border-primary/30">
+      <div class="sticky top-24 p-8">
+        <h3 class="text-xl font-bold mb-10 text-primary">Étapes de publication</h3>
+        
+        <div class="space-y-8">
+          <div class="flex items-start gap-4" id="stepItem1">
+            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center font-bold text-lg shrink-0">1</div>
+            <div>
+              <p class="font-medium">Informations principales</p>
+              <p class="text-sm opacity-70">Type, surface, adresse, finances</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 opacity-60" id="stepItem2">
+            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg shrink-0">2</div>
+            <div>
+              <p class="font-medium">Photos & documents</p>
+              <p class="text-sm opacity-70">Photos + justificatifs</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 opacity-60" id="stepItem3">
+            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg shrink-0">3</div>
+            <div>
+              <p class="font-medium">Vérification</p>
+              <p class="text-sm opacity-70">Contrôle par l'équipe</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 opacity-60" id="stepItem4">
+            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg shrink-0">4</div>
+            <div>
+              <p class="font-medium">Publication</p>
+              <p class="text-sm opacity-70">Votre bien est visible</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Petit script de simulation de progression -->
+  <script>
+    const nextBtn = document.getElementById('nextBtn');
+    const progressBar = document.getElementById('progressBar');
+    const currentStepEl = document.getElementById('currentStep');
+    
+    const stepTexts = ['Infos', 'Photos', 'Vérif', 'Publi'];
+    const stepItems = [
+      document.getElementById('stepItem1'),
+      document.getElementById('stepItem2'),
+      document.getElementById('stepItem3'),
+      document.getElementById('stepItem4')
+    ];
+    const stepLabels = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3'),
+      document.getElementById('step4')
+    ];
+
+    let currentStep = 1;
+
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < 4) {
+        currentStep++;
+        
+        // Mise à jour barre principale
+        progressBar.style.width = `${(currentStep / 4) * 100}%`;
+        
+        // Mise à jour texte étape
+        currentStepEl.textContent = currentStep;
+        
+        // Mise à jour labels haut
+        stepLabels.forEach((label, i) => {
+          label.classList.toggle('text-primary', i + 1 === currentStep);
+          label.classList.toggle('font-bold', i + 1 === currentStep);
+          label.classList.toggle('opacity-60', i + 1 !== currentStep);
+        });
+        
+        // Mise à jour sidebar (desktop)
+        stepItems.forEach((item, i) => {
+          item.classList.toggle('opacity-60', i + 1 !== currentStep);
+          if (i + 1 === currentStep) {
+            item.querySelector('div:first-child').classList.remove('bg-gray-600');
+            item.querySelector('div:first-child').classList.add('bg-primary');
+          }
+        });
+        
+        // Changer texte bouton à la dernière étape
+        if (currentStep === 4) {
+          nextBtn.textContent = "Terminer la publication";
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
