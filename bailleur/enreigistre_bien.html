@@ -22,7 +22,7 @@
 </head>
 <body class="bg-cream min-h-screen font-sans antialiased">
 
-  <!-- HEADER + BARRE PROGRESSION MOBILE -->
+  <!-- HEADER minimal et professionnel -->
   <header class="bg-darkPurple text-white sticky top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -31,128 +31,188 @@
         </div>
         <h1 class="text-xl font-semibold">Home Cameroon</h1>
       </div>
-      <div class="text-sm opacity-80">
-        Étape <span id="currentStep">1</span>/4
-      </div>
-    </div>
-
-    <!-- Barre de progression toujours visible -->
-    <div class="bg-darkPurple/90 border-t border-primary/30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div class="flex justify-between text-xs font-medium">
-          <span id="step1" class="text-primary font-bold">1. Infos</span>
-          <span id="step2" class="opacity-60">2. Photos</span>
-          <span id="step3" class="opacity-60">3. Vérif</span>
-          <span id="step4" class="opacity-60">4. Publi</span>
-        </div>
-        <div class="mt-2 h-2 bg-gray-600/50 rounded-full overflow-hidden">
-          <div id="progressBar" class="h-full bg-primary w-1/4 transition-all duration-700"></div>
-        </div>
+      <div class="text-sm opacity-80 hidden lg:block">
+        Publier un bien
       </div>
     </div>
   </header>
 
-  <div class="flex min-h-[calc(100vh-140px)]">
+  <div class="flex min-h-[calc(100vh-76px)]">
 
     <!-- Contenu principal -->
-    <main class="flex-1 px-4 sm:px-6 lg:px-10 xl:px-16 py-8 bg-white">
+    <main class="flex-1 px-4 sm:px-6 lg:px-10 xl:px-16 py-8 lg:py-12 bg-white">
       <div class="max-w-4xl mx-auto">
 
-        <div class="lg:hidden text-center mb-8">
-          <h2 class="text-2xl font-bold text-darkPurple">Publier votre bien</h2>
-        </div>
-
-        <!-- Warning très visible -->
-        <div class="bg-red-50 border-l-4 border-red-600 p-5 mb-8 rounded-r-xl">
-          <p class="text-red-800 font-medium leading-relaxed">
-            <strong>Attention :</strong> Les informations que vous saisissez (loyer, caution, durée, modalités de paiement…) seront utilisées pour générer automatiquement le contrat de bail conforme à la loi camerounaise. Vous ne pourrez pas modifier les clauses principales par la suite.
+        <!-- Titre principal (visible sur tous les écrans) -->
+        <div class="text-center mb-10 lg:mb-12">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-darkPurple mb-2">
+            Publier votre bien immobilier
+          </h2>
+          <p class="text-gray-600 text-sm lg:text-base">
+            Étape <span id="currentStep">1</span>/4 • <span id="stepTitle">Informations principales</span>
           </p>
         </div>
 
-        <form id="propertyForm" class="space-y-7">
+        <!-- Warning légal (fixe, visible sur toutes les étapes) -->
+        <div class="bg-red-50 border-l-4 border-red-600 p-5 mb-8 lg:mb-10 rounded-r-xl max-w-3xl mx-auto">
+          <p class="text-red-800 font-medium leading-relaxed text-sm lg:text-base">
+            <strong>Attention :</strong> Les informations saisies (loyer, caution, durée, modalités de paiement…) seront utilisées pour générer automatiquement le contrat de bail conforme à la loi camerounaise. Vous ne pourrez pas modifier les clauses principales par la suite.
+          </p>
+        </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Type de bien <span class="text-primary">*</span></label>
-              <select required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary">
-                <option value="">Sélectionner...</option>
-                <option>Appartement</option>
-                <option>Studio</option>
-                <option>Chambre meublée</option>
-                <option>Maison</option>
-                <option>Duplex</option>
-                <option>Villa</option>
-                <option>Local commercial</option>
-              </select>
-            </div>
+        <!-- Conteneur des étapes (changent dynamiquement) -->
+        <form id="propertyForm" class="space-y-7 max-w-3xl mx-auto">
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Surface habitable <span class="text-primary">*</span></label>
-              <div class="relative">
-                <input type="number" min="10" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="75"/>
-                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">m²</span>
+          <!-- Étape 1: Informations principales -->
+          <div id="step1" class="step-content">
+            <h3 class="text-xl font-semibold text-darkPurple mb-6">1. Détails essentiels du bien</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Type de bien <span class="text-primary">*</span></label>
+                <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition">
+                  <option value="">Sélectionner...</option>
+                  <option>Appartement</option>
+                  <option>Studio</option>
+                  <option>Chambre meublée</option>
+                  <option>Maison</option>
+                  <option>Duplex</option>
+                  <option>Villa</option>
+                  <option>Local commercial</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Surface habitable <span class="text-primary">*</span></label>
+                <div class="relative">
+                  <input type="number" min="10" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="75"/>
+                  <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">m²</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Nombre de chambres</label>
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition">
+                  <option value="">Choisir</option>
+                  <option>Studio (aucune)</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4 ou plus</option>
+                </select>
               </div>
             </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Nombre de chambres</label>
-              <select class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary">
-                <option value="">Choisir</option>
-                <option>Studio</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4+</option>
-              </select>
+            <div class="mt-6">
+              <label class="block text-gray-700 font-medium mb-2">Adresse complète <span class="text-primary">*</span></label>
+              <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="Ex: Bonanjo, Rue 3.456, Douala"/>
             </div>
           </div>
 
-          <div>
-            <label class="block text-gray-700 font-medium mb-2">Adresse complète <span class="text-primary">*</span></label>
-            <input type="text" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="Bonanjo, Rue 3.456, Douala"/>
+          <!-- Étape 2: Détails financiers et disponibilité -->
+          <div id="step2" class="step-content hidden">
+            <h3 class="text-xl font-semibold text-darkPurple mb-6">2. Conditions financières</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Loyer mensuel <span class="text-primary">*</span></label>
+                <div class="relative">
+                  <input type="number" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="180000"/>
+                  <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-700 font-semibold">FCFA</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Caution demandée <span class="text-primary">*</span></label>
+                <div class="relative">
+                  <input type="number" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="360000"/>
+                  <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-700 font-semibold">FCFA</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Durée du bail <span class="text-primary">*</span></label>
+                <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition">
+                  <option value="">Choisir</option>
+                  <option>6 mois renouvelable</option>
+                  <option>1 an renouvelable</option>
+                  <option>2 ans renouvelable</option>
+                  <option>3 ans renouvelable</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">Date de disponibilité <span class="text-primary">*</span></label>
+                <input type="date" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition"/>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-gray-700 font-medium mb-2">Modalités de paiement <span class="text-primary">*</span></label>
+                <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition">
+                  <option value="">Sélectionner...</option>
+                  <option>Mobile Money</option>
+                  <option>Virement bancaire</option>
+                  <option>Espèces</option>
+                  <option>Autres</option>
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-xl border border-gray-200">
+          <!-- Étape 3: Description, équipements, photos -->
+          <div id="step3" class="step-content hidden">
+            <h3 class="text-xl font-semibold text-darkPurple mb-6">3. Description et équipements</h3>
             <div>
-              <label class="block text-gray-700 font-medium mb-2">Loyer mensuel <span class="text-primary">*</span></label>
-              <div class="relative">
-                <input type="number" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="180000"/>
-                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-700 font-semibold">FCFA</span>
+              <label class="block text-gray-700 font-medium mb-2">Description détaillée <span class="text-primary">*</span></label>
+              <textarea required rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition" placeholder="Décrivez l'état général, l'étage, les commodités..."></textarea>
+            </div>
+
+            <div class="mt-6">
+              <label class="block text-gray-700 font-medium mb-2">Équipements inclus</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label class="flex items-center gap-2"><input type="checkbox" class="form-checkbox text-primary"/> Climatisation</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="form-checkbox text-primary"/> Eau chaude</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="form-checkbox text-primary"/> Électricité incluse</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="form-checkbox text-primary"/> Parking</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="form-checkbox text-primary"/> Meublé</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="form-checkbox text-primary"/> Cuisine équipée</label>
               </div>
             </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Caution <span class="text-primary">*</span></label>
-              <div class="relative">
-                <input type="number" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="360000"/>
-                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-700 font-semibold">FCFA</span>
-              </div>
+            <div class="mt-6">
+              <label class="block text-gray-700 font-medium mb-2">Upload photos (obligatoires)</label>
+              <input type="file" multiple accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition"/>
             </div>
 
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Durée du bail <span class="text-primary">*</span></label>
-              <select required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary">
-                <option value="">Choisir</option>
-                <option>6 mois renouvelable</option>
-                <option>1 an renouvelable</option>
-                <option>2 ans renouvelable</option>
-                <option>3 ans renouvelable</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-gray-700 font-medium mb-2">Date de disponibilité <span class="text-primary">*</span></label>
-              <input type="date" required class="w-full px-4 py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary"/>
+            <div class="mt-6">
+              <label class="block text-gray-700 font-medium mb-2">Justificatifs de propriété <span class="text-primary">*</span></label>
+              <input type="file" multiple class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition"/>
             </div>
           </div>
 
-          <!-- Boutons -->
-          <div class="flex flex-col sm:flex-row gap-4 pt-8">
-            <button type="button" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-4 px-6 rounded-xl transition">
-              ← Retour
+          <!-- Étape 4: Récapitulatif et validation -->
+          <div id="step4" class="step-content hidden">
+            <h3 class="text-xl font-semibold text-darkPurple mb-6">4. Récapitulatif et publication</h3>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 space-y-4 text-sm lg:text-base">
+              <p><strong>Type de bien :</strong> [À remplir dynamiquement]</p>
+              <p><strong>Surface :</strong> [À remplir dynamiquement] m²</p>
+              <p><strong>Adresse :</strong> [À remplir dynamiquement]</p>
+              <p><strong>Loyer :</strong> [À remplir dynamiquement] FCFA/mois</p>
+              <p><strong>Caution :</strong> [À remplir dynamiquement] FCFA</p>
+              <p><strong>Durée :</strong> [À remplir dynamiquement]</p>
+              <p><strong>Disponibilité :</strong> [À remplir dynamiquement]</p>
+              <p><strong>Description :</strong> [À remplir dynamiquement]</p>
+              <p><strong>Équipements :</strong> [Liste dynamique]</p>
+              <p><strong>Photos et justificatifs :</strong> Uploadés</p>
+            </div>
+            <p class="mt-6 text-gray-600 text-center">Votre bien sera validé par notre équipe avant publication.</p>
+          </div>
+
+          <!-- Boutons de navigation (dynamiques) -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-8 max-w-3xl mx-auto">
+            <button type="button" id="prevBtn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-4 px-6 rounded-xl transition hidden">
+              ← Précédent
             </button>
             <button type="button" id="nextBtn" class="flex-1 bg-primary hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-xl transition shadow-md">
-              Continuer → Étape suivante
+              Suivant →
             </button>
           </div>
 
@@ -160,39 +220,47 @@
       </div>
     </main>
 
-    <!-- SIDEBAR PROGRESSION (desktop seulement) -->
-    <aside class="hidden lg:block lg:w-80 xl:w-96 bg-darkPurple/95 text-white border-l border-primary/30">
-      <div class="sticky top-24 p-8">
-        <h3 class="text-xl font-bold mb-10 text-primary">Étapes de publication</h3>
+    <!-- SIDEBAR PROGRESSION (desktop seulement, design professionnel) -->
+    <aside class="hidden lg:block lg:w-80 xl:w-96 bg-cream border-l border-gray-200 p-8">
+      <div class="sticky top-24">
+        <h3 class="text-lg font-semibold text-darkPurple mb-8">Étapes de publication</h3>
         
-        <div class="space-y-8">
-          <div class="flex items-start gap-4" id="stepItem1">
-            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center font-bold text-lg shrink-0">1</div>
+        <div class="space-y-6">
+          <div id="stepItem1" class="flex items-start gap-4 text-primary font-medium">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-base shrink-0">1</div>
             <div>
-              <p class="font-medium">Informations principales</p>
-              <p class="text-sm opacity-70">Type, surface, adresse, finances</p>
+              <p>Informations principales</p>
+              <p class="text-sm text-gray-600">Type, surface, adresse</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 opacity-60" id="stepItem2">
-            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg shrink-0">2</div>
+          <div id="stepItem2" class="flex items-start gap-4 text-gray-500 opacity-70">
+            <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-base shrink-0">2</div>
             <div>
-              <p class="font-medium">Photos & documents</p>
-              <p class="text-sm opacity-70">Photos + justificatifs</p>
+              <p>Conditions financières</p>
+              <p class="text-sm text-gray-600">Loyer, caution, durée</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 opacity-60" id="stepItem3">
-            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg shrink-0">3</div>
+          <div id="stepItem3" class="flex items-start gap-4 text-gray-500 opacity-70">
+            <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-base shrink-0">3</div>
             <div>
-              <p class="font-medium">Vérification</p>
-              <p class="text-sm opacity-70">Contrôle par l'équipe</p>
+              <p>Description & équipements</p>
+              <p class="text-sm text-gray-600">Photos, justificatifs</p>
             </div>
           </div>
-          <div class="flex items-start gap-4 opacity-60" id="stepItem4">
-            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg shrink-0">4</div>
+          <div id="stepItem4" class="flex items-start gap-4 text-gray-500 opacity-70">
+            <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-base shrink-0">4</div>
             <div>
-              <p class="font-medium">Publication</p>
-              <p class="text-sm opacity-70">Votre bien est visible</p>
+              <p>Récapitulatif</p>
+              <p class="text-sm text-gray-600">Validation finale</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Barre de progression verticale -->
+        <div class="mt-12">
+          <div class="text-sm text-gray-600 mb-2">Progression</div>
+          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progressBar" class="h-full bg-primary w-1/4 transition-all duration-500"></div>
           </div>
         </div>
       </div>
@@ -200,60 +268,79 @@
 
   </div>
 
-  <!-- Petit script de simulation de progression -->
+  <!-- Script JS pour simulation multi-étapes -->
   <script>
-    const nextBtn = document.getElementById('nextBtn');
-    const progressBar = document.getElementById('progressBar');
-    const currentStepEl = document.getElementById('currentStep');
-    
-    const stepTexts = ['Infos', 'Photos', 'Vérif', 'Publi'];
-    const stepItems = [
-      document.getElementById('stepItem1'),
-      document.getElementById('stepItem2'),
-      document.getElementById('stepItem3'),
-      document.getElementById('stepItem4')
-    ];
-    const stepLabels = [
-      document.getElementById('step1'),
-      document.getElementById('step2'),
-      document.getElementById('step3'),
-      document.getElementById('step4')
-    ];
-
+    const steps = 4;
     let currentStep = 1;
 
+    const stepContents = document.querySelectorAll('.step-content');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentStepEl = document.getElementById('currentStep');
+    const stepTitleEl = document.getElementById('stepTitle');
+    const progressBar = document.getElementById('progressBar');
+    const stepItems = document.querySelectorAll('[id^="stepItem"]');
+
+    const stepTitles = [
+      'Informations principales',
+      'Conditions financières',
+      'Description & équipements',
+      'Récapitulatif'
+    ];
+
+    function updateUI() {
+      // Mettre à jour le titre de l'étape
+      currentStepEl.textContent = currentStep;
+      stepTitleEl.textContent = stepTitles[currentStep - 1];
+
+      // Afficher/cacher contenus
+      stepContents.forEach((content, index) => {
+        content.classList.toggle('hidden', index + 1 !== currentStep);
+      });
+
+      // Boutons
+      prevBtn.classList.toggle('hidden', currentStep === 1);
+      nextBtn.textContent = currentStep === steps ? 'Publier' : 'Suivant →';
+
+      // Barre de progression
+      progressBar.style.width = `${(currentStep / steps) * 100}%`;
+
+      // Mise à jour sidebar
+      stepItems.forEach((item, index) => {
+        const isActive = index + 1 === currentStep;
+        const isPast = index + 1 < currentStep;
+        
+        item.classList.toggle('text-primary', isActive || isPast);
+        item.classList.toggle('font-medium', isActive || isPast);
+        item.classList.toggle('opacity-70', !isActive && !isPast);
+        item.classList.toggle('text-gray-500', !isActive && !isPast);
+
+        const circle = item.querySelector('div:first-child');
+        circle.classList.toggle('bg-primary', isActive || isPast);
+        circle.classList.toggle('text-white', isActive || isPast);
+        circle.classList.toggle('bg-gray-300', !isActive && !isPast);
+        circle.classList.toggle('text-gray-600', !isActive && !isPast);
+      });
+    }
+
     nextBtn.addEventListener('click', () => {
-      if (currentStep < 4) {
+      if (currentStep < steps) {
         currentStep++;
-        
-        // Mise à jour barre principale
-        progressBar.style.width = `${(currentStep / 4) * 100}%`;
-        
-        // Mise à jour texte étape
-        currentStepEl.textContent = currentStep;
-        
-        // Mise à jour labels haut
-        stepLabels.forEach((label, i) => {
-          label.classList.toggle('text-primary', i + 1 === currentStep);
-          label.classList.toggle('font-bold', i + 1 === currentStep);
-          label.classList.toggle('opacity-60', i + 1 !== currentStep);
-        });
-        
-        // Mise à jour sidebar (desktop)
-        stepItems.forEach((item, i) => {
-          item.classList.toggle('opacity-60', i + 1 !== currentStep);
-          if (i + 1 === currentStep) {
-            item.querySelector('div:first-child').classList.remove('bg-gray-600');
-            item.querySelector('div:first-child').classList.add('bg-primary');
-          }
-        });
-        
-        // Changer texte bouton à la dernière étape
-        if (currentStep === 4) {
-          nextBtn.textContent = "Terminer la publication";
-        }
+        updateUI();
+      } else {
+        alert('Simulation : Publication soumise ! (En réalité, envoi au serveur ici)');
       }
     });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateUI();
+      }
+    });
+
+    // Initialisation
+    updateUI();
   </script>
 
 </body>
