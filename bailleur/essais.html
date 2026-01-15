@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Publier un bien - Home Cameroon</title>
+  <script src="https://cdn.tailwindcss.com/3.4.13"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#E54801',
+            primaryDark: '#913327',
+            primaryLight: '#FF6B35',
+            dark: '#1B0B38',
+            cream: '#FAF9F5',
+            success: '#10B981',
+            warning: '#F59E0B',
+            error: '#EF4444',
+          },
+          animation: {
+            'progress': 'progress 1s ease-in-out',
+            'fadeIn': 'fadeIn 0.3s ease-out',
+            'slideIn': 'slideIn 0.3s ease-out',
+          },
+          keyframes: {
+            progress: {
+              '0%': { width: '0%' },
+              '100%': { width: 'var(--progress)' }
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            },
+            slideIn: {
+              '0%': { transform: 'translateX(10px)', opacity: '0' },
+              '100%': { transform: 'translateX(0)', opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-cream min-h-screen font-sans antialiased text-gray-900" id="top">
+
+<!-- Skip to main content pour accessibilité -->
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-primary focus:text-white focus:p-3 focus:rounded-lg">
+  Aller au contenu principal
+</a>
+
+<!-- ===================== HEADER FIXE ===================== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark text-white shadow-lg" role="banner">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-bold text-white text-xl" aria-label="Logo Home Cameroon">
+        <span aria-hidden="true">HMC</span>
+      </div>
+      <h1 class="text-xl font-semibold tracking-tight">Home Cameroon</h1>
+    </div>
+    <div class="text-sm" aria-live="polite">
+      <span class="hidden sm:inline">Publication d'un bien</span>
+      <button id="mobileMenuBtn" class="sm:hidden text-2xl" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== BARRE PROGRESSION ===================== -->
+<div class="fixed top-[76px] left-0 right-0 z-40 bg-dark/95 backdrop-blur-sm border-t border-primary/30" role="progressbar" aria-valuenow="25" aria-valuemin="1" aria-valuemax="4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+      <div class="flex items-center gap-3 font-medium">
+        <span class="px-4 py-1.5 rounded-full bg-primary text-white font-bold" aria-hidden="true">
+          Étape <span id="currentStep">1</span>/4
+        </span>
+        <span id="currentTitle" class="text-gray-200 sr-only sm:not-sr-only">Informations principales</span>
+      </div>
+      
+      <!-- Version mobile compacte -->
+      <div class="sm:hidden flex items-center gap-2 w-full">
+        <button id="mobilePrev" class="p-2 text-gray-300 hover:text-white disabled:opacity-30" aria-label="Étape précédente" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="flex-1 h-2.5 overflow-hidden rounded-full bg-gray-700/60">
+          <div id="progressBarMobile" class="h-full bg-primary transition-all duration-500 ease-out w-1/4"></div>
+        </div>
+        <button id="mobileNext" class="p-2 text-gray-300 hover:text-white" aria-label="Étape suivante">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <!-- Version desktop -->
+      <div class="hidden sm:block w-full max-w-xs sm:w-72 h-2.5 overflow-hidden rounded-full bg-gray-700/60">
+        <div id="progressBar" class="h-full bg-primary transition-all duration-500 ease-out w-1/4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="pt-40 lg:pt-44 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="main-content">
+
+  <!-- Toast notifications -->
+  <div id="toastContainer" class="fixed top-28 right-4 z-[100] space-y-2 max-w-sm"></div>
+
+  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+
+    <!-- ===================== SIDEBAR OPTIMISÉ MOBILE ===================== -->
+    <aside class="lg:w-96 xl:w-[380px] order-2 lg:order-1" aria-label="Navigation des étapes">
+      <div class="sticky top-44 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 class="mb-8 text-lg font-semibold text-dark">Étapes de publication</h2>
+        
+        <!-- Version mobile (accordéon) -->
+        <div class="lg:hidden">
+          <button id="mobileStepsToggle" class="w-full flex items-center justify-between p-4 bg-gray-50 rounded-lg mb-4" aria-expanded="false">
+            <span class="font-medium">Étape <span id="mobileCurrentStep">1</span>/4 : <span id="mobileCurrentTitle">Informations principales</span></span>
+            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <div id="mobileStepsContent" class="hidden space-y-4 p-4 border border-gray-200 rounded-lg">
+            <!-- Contenu généré dynamiquement -->
+          </div>
+        </div>
+        
+        <!-- Version desktop -->
+        <div class="hidden lg:block space-y-6" id="desktopSteps">
+          <!-- Étapes générées dynamiquement -->
+        </div>
+      </div>
+      
+      <!-- Aide contextuelle -->
+      <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-info-circle text-blue-500 mt-0.5"></i>
+          <div class="text-sm">
+            <p class="font-medium text-blue-800">Besoin d'aide ?</p>
+            <p class="text-blue-600 mt-1">Appelez le <a href="tel:+237699999999" class="underline">+237 699 999 999</a> ou utilisez notre chat en ligne.</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===================== FORMULAIRE ===================== -->
+    <div class="flex-1 order-1 lg:order-2">
+      <!-- Warning léger -->
+      <div class="mb-10 rounded-xl border border-orange-200 bg-orange-50 p-5 lg:p-6 animate-fadeIn" role="alert">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-exclamation-triangle text-orange-500 mt-0.5"></i>
+          <div>
+            <p class="font-medium leading-relaxed text-orange-800">
+              <strong>Important :</strong> Les informations saisies seront utilisées pour générer automatiquement le contrat de bail conforme à la loi camerounaise.
+            </p>
+            <button id="showLegalDetails" class="text-sm text-orange-600 underline mt-2 hover:text-orange-800">Voir les détails légaux</button>
+          </div>
+        </div>
+        <div id="legalDetails" class="mt-3 pt-3 border-t border-orange-200 hidden">
+          <p class="text-sm text-orange-700">Vous ne pourrez pas modifier les clauses principales après publication. Consultez notre <a href="#" class="font-medium underline">guide juridique</a> pour plus d'informations.</p>
+        </div>
+      </div>
+
+      <!-- Formulaire avec validation -->
+      <form id="propertyForm" class="space-y-8" novalidate>
+        
+        <!-- Étape 1 avec validation -->
+        <div id="step1" class="step space-y-8 animate-slideIn" data-validate="true">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-dark">1. Informations principales du bien</h2>
+            <span class="text-sm text-gray-500">Champs obligatoires <span class="text-error">*</span></span>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <!-- Champs avec validation -->
+            <div>
+              <label for="propertyType" class="mb-1.5 block text-sm font-medium text-gray-700 flex items-center gap-1">
+                Type de bien <span class="text-error">*</span>
+              </label>
+              <select id="propertyType" required class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 transition" aria-describedby="propertyTypeError">
+                <option value="">Sélectionner...</option>
+                <option>Appartement</option>
+                <option>Studio</option>
+                <option>Chambre meublée</option>
+                <option>Maison</option>
+              </select>
+              <div id="propertyTypeError" class="mt-1 text-sm text-error hidden" role="alert"></div>
+            </div>
+
+            <!-- Input avec auto-format -->
+            <div>
+              <label for="surface" class="mb-1.5 block text-sm font-medium text-gray-700 flex items-center gap-1">
+                Surface habitable (m²) <span class="text-error">*</span>
+              </label>
+              <div class="relative">
+                <input type="number" id="surface" min="10" max="1000" step="0.5" required 
+                       class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 transition pl-10"
+                       placeholder="ex: 85"
+                       aria-describedby="surfaceHelp surfaceError"/>
+                <span class="absolute left-3 top-3.5 text-gray-500">m²</span>
+              </div>
+              <div id="surfaceHelp" class="mt-1 text-sm text-gray-500">Entre 10 et 1000 m²</div>
+              <div id="surfaceError" class="mt-1 text-sm text-error hidden" role="alert"></div>
+            </div>
+            
+            <!-- Autres champs optimisés -->
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div id="step2" class="step hidden space-y-8" data-validate="true">
+          <!-- Contenu optimisé -->
+          <div class="space-y-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <div class="flex items-center gap-2 text-blue-800">
+                <i class="fas fa-lightbulb"></i>
+                <span class="text-sm font-medium">Conseil : Les loyers entre 50,000 et 500,000 FCFA ont plus de visibilité</span>
+              </div>
+            </div>
+            <!-- Champs avec suggestions -->
+          </div>
+        </div>
+
+        <!-- Étape 3 avec upload amélioré -->
+        <div id="step3" class="step hidden space-y-8" data-validate="true">
+          <!-- Zone de drop pour images -->
+          <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-primary transition-colors" 
+               id="dropZone"
+               role="region"
+               aria-label="Zone de dépôt des photos">
+            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+            <p class="text-lg font-medium text-gray-700 mb-2">Glissez-déposez vos photos ici</p>
+            <p class="text-sm text-gray-500 mb-4">ou</p>
+            <input type="file" id="photoUpload" multiple accept="image/*" 
+                   class="hidden"
+                   aria-describedby="photoHelp"/>
+            <label for="photoUpload" class="inline-block px-6 py-3 bg-primary text-white rounded-lg cursor-pointer hover:bg-primary-dark transition-colors">
+              <i class="fas fa-camera mr-2"></i>Choisir des fichiers
+            </label>
+            <p id="photoHelp" class="text-sm text-gray-500 mt-4">Formats acceptés : JPG, PNG (max 5MB par photo)</p>
+          </div>
+          
+          <!-- Prévisualisation des images -->
+          <div id="imagePreview" class="grid grid-cols-2 sm:grid-cols-3 gap-4 hidden">
+            <!-- Généré dynamiquement -->
+          </div>
+          
+          <!-- Compteur -->
+          <div class="flex items-center justify-between text-sm">
+            <span id="photoCount" class="text-gray-600">0 photo(s) sélectionnée(s)</span>
+            <button type="button" id="clearPhotos" class="text-error hover:underline">Tout effacer</button>
+          </div>
+        </div>
+
+        <!-- Étape 4 avec récapitulatif -->
+        <div id="step4" class="step hidden" data-validate="false">
+          <h2 class="text-xl font-semibold text-dark mb-6">4. Récapitulatif & soumission</h2>
+          
+          <!-- Récapitulatif dynamique -->
+          <div id="summaryContent" class="space-y-6 mb-8">
+            <!-- Généré par JavaScript -->
+          </div>
+          
+          <!-- Consentement légal -->
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="legalConsent" required 
+                     class="mt-1 h-5 w-5 text-primary rounded focus:ring-primary/30"/>
+              <label for="legalConsent" class="text-gray-700">
+                Je certifie que les informations fournies sont exactes et que je suis le propriétaire légitime ou le mandataire autorisé de ce bien. J'accepte les 
+                <a href="#" class="text-primary underline hover:text-primary-dark">Conditions Générales</a> et la 
+                <a href="#" class="text-primary underline hover:text-primary-dark">Politique de Confidentialité</a>.
+                <span class="text-error">*</span>
+              </label>
+            </div>
+            <div id="legalConsentError" class="mt-2 text-sm text-error hidden" role="alert"></div>
+          </div>
+        </div>
+
+        <!-- Navigation améliorée -->
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <button type="button" id="saveDraft" class="text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                <i class="fas fa-save"></i>
+                <span>Enregistrer comme brouillon</span>
+              </button>
+            </div>
+            
+            <div class="flex flex-col-reverse gap-4 sm:flex-row sm:gap-6">
+              <button type="button" id="prevBtn" 
+                      class="py-3 px-6 rounded-xl bg-gray-100 text-gray-800 font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 hidden"
+                      aria-label="Étape précédente">
+                <i class="fas fa-arrow-left"></i>
+                <span>Précédent</span>
+              </button>
+              
+              <button type="button" id="nextBtn" 
+                      class="py-3 px-8 rounded-xl bg-primary text-white font-medium shadow-lg hover:bg-primary-dark transition-all hover:shadow-xl flex items-center justify-center gap-2 min-h-[50px]"
+                      aria-label="Étape suivante">
+                <span id="nextBtnText">Suivant</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Indicateur de sauvegarde automatique -->
+          <div id="autoSaveStatus" class="mt-4 text-sm text-gray-500 flex items-center gap-2 hidden">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <span>Sauvegarde automatique en cours...</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- Modal de confirmation -->
+<div id="confirmationModal" class="fixed inset-0 z-[9999] bg-black/50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full p-6 animate-fadeIn" role="dialog" aria-labelledby="modalTitle">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-success/20 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-check text-2xl text-success"></i>
+      </div>
+      <h3 id="modalTitle" class="text-xl font-semibold text-dark mb-2">Bien publié avec succès !</h3>
+      <p class="text-gray-600 mb-6">Votre annonce est en cours de vérification et sera visible sous 24h.</p>
+      <div class="flex flex-col gap-3">
+        <a href="#" class="py-3 px-6 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+          Voir mon annonce
+        </a>
+        <button id="closeModal" class="py-3 px-6 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+          Publier un autre bien
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript optimisé -->
+<script>
+// Configuration globale
+const CONFIG = {
+  autoSaveDelay: 3000,
+  maxPhotos: 20,
+  maxFileSize: 5 * 1024 * 1024, // 5MB
+  steps: [
+    { id: 1, title: "Informations principales", subtitle: "Type • Surface • Adresse", validate: true },
+    { id: 2, title: "Conditions financières", subtitle: "Loyer • Caution • Durée", validate: true },
+    { id: 3, title: "Description & équipements", subtitle: "Détails • Photos", validate: true },
+    { id: 4, title: "Validation finale", subtitle: "Récapitulatif", validate: false }
+  ]
+};
+
+class PropertyForm {
+  constructor() {
+    this.currentStep = 1;
+    this.formData = new FormData();
+    this.init();
+  }
+
+  init() {
+    this.setupDOM();
+    this.setupEventListeners();
+    this.setupAutoSave();
+    this.updateUI();
+  }
+
+  setupDOM() {
+    // Générer les étapes dynamiquement
+    this.generateSteps();
+    
+    // Initialiser les tooltips
+    this.initTooltips();
+  }
+
+  generateSteps() {
+    const desktopContainer = document.getElementById('desktopSteps');
+    const mobileContainer = document.getElementById('mobileStepsContent');
+    
+    CONFIG.steps.forEach((step, index) => {
+      const stepNumber = index + 1;
+      
+      // Desktop
+      const desktopStep = document.createElement('div');
+      desktopStep.id = `sidebarStep${stepNumber}`;
+      desktopStep.className = `flex items-start gap-4 ${stepNumber === 1 ? 'text-primary font-medium' : 'opacity-60'}`;
+      desktopStep.innerHTML = `
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${stepNumber === 1 ? 'bg-primary text-white' : 'bg-gray-300 text-gray-600'} font-bold transition-all">${stepNumber}</div>
+        <div>
+          <p class="font-medium">${step.title}</p>
+          <p class="text-sm text-gray-600">${step.subtitle}</p>
+        </div>
+      `;
+      desktopContainer.appendChild(desktopStep);
+      
+      // Mobile
+      const mobileStep = document.createElement('div');
+      mobileStep.className = 'flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer';
+      mobileStep.dataset.step = stepNumber;
+      mobileStep.innerHTML = `
+        <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${stepNumber === 1 ? 'bg-primary text-white' : 'bg-gray-200 text-gray-600'} font-bold">${stepNumber}</div>
+        <div class="flex-1">
+          <p class="font-medium text-sm">${step.title}</p>
+          <p class="text-xs text-gray-500">${step.subtitle}</p>
+        </div>
+        ${stepNumber === 1 ? '<i class="fas fa-check text-success"></i>' : ''}
+      `;
+      mobileStep.addEventListener('click', () => this.goToStep(stepNumber));
+      mobileContainer.appendChild(mobileStep);
+    });
+  }
+
+  setupEventListeners() {
+    // Navigation
+    document.getElementById('nextBtn').addEventListener('click', () => this.validateAndGoNext());
+    document.getElementById('prevBtn').addEventListener('click', () => this.goToStep(this.currentStep - 1));
+    document.getElementById('mobileNext').addEventListener('click', () => this.validateAndGoNext());
+    document.getElementById('mobilePrev').addEventListener('click', () => this.goToStep(this.currentStep - 1));
+    
+    // Mobile menu
+    document.getElementById('mobileStepsToggle').addEventListener('click', (e) => {
+      const content = document.getElementById('mobileStepsContent');
+      const icon = e.currentTarget.querySelector('i');
+      const isExpanded = content.classList.toggle('hidden');
+      icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+      e.currentTarget.setAttribute('aria-expanded', !isExpanded);
+    });
+    
+    // Upload de photos
+    this.setupPhotoUpload();
+    
+    // Sauvegarde brouillon
+    document.getElementById('saveDraft').addEventListener('click', () => this.saveDraft());
+    
+    // Gestion du formulaire
+    document.getElementById('propertyForm').addEventListener('submit', (e) => e.preventDefault());
+    
+    // Validation en temps réel
+    this.setupLiveValidation();
+  }
+
+  setupPhotoUpload() {
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('photoUpload');
+    const preview = document.getElementById('imagePreview');
+    const clearBtn = document.getElementById('clearPhotos');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.add('border-primary', 'bg-primary/5');
+      });
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.remove('border-primary', 'bg-primary/5');
+      });
+    });
+    
+    dropZone.addEventListener('drop', (e) => {
+      const files = Array.from(e.dataTransfer.files);
+      this.handleFiles(files);
+    });
+    
+    fileInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      this.handleFiles(files);
+    });
+    
+    clearBtn.addEventListener('click', () => {
+      this.clearPhotos();
+    });
+  }
+
+  handleFiles(files) {
+    const validFiles = files.filter(file => {
+      if (file.size > CONFIG.maxFileSize) {
+        this.showToast(`Fichier trop volumineux: ${file.name}`, 'error');
+        return false;
+      }
+      if (!file.type.startsWith('image/')) {
+        this.showToast(`Format non supporté: ${file.name}`, 'error');
+        return false;
+      }
+      return true;
+    });
+    
+    if (validFiles.length > 0) {
+      this.previewImages(validFiles);
+      this.updatePhotoCount();
+    }
+  }
+
+  previewImages(files) {
+    const preview = document.getElementById('imagePreview');
+    preview.classList.remove('hidden');
+    
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'relative group';
+        imgContainer.innerHTML = `
+          <img src="${e.target.result}" alt="Prévisualisation" class="w-full h-48 object-cover rounded-lg">
+          <button type="button" class="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Supprimer cette photo">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        preview.appendChild(imgContainer);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  setupLiveValidation() {
+    const inputs = document.querySelectorAll('[required]');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => this.validateField(input));
+      input.addEventListener('input', () => this.clearError(input));
+    });
+  }
+
+  validateField(field) {
+    const errorId = `${field.id}Error`;
+    const errorElement = document.getElementById(errorId);
+    
+    if (!field.checkValidity()) {
+      let message = '';
+      if (field.validity.valueMissing) {
+        message = 'Ce champ est obligatoire';
+      } else if (field.validity.rangeUnderflow) {
+        message = `La valeur minimale est ${field.min}`;
+      } else if (field.validity.rangeOverflow) {
+        message = `La valeur maximale est ${field.max}`;
+      }
+      
+      errorElement.textContent = message;
+      errorElement.classList.remove('hidden');
+      field.classList.add('border-error', 'ring-2', 'ring-error/20');
+      return false;
+    }
+    
+    return true;
+  }
+
+  clearError(field) {
+    const errorId = `${field.id}Error`;
+    const errorElement = document.getElementById(errorId);
+    errorElement.classList.add('hidden');
+    field.classList.remove('border-error', 'ring-error/20');
+  }
+
+  validateStep(stepNumber) {
+    const step = document.getElementById(`step${stepNumber}`);
+    if (!step.dataset.validate === 'true') return true;
+    
+    const inputs = step.querySelectorAll('[required]');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+      if (!this.validateField(input)) {
+        isValid = false;
+      }
+    });
+    
+    return isValid;
+  }
+
+  async validateAndGoNext() {
+    if (!this.validateStep(this.currentStep)) {
+      this.showToast('Veuillez corriger les erreurs avant de continuer', 'error');
+      return;
+    }
+    
+    if (this.currentStep < CONFIG.steps.length) {
+      this.goToStep(this.currentStep + 1);
+    } else {
+      await this.submitForm();
+    }
+  }
+
+  goToStep(stepNumber) {
+    if (stepNumber < 1 || stepNumber > CONFIG.steps.length) return;
+    
+    // Animer la transition
+    const currentStepEl = document.getElementById(`step${this.currentStep}`);
+    const nextStepEl = document.getElementById(`step${stepNumber}`);
+    
+    currentStepEl.classList.remove('animate-slideIn');
+    nextStepEl.classList.remove('animate-slideIn');
+    
+    setTimeout(() => {
+      currentStepEl.classList.add('hidden');
+      nextStepEl.classList.remove('hidden');
+      nextStepEl.classList.add('animate-sladeIn');
+      
+      this.currentStep = stepNumber;
+      this.updateUI();
+      
+      // Focus sur le premier champ
+      const firstInput = nextStepEl.querySelector('input, select, textarea');
+      if (firstInput) firstInput.focus();
+    }, 50);
+  }
+
+  updateUI() {
+    const step = CONFIG.steps[this.currentStep - 1];
+    
+    // Mettre à jour les indicateurs
+    document.getElementById('currentStep').textContent = this.currentStep;
+    document.getElementById('currentTitle').textContent = step.title;
+    document.getElementById('mobileCurrentStep').textContent = this.currentStep;
+    document.getElementById('mobileCurrentTitle').textContent = step.title;
+    
+    // Barre de progression
+    const progress = (this.currentStep / CONFIG.steps.length) * 100;
+    document.getElementById('progressBar').style.width = `${progress}%`;
+    document.getElementById('progressBarMobile').style.width = `${progress}%`;
+    
+    // Navigation
+    document.getElementById('prevBtn').classList.toggle('hidden', this.currentStep === 1);
+    document.getElementById('mobilePrev').disabled = this.currentStep === 1;
+    
+    const nextBtn = document.getElementById('nextBtn');
+    const nextText = document.getElementById('nextBtnText');
+    if (this.currentStep === CONFIG.steps.length) {
+      nextText.textContent = 'Publier le bien';
+      nextBtn.classList.add('bg-success', 'hover:bg-success/90');
+      nextBtn.classList.remove('bg-primary', 'hover:bg-primary-dark');
+    } else {
+      nextText.textContent = 'Suivant';
+      nextBtn.classList.remove('bg-success', 'hover:bg-success/90');
+      nextBtn.classList.add('bg-primary', 'hover:bg-primary-dark');
+    }
+    
+    // Mettre à jour la sidebar
+    CONFIG.steps.forEach((s, index) => {
+      const stepNumber = index + 1;
+      const sidebarStep = document.getElementById(`sidebarStep${stepNumber}`);
+      const isActive = stepNumber === this.currentStep;
+      
+      sidebarStep.classList.toggle('text-primary', isActive);
+      sidebarStep.classList.toggle('font-medium', isActive);
+      sidebarStep.classList.toggle('opacity-60', !isActive);
+      
+      const circle = sidebarStep.querySelector('div:first-child');
+      circle.classList.toggle('bg-primary', isActive);
+      circle.classList.toggle('text-white', isActive);
+      circle.classList.toggle('bg-gray-300', !isActive);
+      circle.classList.toggle('text-gray-600', !isActive);
+    });
+    
+    // Mettre à jour l'accessibilité
+    document.querySelector('[role="progressbar"]').setAttribute('aria-valuenow', this.currentStep);
+  }
+
+  setupAutoSave() {
+    let timeout;
+    const form = document.getElementById('propertyForm');
+    
+    form.addEventListener('input', () => {
+      clearTimeout(timeout);
+      document.getElementById('autoSaveStatus').classList.remove('hidden');
+      
+      timeout = setTimeout(() => {
+        this.saveDraft(true);
+        document.getElementById('autoSaveStatus').classList.add('hidden');
+      }, CONFIG.autoSaveDelay);
+    });
+  }
+
+  async saveDraft(isAuto = false) {
+    try {
+      // Simuler une sauvegarde
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      this.showToast(
+        isAuto ? 'Brouillon sauvegardé automatiquement' : 'Brouillon sauvegardé avec succès',
+        'success'
+      );
+    } catch (error) {
+      this.showToast('Erreur lors de la sauvegarde', 'error');
+    }
+  }
+
+  async submitForm() {
+    if (!this.validateStep(4)) {
+      this.showToast('Veuillez accepter les conditions légales', 'error');
+      return;
+    }
+    
+    try {
+      // Simuler une soumission
+      this.showToast('Publication en cours...', 'info');
+      
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Afficher le modal de confirmation
+      this.showConfirmationModal();
+    } catch (error) {
+      this.showToast('Erreur lors de la publication', 'error');
+    }
+  }
+
+  showConfirmationModal() {
+    const modal = document.getElementById('confirmationModal');
+    modal.classList.remove('hidden');
+    
+    document.getElementById('closeModal').addEventListener('click', () => {
+      modal.classList.add('hidden');
+      this.resetForm();
+    });
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        this.resetForm();
+      }
+    });
+  }
+
+  resetForm() {
+    this.currentStep = 1;
+    this.formData = new FormData();
+    document.getElementById('propertyForm').reset();
+    this.clearPhotos();
+    this.updateUI();
+    this.showToast('Formulaire réinitialisé', 'info');
+  }
+
+  showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    
+    const icons = {
+      success: 'fa-check-circle',
+      error: 'fa-exclamation-circle',
+      warning: 'fa-exclamation-triangle',
+      info: 'fa-info-circle'
+    };
+    
+    const colors = {
+      success: 'bg-success',
+      error: 'bg-error',
+      warning: 'bg-warning',
+      info: 'bg-primary'
+    };
+    
+    toast.className = `p-4 rounded-lg shadow-lg text-white animate-fadeIn ${colors[type]}`;
+    toast.innerHTML = `
+      <div class="flex items-center gap-3">
+        <i class="fas ${icons[type]}"></i>
+        <span>${message}</span>
+      </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+      setTimeout(() => toast.remove(), 300);
+    }, 5000);
+  }
+
+  initTooltips() {
+    // Initialiser les tooltips d'aide
+    const tooltipTriggers = document.querySelectorAll('[data-tooltip]');
+    tooltipTriggers.forEach(trigger => {
+      trigger.addEventListener('mouseenter', (e) => {
+        const tooltip = document.createElement('div');
+        tooltip.textContent = e.target.dataset.tooltip;
+        tooltip.className = 'absolute z-50 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg shadow-lg';
+        
+        const rect = e.target.getBoundingClientRect();
+        tooltip.style.top = `${rect.top - 40}px`;
+        tooltip.style.left = `${rect.left}px`;
+        
+        document.body.appendChild(tooltip);
+        e.target._tooltip = tooltip;
+      });
+      
+      trigger.addEventListener('mouseleave', (e) => {
+        if (e.target._tooltip) {
+          e.target._tooltip.remove();
+        }
+      });
+    });
+  }
+
+  clearPhotos() {
+    document.getElementById('imagePreview').innerHTML = '';
+    document.getElementById('imagePreview').classList.add('hidden');
+    document.getElementById('photoUpload').value = '';
+    this.updatePhotoCount();
+  }
+
+  updatePhotoCount() {
+    const preview = document.getElementById('imagePreview');
+    const count = preview.querySelectorAll('img').length;
+    document.getElementById('photoCount').textContent = `${count} photo(s) sélectionnée(s)`;
+  }
+}
+
+// Initialiser l'application
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new PropertyForm();
+  
+  // Service Worker pour le mode hors-ligne
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('Service Worker enregistré'))
+      .catch(err => console.log('Échec d\'enregistrement:', err));
+  }
+});
+</script>
+
+</body>
+</html>
