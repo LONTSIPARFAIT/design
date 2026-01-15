@@ -14,27 +14,155 @@
             primaryDark: '#913327',
             dark: '#1B0B38',
             cream: '#FAF9F5',
-          }
+                                'hc-primary': '#E54801',
+                    'hc-primary-dark': '#913327',
+                    'hc-secondary': '#1B0B38',
+                    'hc-light': '#FAF9F5',
+                    'hc-text': '#333333',
+                    'hc-text-light': '#666666',
+                    'primary': '#E54801',
+                    'primary-dark': '#913327',
+                    'secondary': '#1B0B38',
+                    'light': '#FAF9F5',
+                    'text': '#333333',
+                    'text-light': '#666666',
+                    'footer-bg': '#2c1b3d',
+                    'footer-social': '#4a2c5d',
+                    'gray-300': '#d1d5db',
+                    'gray-400': '#9ca3af',
+                    'gray-500': '#6b7280',
+                    'gray-600': '#4b5563',
+                    'gray-700': '#374151'
+          },
+          
+                fontFamily: {
+                    'inter': ['Inter', 'sans-serif'],
+                },
+                boxShadow: {
+                    'hc': '0 4px 12px rgba(27, 11, 56, 0.1)',
+                    'hc-lg': '0 8px 25px rgba(27, 11, 56, 0.15)',
+                },
+                animation: {
+                    'fadeIn': 'fadeIn 0.5s ease-out',
+                    'bounce': 'bounce 1s infinite',
+                }
         }
       }
     }
   </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    .hc-footer-wrapper * {
+        font-family: 'Inter', sans-serif;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-cream min-h-screen font-sans antialiased text-gray-900">
 
 <!-- ===================== HEADER FIXE ===================== -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-dark text-white shadow-md">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-bold text-white text-xl">
-        HMC
-      </div>
-      <span class="text-xl font-semibold tracking-tight">Home Cameroon</span>
+ <header class="bg-white text-hc-secondary sticky top-0 z-50 shadow-hc py-4 px-4 sm:px-6 lg:px-12 xl:px-20 transition-all duration-300 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 no-underline group">
+            <div class="relative w-13 h-13 md:w-12 md:h-12 lg:w-14 lg:h-14">
+                <img src="img/logo.png" alt="Logo Home Cameroon" width="60"
+                    class=" object-contain group-hover:scale-105 transition-transform duration-300">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-hc-primary/0 to-hc-primary/0 rounded-xl group-hover:from-hc-primary/5 group-hover:to-hc-primary-dark/5 transition-all duration-500">
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-lg lg:text-xl xl:text-2xl font-bold leading-tight tracking-tight">
+                    Home<span class="text-hc-primary">Cameroon</span>
+                </div>
+                <span class="text-xs text-hc-text-light font-medium hidden sm:block">
+                    Votre maison, notre passion
+                </span>
+            </div>
+        </a>
+        
+        <!-- Navigation desktop -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-8 mr-6">
+            <a href="#" class="group relative px-3 py-2">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-home text-sm text-hc-secondary group-hover:text-hc-primary transition-colors duration-300"></i>
+                    <span class="text-hc-secondary group-hover:text-hc-primary font-medium transition-colors duration-300">Accueil</span>
+                </div>
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-hc-primary to-hc-primary-dark group-hover:w-4/5 transition-all duration-300 rounded-full"></div>
+            </a>
+            
+            <a href="#" class="group relative px-3 py-2">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-search text-sm text-hc-secondary group-hover:text-hc-primary transition-colors duration-300"></i>
+                    <span class="text-hc-secondary group-hover:text-hc-primary font-medium transition-colors duration-300">Explorer</span>
+                </div>
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-hc-primary to-hc-primary-dark group-hover:w-4/5 transition-all duration-300 rounded-full"></div>
+            </a>
+            
+            <a href="#" class="group relative px-3 py-2">
+                <div class="flex items-center gap-2">
+                    <div class="relative">
+                        <i class="fas fa-home text-sm text-hc-primary"></i>
+                        <div class="absolute -top-1 -right-1 w-2 h-2 bg-hc-primary rounded-full animate-pulse"></div>
+                    </div>
+                    <span class="text-hc-primary font-semibold">Mes logements</span>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-hc-primary via-hc-primary/70 to-hc-primary-dark rounded-full"></div>
+            </a>
+            
+            <a href="#" class="group relative px-3 py-2">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-question-circle text-sm text-hc-secondary group-hover:text-hc-primary transition-colors duration-300"></i>
+                    <span class="text-hc-secondary group-hover:text-hc-primary font-medium transition-colors duration-300">Aide</span>
+                </div>
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-hc-primary to-hc-primary-dark group-hover:w-4/5 transition-all duration-300 rounded-full"></div>
+            </a>
+        </nav>
+        
+        <!-- Menu utilisateur -->
+        <div class="flex items-center gap-3 sm:gap-4">
+            <!-- Bouton ajouter annonce -->
+            <a href="#" class="hidden sm:flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-hc-primary to-hc-primary-dark text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 shadow-md">
+                <i class="fas fa-plus"></i>
+                <span class="hidden md:inline">Publier</span>
+            </a>
+            
+            <!-- Notification -->
+            <div class="relative group">
+                <button id="bellIcon" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center hover:bg-hc-primary/10 transition-all duration-300 relative border border-gray-200">
+                    <i class="fas fa-bell text-lg text-hc-secondary group-hover:text-hc-primary"></i>
+                    <div class="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-hc-primary to-hc-primary-dark text-white text-xs rounded-full flex items-center justify-center font-bold shadow-lg animate-bounce">2</div>
+                </button>
+            </div>
+            
+            <!-- Avatar desktop -->
+            <div class="hidden lg:block relative group">
+                <button class="flex items-center gap-3 p-1 rounded-xl hover:bg-gray-50 transition-all duration-300 border border-transparent hover:border-gray-200">
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-hc-primary to-hc-primary-dark flex items-center justify-center text-white font-bold shadow-sm border-2 border-white">JD</div>
+                        <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                    </div>
+                    <div class="hidden xl:block text-left">
+                        <p class="text-sm font-semibold text-hc-secondary">John Doe</p>
+                        <p class="text-xs text-hc-text-light">Locataire Premium</p>
+                    </div>
+                    <i class="fas fa-chevron-down text-xs text-hc-text-light group-hover:text-hc-primary transition-colors duration-300"></i>
+                </button>
+            </div>
+            
+            <!-- Menu burger mobile -->
+            <button id="menuBurger" class="lg:hidden relative w-10 h-10 rounded-lg bg-gray-50 flex flex-col items-center justify-center gap-1.5 hover:bg-hc-primary/10 transition-all duration-300 group border border-gray-200">
+                <span class="w-5 h-0.5 bg-hc-secondary rounded-full transition-all duration-300 group-hover:bg-hc-primary group-hover:w-6"></span>
+                <span class="w-5 h-0.5 bg-hc-secondary rounded-full transition-all duration-300 group-hover:bg-hc-primary"></span>
+                <span class="w-5 h-0.5 bg-hc-secondary rounded-full transition-all duration-300 group-hover:bg-hc-primary group-hover:w-6"></span>
+            </button>
+        </div>
     </div>
-    <div class="text-sm opacity-80 hidden sm:block">
-      Publication d'un bien
-    </div>
-  </div>
 </header>
 
 <!-- ===================== BARRE PROGRESSION FIXE (juste sous header) ===================== -->
@@ -185,33 +313,6 @@
                   <option>2 ans renouvelable</option>
                   <option>3 ans renouvelable</option>
                   <option>Non renouvelable</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="mb-1.5 block text-sm font-medium text-gray-700">Date de disponibilité *</label>
-                <input type="date" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30"/>
-              </div>
-
-              <div>
-                <label class="mb-1.5 block text-sm font-medium text-gray-700">Modalités de paiement acceptées *</label>
-                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30">
-                  <option>Mobile Money</option>
-                  <option>Virement bancaire</option>
-                  <option>Espèces</option>
-                  <option>Mixtes (Mobile Money + Espèces)</option>
-                </select>
-              </div>
-
-              <div class="md:col-span-2">
-                <label class="mb-1.5 block text-sm font-medium text-gray-700">Jour d'échéance du loyer chaque mois *</label>
-                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30">
-                  <option>1er du mois</option>
-                  <option>5 du mois</option>
-                  <option>10 du mois</option>
-                  <option>15 du mois</option>
-                  <option>20 du mois</option>
-                  <option>Autre</option>
                 </select>
               </div>
 
@@ -392,7 +493,7 @@
             </div>
 
             <!-- Boutons de soumission -->
-            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+            <div id="step4Buttons" class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
               <button id="btnModifier" class="flex-1 rounded-xl border border-gray-300 px-8 py-4 font-medium text-gray-700 transition hover:bg-gray-50">
                 ← Modifier les informations
               </button>
@@ -447,7 +548,7 @@
             </div>
           </div>
 
-          <!-- Navigation (seulement visible avant l'étape finale) -->
+          <!-- Navigation principale (visible sur étapes 1-3) -->
           <div id="navigationZone" class="mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 sm:flex-row">
             <button id="prevBtn" class="flex-1 rounded-xl bg-gray-200 px-8 py-4 font-medium text-gray-800 transition hover:bg-gray-300 hidden">
               ← Précédent
@@ -460,6 +561,127 @@
       </div>
     </div>
   </div>
+  <div class="hc-footer-wrapper">
+    <footer class="hc-bg-footer-bg hc-text-gray-300 hc-pt-10 hc-pb-6 hc-mt-auto">
+        <div class="hc-container hc-mx-auto hc-px-4">
+            <!-- Contenu principal du footer -->
+            <div class="hc-grid hc-grid-cols-1 md:hc-grid-cols-2 lg:hc-grid-cols-4 hc-gap-8 hc-mb-10">
+                <!-- Colonne 1: Logo et description -->
+                <div>
+                    <div class="hc-text-primary hc-text-3xl hc-font-bold hc-mb-4">Home Cameroon</div>
+                    <p class="hc-text-gray-400 hc-text-sm hc-leading-relaxed">
+                        La plateforme n°1 pour trouver votre logement idéal au Cameroun. 
+                        Studios, chambres, appartements, maisons et villas modernes à Yaoundé, 
+                        Douala et partout au pays.
+                    </p>
+                </div>
+
+                <!-- Colonne 2: Liens rapides -->
+                <div>
+                    <h3 class="hc-text-primary hc-text-lg hc-font-semibold hc-mb-6">Liens rapides</h3>
+                    <ul class="hc-space-y-3">
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Accueil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Catégories
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Toutes les annonces
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Publier une annonce
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                À propos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Colonne 3: Contact -->
+                <div>
+                    <h3 class="hc-text-primary hc-text-lg hc-font-semibold hc-mb-6">Contact</h3>
+                    <div class="hc-space-y-4">
+                        <div class="hc-flex hc-items-start">
+                            <i class="fas fa-phone hc-text-primary hc-mt-1 hc-mr-3"></i>
+                            <span class="hc-text-gray-300">+237 6 99 99 99 99</span>
+                        </div>
+                        <div class="hc-flex hc-items-start">
+                            <i class="fas fa-envelope hc-text-primary hc-mt-1 hc-mr-3"></i>
+                            <span class="hc-text-gray-300">contact@homecameroun.cm</span>
+                        </div>
+                        <div class="hc-flex hc-items-start">
+                            <i class="fas fa-map-marker-alt hc-text-primary hc-mt-1 hc-mr-3"></i>
+                            <span class="hc-text-gray-300">Yaoundé & Douala, Cameroun</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne 4: Réseaux sociaux -->
+                <div>
+                    <h3 class="hc-text-primary hc-text-lg hc-font-semibold hc-mb-6">Suivez-nous</h3>
+                    <div class="hc-flex hc-space-x-4 hc-mb-6">
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                    <div class="hc-flex hc-items-center">
+                        <span class="hc-text-gray-400 hc-text-sm hc-mr-2">Supporté avec fierté au</span>
+                        <span class="hc-text-2xl">🇨🇲</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Séparateur -->
+            <div class="hc-border-t hc-border-gray-700 hc-pt-6">
+                <!-- Section inférieure -->
+                <div class="hc-flex hc-flex-col md:hc-flex-row hc-justify-between hc-items-center">
+                    <div class="hc-text-gray-500 hc-text-sm hc-mb-4 md:hc-mb-0">
+                        © 2025 Home Cameroon - Tous droits réservés.
+                    </div>
+                    
+                    <div class="hc-flex hc-flex-wrap hc-justify-center hc-gap-4 md:hc-gap-6">
+                        <a href="#" class="hc-text-gray-400 hover:hc-text-primary hc-text-sm hc-transition-colors hc-duration-300">
+                            Mentions légales
+                        </a>
+                        <span class="hc-text-gray-600">|</span>
+                        <a href="#" class="hc-text-gray-400 hover:hc-text-primary hc-text-sm hc-transition-colors hc-duration-300">
+                            Politique de confidentialité
+                        </a>
+                        <span class="hc-text-gray-600">|</span>
+                        <a href="#" class="hc-text-gray-400 hover:hc-text-primary hc-text-sm hc-transition-colors hc-duration-300">
+                            Conditions d'utilisation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 </main>
 
 <script>
@@ -474,9 +696,10 @@ const navigationZone = document.getElementById('navigationZone');
 const btnModifier = document.getElementById('btnModifier');
 const btnSoumettre = document.getElementById('btnSoumettre');
 const consentementLegal = document.getElementById('consentementLegal');
+const step4Buttons = document.getElementById('step4Buttons');
 
 let current = 1;
-const totalSteps = 5; // Maintenant 5 étapes avec le récapitulatif
+const totalSteps = 5;
 
 const titles = [
   "Informations principales",
@@ -496,35 +719,47 @@ let formData = {
 // Fonction pour collecter les données
 function collectFormData() {
   // Étape 1
+  const step1Selects = document.querySelectorAll('#step1 select');
+  const step1Inputs = document.querySelectorAll('#step1 input');
+  
   formData.step1 = {
-    type: document.querySelector('#step1 select:nth-child(1)').value,
-    surface: document.querySelector('#step1 input[type="number"]').value,
-    chambres: document.querySelector('#step1 select:nth-child(3)').value,
-    adresse: document.querySelector('#step1 input[type="text"]:nth-child(1)').value,
-    quartier: document.querySelector('#step1 input[type="text"]:nth-child(2)').value,
-    ville: document.querySelector('#step1 input[type="text"]:nth-child(3)').value
+    type: step1Selects[0].value,
+    surface: step1Inputs[0].value,
+    chambres: step1Selects[1].value,
+    adresse: step1Inputs[1].value,
+    quartier: step1Inputs[2].value,
+    ville: step1Inputs[3].value
   };
 
   // Étape 2
-  const step2Inputs = document.querySelectorAll('#step2 input, #step2 select');
+  const step2Inputs = document.querySelectorAll('#step2 input');
+  const step2Selects = document.querySelectorAll('#step2 select');
+  
   formData.step2 = {
     loyer: step2Inputs[0].value,
-    charges: step2Inputs[1].value,
-    caution: step2Inputs[2].value,
-    duree: step2Inputs[3].value,
-    disponibilite: step2Inputs[4].value,
-    paiement: step2Inputs[5].value,
-    echeance: step2Inputs[6].value,
-    fraisAgence: step2Inputs[7].value
+    charges: step2Selects[0].value,
+    caution: step2Inputs[1].value,
+    duree: step2Selects[1].value,
+    disponibilite: step2Inputs[2].value,
+    paiement: step2Selects[2].value,
+    echeance: step2Selects[3].value,
+    fraisAgence: step2Selects[4].value
   };
 
   // Étape 3
+  const step3Checkboxes = document.querySelectorAll('#step3 input[type="checkbox"]:checked');
+  const step3Files = document.querySelectorAll('#step3 input[type="file"]');
+  
   formData.step3 = {
     description: document.querySelector('#step3 textarea').value,
-    equipements: Array.from(document.querySelectorAll('#step3 input[type="checkbox"]:checked'))
-      .map(cb => cb.nextSibling.textContent.trim()),
-    photos: document.querySelector('#step3 input[type="file"]:nth-child(1)').files.length,
-    justificatifs: document.querySelector('#step3 input[type="file"]:nth-child(2)').files.length
+    equipements: Array.from(step3Checkboxes).map(cb => {
+      // Trouver le label correspondant
+      const label = cb.closest('label');
+      return label ? label.textContent.trim() : '';
+    }).filter(text => text !== ''),
+    photos: step3Files[0].files.length,
+    justificatifs: step3Files[1].files.length,
+    infoSupplementaires: document.querySelectorAll('#step3 textarea')[1]?.value || ''
   };
 }
 
@@ -573,39 +808,44 @@ function updateRecap() {
 }
 
 function updateStep() {
+  // Masquer toutes les étapes
   steps.forEach((s, i) => s.classList.toggle('hidden', i + 1 !== current));
 
+  // Mettre à jour l'affichage de l'étape courante
   currentStepEl.textContent = current;
   currentTitleEl.textContent = titles[current - 1];
   progressBar.style.width = `${(current / 4) * 100}%`; // Garder 4 étapes pour la barre de progression
 
-  // Gérer la navigation
-  if (current === 5) {
-    // Étape finale : on cache la zone navigation
-    navigationZone.classList.add('hidden');
-  } else {
-    navigationZone.classList.remove('hidden');
-  }
-
-  // Configurer les boutons selon l'étape
+  // Gérer la visibilité des éléments de navigation
   if (current === 4) {
-    // Étape récapitulatif
+    // Étape récapitulatif : cacher navigation principale, montrer boutons étape 4
+    navigationZone.classList.add('hidden');
+    step4Buttons.classList.remove('hidden');
     updateRecap();
-    prevBtn.classList.remove('hidden');
-    actionBtn.classList.add('hidden');
     btnSoumettre.disabled = !consentementLegal.checked;
-  } else if (current === 3) {
-    actionBtn.textContent = "Vérifier et continuer →";
-    prevBtn.classList.remove('hidden');
-  } else if (current === 2) {
-    actionBtn.textContent = "Suivant →";
-    prevBtn.classList.remove('hidden');
-  } else if (current === 1) {
-    actionBtn.textContent = "Suivant →";
-    prevBtn.classList.add('hidden');
+  } else if (current === 5) {
+    // Étape finale : tout cacher sauf le contenu de l'étape 5
+    navigationZone.classList.add('hidden');
+    step4Buttons.classList.add('hidden');
+  } else {
+    // Étape 1-3 : montrer navigation principale, cacher boutons étape 4
+    navigationZone.classList.remove('hidden');
+    step4Buttons.classList.add('hidden');
+    
+    // Configurer les boutons selon l'étape
+    if (current === 3) {
+      actionBtn.textContent = "Vérifier et continuer →";
+      prevBtn.classList.remove('hidden');
+    } else if (current === 2) {
+      actionBtn.textContent = "Suivant →";
+      prevBtn.classList.remove('hidden');
+    } else if (current === 1) {
+      actionBtn.textContent = "Suivant →";
+      prevBtn.classList.add('hidden');
+    }
   }
 
-  // Sidebar (seulement sur desktop)
+  // Mettre à jour la sidebar (seulement sur desktop)
   document.querySelectorAll('[id^="sidebarStep"]').forEach((item, i) => {
     const active = i + 1 === current;
     item.classList.toggle('opacity-60', !active);
@@ -654,10 +894,13 @@ btnSoumettre.addEventListener('click', () => {
 });
 
 consentementLegal.addEventListener('change', () => {
-  btnSoumettre.disabled = !consentementLegal.checked;
+  if (btnSoumettre) {
+    btnSoumettre.disabled = !consentementLegal.checked;
+  }
 });
 
-updateStep(); // initialisation
+// Initialisation
+updateStep();
 </script>
 
 </body>

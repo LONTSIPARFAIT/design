@@ -1,0 +1,163 @@
+<!-- 
+  COMPOSANT FOOTER HOME CAMEROON - AVEC PRÉFIXE
+  Encapsulé pour éviter les conflits CSS
+-->
+
+<!-- Configuration Tailwind + préfixe personnalisé -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        prefix: 'hc-',
+        theme: {
+            extend: {
+                colors: {
+                    'primary': '#E54801',
+                    'primary-dark': '#913327',
+                    'secondary': '#1B0B38',
+                    'light': '#FAF9F5',
+                    'text': '#333333',
+                    'text-light': '#666666',
+                    'footer-bg': '#2c1b3d',
+                    'footer-social': '#4a2c5d',
+                    'gray-300': '#d1d5db',
+                    'gray-400': '#9ca3af',
+                    'gray-500': '#6b7280',
+                    'gray-600': '#4b5563',
+                    'gray-700': '#374151'
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    .hc-footer-wrapper * {
+        font-family: 'Inter', sans-serif;
+    }
+</style>
+
+<div class="hc-footer-wrapper">
+    <footer class="hc-bg-footer-bg hc-text-gray-300 hc-pt-10 hc-pb-6 hc-mt-auto">
+        <div class="hc-container hc-mx-auto hc-px-4">
+            <!-- Contenu principal du footer -->
+            <div class="hc-grid hc-grid-cols-1 md:hc-grid-cols-2 lg:hc-grid-cols-4 hc-gap-8 hc-mb-10">
+                <!-- Colonne 1: Logo et description -->
+                <div>
+                    <div class="hc-text-primary hc-text-3xl hc-font-bold hc-mb-4">Home Cameroon</div>
+                    <p class="hc-text-gray-400 hc-text-sm hc-leading-relaxed">
+                        La plateforme n°1 pour trouver votre logement idéal au Cameroun. 
+                        Studios, chambres, appartements, maisons et villas modernes à Yaoundé, 
+                        Douala et partout au pays.
+                    </p>
+                </div>
+
+                <!-- Colonne 2: Liens rapides -->
+                <div>
+                    <h3 class="hc-text-primary hc-text-lg hc-font-semibold hc-mb-6">Liens rapides</h3>
+                    <ul class="hc-space-y-3">
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Accueil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Catégories
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Toutes les annonces
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Publier une annonce
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                À propos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hc-text-gray-300 hover:hc-text-primary hc-transition-colors hc-duration-300">
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Colonne 3: Contact -->
+                <div>
+                    <h3 class="hc-text-primary hc-text-lg hc-font-semibold hc-mb-6">Contact</h3>
+                    <div class="hc-space-y-4">
+                        <div class="hc-flex hc-items-start">
+                            <i class="fas fa-phone hc-text-primary hc-mt-1 hc-mr-3"></i>
+                            <span class="hc-text-gray-300">+237 6 99 99 99 99</span>
+                        </div>
+                        <div class="hc-flex hc-items-start">
+                            <i class="fas fa-envelope hc-text-primary hc-mt-1 hc-mr-3"></i>
+                            <span class="hc-text-gray-300">contact@homecameroun.cm</span>
+                        </div>
+                        <div class="hc-flex hc-items-start">
+                            <i class="fas fa-map-marker-alt hc-text-primary hc-mt-1 hc-mr-3"></i>
+                            <span class="hc-text-gray-300">Yaoundé & Douala, Cameroun</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne 4: Réseaux sociaux -->
+                <div>
+                    <h3 class="hc-text-primary hc-text-lg hc-font-semibold hc-mb-6">Suivez-nous</h3>
+                    <div class="hc-flex hc-space-x-4 hc-mb-6">
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="hc-w-12 hc-h-12 hc-bg-footer-social hc-rounded-full hc-flex hc-items-center hc-justify-center hc-text-white hover:hc-bg-primary hc-transition-all hc-duration-300 hc-transform hover:hc--translate-y-1">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                    <div class="hc-flex hc-items-center">
+                        <span class="hc-text-gray-400 hc-text-sm hc-mr-2">Supporté avec fierté au</span>
+                        <span class="hc-text-2xl">🇨🇲</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Séparateur -->
+            <div class="hc-border-t hc-border-gray-700 hc-pt-6">
+                <!-- Section inférieure -->
+                <div class="hc-flex hc-flex-col md:hc-flex-row hc-justify-between hc-items-center">
+                    <div class="hc-text-gray-500 hc-text-sm hc-mb-4 md:hc-mb-0">
+                        © 2025 Home Cameroon - Tous droits réservés.
+                    </div>
+                    
+                    <div class="hc-flex hc-flex-wrap hc-justify-center hc-gap-4 md:hc-gap-6">
+                        <a href="#" class="hc-text-gray-400 hover:hc-text-primary hc-text-sm hc-transition-colors hc-duration-300">
+                            Mentions légales
+                        </a>
+                        <span class="hc-text-gray-600">|</span>
+                        <a href="#" class="hc-text-gray-400 hover:hc-text-primary hc-text-sm hc-transition-colors hc-duration-300">
+                            Politique de confidentialité
+                        </a>
+                        <span class="hc-text-gray-600">|</span>
+                        <a href="#" class="hc-text-gray-400 hover:hc-text-primary hc-text-sm hc-transition-colors hc-duration-300">
+                            Conditions d'utilisation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Lien Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

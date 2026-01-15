@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Publier un bien - Home Cameroon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#E54801',
+            primaryDark: '#913327',
+            dark: '#1B0B38',
+            cream: '#FAF9F5',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .progress-bar-animated {
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #E54801;
+      border-radius: 10px;
+    }
+    
+    @media (max-width: 640px) {
+      .mobile-compact-header {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      
+      .mobile-compact-progress {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-cream min-h-screen font-sans antialiased text-gray-900">
+
+<!-- ===================== HEADER FIXE ===================== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark text-white shadow-md mobile-compact-header">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2 sm:gap-3">
+      <div class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center font-bold text-white text-sm sm:text-xl">
+        HMC
+      </div>
+      <div class="flex flex-col sm:block">
+        <span class="text-lg sm:text-xl font-semibold tracking-tight leading-tight">Home Cameroon</span>
+        <span class="text-xs sm:hidden text-gray-300 mt-0.5">Publication</span>
+      </div>
+    </div>
+    
+    <div class="sm:hidden flex items-center gap-2">
+      <span class="text-xs bg-primary/20 px-2 py-1 rounded-full">Étape 1/4</span>
+    </div>
+    
+    <div class="hidden sm:block text-sm opacity-90">
+      Publication d'un bien
+    </div>
+  </div>
+</header>
+
+<!-- ===================== BARRE PROGRESSION FIXE ===================== -->
+<div class="fixed top-[64px] sm:top-[76px] left-0 right-0 z-40 bg-dark/95 backdrop-blur-sm border-t border-primary/30 mobile-compact-progress">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    
+    <!-- Version mobile compacte -->
+    <div class="sm:hidden">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full bg-primary text-white text-xs font-bold">
+            Étape <span id="currentStepMobile">1</span>/4
+          </span>
+          <span id="currentTitleMobile" class="text-gray-200 text-sm font-medium truncate max-w-[140px]">
+            Informations principales
+          </span>
+        </div>
+        <div class="text-xs text-gray-400">
+          <span id="progressPercentMobile">25%</span>
+        </div>
+      </div>
+      <div class="w-full h-1.5 overflow-hidden rounded-full bg-gray-700/60">
+        <div id="progressBarMobile" class="h-full bg-primary progress-bar-animated w-1/4"></div>
+      </div>
+    </div>
+    
+    <!-- Version tablette/desktop -->
+    <div class="hidden sm:block">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+        <div class="flex items-center gap-3 font-medium">
+          <span class="px-4 py-1.5 rounded-full bg-primary text-white font-bold">
+            Étape <span id="currentStep">1</span>/4
+          </span>
+          <span id="currentTitle" class="text-gray-200">Informations principales</span>
+        </div>
+
+        <div class="flex-1 max-w-md">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs text-gray-300">Progression</span>
+            <span class="text-xs font-medium text-primary">25%</span>
+          </div>
+          <div class="w-full h-2 overflow-hidden rounded-full bg-gray-700/60">
+            <div id="progressBar" class="h-full bg-primary progress-bar-animated w-1/4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONTENU PRINCIPAL ===================== -->
+<main class="pt-32 sm:pt-40 lg:pt-44 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-12">
+
+    <!-- ===================== SIDEBAR MOBILE/TABLETTE ===================== -->
+    <div class="lg:hidden mb-6">
+      <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+        <h3 class="text-base font-semibold text-dark mb-4">Étapes de publication</h3>
+        
+        <div class="flex overflow-x-auto pb-2 -mx-1 custom-scrollbar">
+          <div class="flex space-x-3 px-1">
+            <div id="mobileStep1" class="flex-shrink-0 w-40 flex items-start gap-3 p-3 rounded-lg border bg-primary/5 border-primary/30">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-white text-sm">1</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-dark truncate">Infos principales</p>
+                <p class="text-xs text-gray-600 truncate">Type • Surface • Adresse</p>
+              </div>
+            </div>
+            
+            <div id="mobileStep2" class="flex-shrink-0 w-40 flex items-start gap-3 p-3 rounded-lg border border-gray-200 opacity-70">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-200 font-bold text-gray-600 text-sm">2</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-700 truncate">Conditions financières</p>
+                <p class="text-xs text-gray-500 truncate">Loyer • Caution • Durée</p>
+              </div>
+            </div>
+            
+            <div id="mobileStep3" class="flex-shrink-0 w-40 flex items-start gap-3 p-3 rounded-lg border border-gray-200 opacity-70">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-200 font-bold text-gray-600 text-sm">3</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-700 truncate">Description</p>
+                <p class="text-xs text-gray-500 truncate">Détails • Photos</p>
+              </div>
+            </div>
+            
+            <div id="mobileStep4" class="flex-shrink-0 w-40 flex items-start gap-3 p-3 rounded-lg border border-gray-200 opacity-70">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-200 font-bold text-gray-600 text-sm">4</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-700 truncate">Validation</p>
+                <p class="text-xs text-gray-500 truncate">Récapitulatif</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ===================== SIDEBAR DESKTOP ===================== -->
+    <aside class="hidden lg:block lg:w-80 xl:w-96 order-2 lg:order-1">
+      <div class="sticky top-44 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h3 class="mb-8 text-lg font-semibold text-dark">Étapes de publication</h3>
+
+        <div class="space-y-6">
+          <div id="sidebarStep1" class="flex items-start gap-4 text-primary font-medium">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-white">1</div>
+            <div><p>Informations principales</p><p class="text-sm text-gray-600">Type • Surface • Adresse</p></div>
+          </div>
+
+          <div id="sidebarStep2" class="flex items-start gap-4 opacity-60">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-300 font-bold text-gray-600">2</div>
+            <div><p>Conditions financières</p><p class="text-sm text-gray-600">Loyer • Caution • Durée</p></div>
+          </div>
+
+          <div id="sidebarStep3" class="flex items-start gap-4 opacity-60">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-300 font-bold text-gray-600">3</div>
+            <div><p>Description & équipements</p><p class="text-sm text-gray-600">Détails • Photos</p></div>
+          </div>
+
+          <div id="sidebarStep4" class="flex items-start gap-4 opacity-60">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-300 font-bold text-gray-600">4</div>
+            <div><p>Validation finale</p><p class="text-sm text-gray-600">Récapitulatif</p></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===================== ZONE FORMULAIRE ===================== -->
+    <div class="flex-1 order-1 lg:order-2">
+      <!-- Warning légal -->
+      <div class="mb-8 sm:mb-10 rounded-xl sm:rounded-r-xl border-l-4 border-red-600 bg-red-50 p-4 sm:p-5 lg:p-6">
+        <div class="flex items-start gap-3">
+          <div class="hidden sm:block w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <p class="text-sm sm:text-base font-medium leading-relaxed text-red-800">
+            <strong class="block sm:inline">Attention :</strong> Les informations saisies seront utilisées pour générer automatiquement le contrat de bail conforme à la loi camerounaise. Vous ne pourrez pas modifier les clauses principales par la suite.
+          </p>
+        </div>
+      </div>
+
+      <!-- Formulaire complet -->
+      <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div class="p-5 sm:p-6 lg:p-8">
+          
+          <!-- Étape 1 -->
+          <div id="step1" class="step space-y-6 sm:space-y-8">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="text-primary font-bold">1</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-semibold text-dark">Informations principales du bien</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Type de bien *</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option value="">Sélectionner...</option>
+                  <option>Appartement</option>
+                  <option>Studio</option>
+                  <option>Chambre meublée</option>
+                  <option>Maison</option>
+                  <option>Duplex</option>
+                  <option>Villa</option>
+                  <option>Local commercial</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Surface habitable (m²) *</label>
+                <input type="number" min="10" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="ex: 85"/>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Nombre de chambres</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option value="">Choisir</option>
+                  <option>Studio</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4+</option>
+                </select>
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Adresse complète exacte *</label>
+                <input type="text" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="ex: Bonapriso, Rue 5.023, Douala"/>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Quartier / Arrondissement *</label>
+                <input type="text" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="ex: Akwa, Bonaberi, Makepe..."/>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Ville *</label>
+                <input type="text" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="Douala / Yaoundé / Buea..."/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Étape 2 -->
+          <div id="step2" class="step hidden space-y-6 sm:space-y-8">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="text-primary font-bold">2</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-semibold text-dark">Conditions financières</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Loyer mensuel (FCFA) *</label>
+                <input type="number" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="ex: 250000"/>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Charges comprises dans le loyer ?</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option>Non (loyer seul)</option>
+                  <option>Oui (loyer + charges)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Montant de la caution (FCFA) *</label>
+                <input type="number" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="ex: 500000"/>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Durée du bail *</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option>6 mois renouvelable</option>
+                  <option>1 an renouvelable</option>
+                  <option>2 ans renouvelable</option>
+                  <option>3 ans renouvelable</option>
+                  <option>Non renouvelable</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Date de disponibilité *</label>
+                <input type="date" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base"/>
+              </div>
+
+              <div>
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Modalités de paiement acceptées *</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option>Mobile Money</option>
+                  <option>Virement bancaire</option>
+                  <option>Espèces</option>
+                  <option>Mixtes (Mobile Money + Espèces)</option>
+                </select>
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Jour d'échéance du loyer chaque mois *</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option>1er du mois</option>
+                  <option>5 du mois</option>
+                  <option>10 du mois</option>
+                  <option>15 du mois</option>
+                  <option>20 du mois</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="mb-1.5 block text-sm font-medium text-gray-700">Frais d'agence inclus dans le premier loyer ?</label>
+                <select class="w-full rounded-lg border-gray-300 px-4 py-3 text-gray-700 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base">
+                  <option>Non, frais d'agence à part</option>
+                  <option>Oui, frais d'agence inclus (1 mois de loyer)</option>
+                  <option>Pas de frais d'agence</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Étape 3 -->
+          <div id="step3" class="step hidden space-y-6 sm:space-y-8">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="text-primary font-bold">3</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-semibold text-dark">Description, équipements & documents</h2>
+            </div>
+            
+            <div class="space-y-6 sm:space-y-8">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description détaillée *</label>
+                <textarea rows="4" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="État général du bien, étage, vue, proximité des commodités, sécurité du quartier, etc."></textarea>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-3">Équipements inclus</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-sm">
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Climatisation</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Eau chaude</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Électricité incluse</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Parking</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Meublé</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Cuisine équipée</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Gardien</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Ascenseur</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Balcon / Terrasse</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Jardin</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Piscine</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Internet/Wi-Fi</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Clôture/Sécurité</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Eau courante 24h/24</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Chauffage</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="text-primary rounded"/> Buanderie</label>
+                </div>
+              </div>
+
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Photos du bien (au moins 5 fortement recommandées) *</label>
+                  <input type="file" multiple accept="image/*" class="w-full rounded-lg border-gray-300 px-4 py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition"/>
+                  <p class="text-xs text-gray-500 mt-2">Formats acceptés : JPG, PNG, JPEG. Max 5MB par photo.</p>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Justificatifs de propriété (titre foncier, attestation notariée, etc.) *</label>
+                  <input type="file" multiple class="w-full rounded-lg border-gray-300 px-4 py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition"/>
+                  <p class="text-xs text-gray-500 mt-2">PDF, JPG, PNG. Max 10MB par fichier.</p>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Plan cadastral ou plan du bien (optionnel mais recommandé)</label>
+                  <input type="file" class="w-full rounded-lg border-gray-300 px-4 py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition"/>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Informations supplémentaires pour les locataires</label>
+                <textarea rows="3" class="w-full rounded-lg border-gray-300 px-4 py-3 shadow-sm focus:border-primary focus:ring-primary/30 text-sm sm:text-base" placeholder="Ex: Animaux acceptés, fumeurs acceptés, règles de copropriété, etc."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Étape 4 - Récapitulatif -->
+          <div id="step4" class="step hidden space-y-6 sm:space-y-8">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="text-primary font-bold">4</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-semibold text-dark">Récapitulatif & validation</h2>
+            </div>
+            
+            <!-- Avertissement final -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 sm:p-6 rounded-r-xl">
+              <p class="text-yellow-800 font-medium leading-relaxed text-sm sm:text-base">
+                <strong>Dernière vérification :</strong> Veuillez confirmer que toutes les informations ci-dessous sont exactes avant soumission.
+              </p>
+            </div>
+
+            <!-- Récapitulatif des informations -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div class="space-y-4 sm:space-y-6">
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl">
+                  <h3 class="font-semibold text-dark mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                    <span class="w-5 h-5 sm:w-6 sm:h-6 bg-primary/20 rounded-full flex items-center justify-center text-primary text-xs">1</span>
+                    Informations du bien
+                  </h3>
+                  <div class="space-y-2 text-xs sm:text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Type de bien:</span>
+                      <span class="font-medium" id="recap-type">-</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Surface:</span>
+                      <span class="font-medium" id="recap-surface">- m²</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Chambres:</span>
+                      <span class="font-medium" id="recap-chambres">-</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Adresse:</span>
+                      <span class="font-medium text-right" id="recap-adresse">-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl">
+                  <h3 class="font-semibold text-dark mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                    <span class="w-5 h-5 sm:w-6 sm:h-6 bg-primary/20 rounded-full flex items-center justify-center text-primary text-xs">3</span>
+                    Équipements
+                  </h3>
+                  <div id="recap-equipements" class="text-xs sm:text-sm text-gray-700">
+                    <p class="text-gray-500 italic">Aucun équipement sélectionné</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4 sm:space-y-6">
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl">
+                  <h3 class="font-semibold text-dark mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                    <span class="w-5 h-5 sm:w-6 sm:h-6 bg-primary/20 rounded-full flex items-center justify-center text-primary text-xs">2</span>
+                    Conditions financières
+                  </h3>
+                  <div class="space-y-2 text-xs sm:text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Loyer mensuel:</span>
+                      <span class="font-medium" id="recap-loyer">- FCFA</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Caution:</span>
+                      <span class="font-medium" id="recap-caution">- FCFA</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Durée bail:</span>
+                      <span class="font-medium" id="recap-duree">-</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Disponibilité:</span>
+                      <span class="font-medium" id="recap-disponibilite">-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl">
+                  <h3 class="font-semibold text-dark mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                    <span class="w-5 h-5 sm:w-6 sm:h-6 bg-primary/20 rounded-full flex items-center justify-center text-primary text-xs">4</span>
+                    Documents
+                  </h3>
+                  <div class="text-xs sm:text-sm text-gray-700">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span>Photos: <span id="recap-photos">0</span> téléchargées</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span>Justificatifs: <span id="recap-justificatifs">0</span> téléchargés</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section consentement -->
+            <div class="bg-blue-50 p-4 sm:p-6 rounded-xl border border-blue-200">
+              <div class="flex items-start gap-3">
+                <input type="checkbox" id="consentementLegal" class="mt-1 h-4 w-4 sm:h-5 sm:w-5 text-primary rounded focus:ring-primary/30">
+                <label for="consentementLegal" class="text-gray-700 text-xs sm:text-sm">
+                  <span class="font-semibold">Je certifie que les informations fournies sont exactes</span> et que je suis le propriétaire légitime ou le mandataire autorisé de ce bien. 
+                  J'accepte que ces informations soient utilisées pour générer un contrat de bail conforme à la législation camerounaise.
+                </label>
+              </div>
+            </div>
+
+            <!-- Boutons de soumission -->
+            <div id="step4Buttons" class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+              <button id="btnModifier" class="flex-1 rounded-xl border border-gray-300 px-6 py-3 sm:px-8 sm:py-4 font-medium text-gray-700 transition hover:bg-gray-50 text-sm sm:text-base">
+                ← Modifier les informations
+              </button>
+              <button id="btnSoumettre" class="flex-1 rounded-xl bg-primary px-6 py-3 sm:px-8 sm:py-4 font-medium text-white shadow-md transition hover:bg-primaryDark disabled:bg-gray-400 disabled:cursor-not-allowed text-sm sm:text-base">
+                Soumettre pour validation
+              </button>
+            </div>
+          </div>
+
+          <!-- Étape 5 - Confirmation -->
+          <div id="step5" class="step hidden space-y-6 sm:space-y-8">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h2 class="text-lg sm:text-xl font-semibold text-dark">Soumission en attente de validation</h2>
+            </div>
+            
+            <div class="bg-green-50 border-l-4 border-green-600 p-4 sm:p-6 rounded-r-xl">
+              <div class="flex items-start gap-3 sm:gap-4">
+                <div class="hidden sm:block w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 sm:w-6 sm:h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-green-800 font-medium leading-relaxed text-sm sm:text-base">
+                    <strong>Votre bien a bien été soumis à l'équipe Home Cameroon !</strong><br><br>
+                    Il est actuellement en cours de vérification (photos, localisation, justificatifs de propriété...).<br>
+                    Une fois validé, il sera automatiquement publié sur la plateforme et visible par les potentiels locataires.
+                  </p>
+                  <div class="mt-3 sm:mt-4 text-xs sm:text-sm text-green-700 space-y-1">
+                    <p>• Référence du bien: <span class="font-mono font-bold">HMC-2024-</span><span id="referenceNumber">0001</span></p>
+                    <p>• Date de soumission: <span id="dateSoumission">-</span></p>
+                    <p>• Temps de traitement estimé: 24-48 heures</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center space-y-4 mt-8 sm:mt-10">
+              <button disabled class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 rounded-xl bg-gray-400 text-white font-medium cursor-not-allowed shadow text-sm sm:text-base w-full sm:w-auto">
+                <svg class="animate-spin -ml-1 mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                En cours de validation...
+              </button>
+              <p class="text-xs sm:text-sm text-gray-600">
+                Vous recevrez un email de confirmation et une notification lorsque votre bien sera publié.
+              </p>
+              <div class="pt-4 sm:pt-6">
+                <a href="#" class="text-primary hover:text-primaryDark font-medium underline text-sm sm:text-base">
+                  ← Retour à l'accueil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation principale (visible sur étapes 1-3) -->
+          <div id="navigationZone" class="mt-8 sm:mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 sm:flex-row">
+            <button id="prevBtn" class="flex-1 rounded-xl bg-gray-200 px-6 py-3 sm:px-8 sm:py-4 font-medium text-gray-800 transition hover:bg-gray-300 hidden text-sm sm:text-base">
+              ← Précédent
+            </button>
+            <button id="actionBtn" class="flex-1 rounded-xl bg-primary px-6 py-3 sm:px-8 sm:py-4 font-medium text-white shadow-md transition hover:bg-primaryDark text-sm sm:text-base">
+              Suivant →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// Gestion des étapes
+const steps = document.querySelectorAll('.step');
+const progressBar = document.getElementById('progressBar');
+const progressBarMobile = document.getElementById('progressBarMobile');
+const currentStepEl = document.getElementById('currentStep');
+const currentStepMobileEl = document.getElementById('currentStepMobile');
+const currentTitleEl = document.getElementById('currentTitle');
+const currentTitleMobileEl = document.getElementById('currentTitleMobile');
+const progressPercentMobile = document.getElementById('progressPercentMobile');
+const prevBtn = document.getElementById('prevBtn');
+const actionBtn = document.getElementById('actionBtn');
+const navigationZone = document.getElementById('navigationZone');
+const btnModifier = document.getElementById('btnModifier');
+const btnSoumettre = document.getElementById('btnSoumettre');
+const consentementLegal = document.getElementById('consentementLegal');
+const step4Buttons = document.getElementById('step4Buttons');
+
+let current = 1;
+const totalSteps = 5;
+
+const titles = [
+  "Informations principales",
+  "Conditions financières", 
+  "Description & équipements",
+  "Récapitulatif & validation",
+  "Soumission en attente"
+];
+
+// Stocker les données du formulaire
+let formData = {
+  step1: {},
+  step2: {},
+  step3: {}
+};
+
+// Fonction pour collecter les données
+function collectFormData() {
+  // Étape 1
+  const step1Selects = document.querySelectorAll('#step1 select');
+  const step1Inputs = document.querySelectorAll('#step1 input');
+  
+  formData.step1 = {
+    type: step1Selects[0].value,
+    surface: step1Inputs[0].value,
+    chambres: step1Selects[1].value,
+    adresse: step1Inputs[1].value,
+    quartier: step1Inputs[2].value,
+    ville: step1Inputs[3].value
+  };
+
+  // Étape 2
+  const step2Inputs = document.querySelectorAll('#step2 input');
+  const step2Selects = document.querySelectorAll('#step2 select');
+  
+  formData.step2 = {
+    loyer: step2Inputs[0].value,
+    charges: step2Selects[0].value,
+    caution: step2Inputs[1].value,
+    duree: step2Selects[1].value,
+    disponibilite: step2Inputs[2].value,
+    paiement: step2Selects[2].value,
+    echeance: step2Selects[3].value,
+    fraisAgence: step2Selects[4].value
+  };
+
+  // Étape 3
+  const step3Checkboxes = document.querySelectorAll('#step3 input[type="checkbox"]:checked');
+  const step3Files = document.querySelectorAll('#step3 input[type="file"]');
+  
+  formData.step3 = {
+    description: document.querySelector('#step3 textarea').value,
+    equipements: Array.from(step3Checkboxes).map(cb => {
+      const label = cb.closest('label');
+      return label ? label.textContent.trim() : '';
+    }).filter(text => text !== ''),
+    photos: step3Files[0].files.length,
+    justificatifs: step3Files[1].files.length,
+    infoSupplementaires: document.querySelectorAll('#step3 textarea')[1]?.value || ''
+  };
+}
+
+// Fonction pour mettre à jour le récapitulatif
+function updateRecap() {
+  collectFormData();
+  
+  // Informations du bien
+  document.getElementById('recap-type').textContent = formData.step1.type || '-';
+  document.getElementById('recap-surface').textContent = formData.step1.surface ? formData.step1.surface + ' m²' : '-';
+  document.getElementById('recap-chambres').textContent = formData.step1.chambres || '-';
+  document.getElementById('recap-adresse').textContent = formData.step1.adresse ? 
+    formData.step1.adresse + ', ' + formData.step1.quartier + ', ' + formData.step1.ville : '-';
+  
+  // Conditions financières
+  document.getElementById('recap-loyer').textContent = formData.step2.loyer ? 
+    parseInt(formData.step2.loyer).toLocaleString('fr-FR') + ' FCFA' : '-';
+  document.getElementById('recap-caution').textContent = formData.step2.caution ? 
+    parseInt(formData.step2.caution).toLocaleString('fr-FR') + ' FCFA' : '-';
+  document.getElementById('recap-duree').textContent = formData.step2.duree || '-';
+  document.getElementById('recap-disponibilite').textContent = formData.step2.disponibilite || '-';
+  
+  // Équipements
+  const equipementsDiv = document.getElementById('recap-equipements');
+  if (formData.step3.equipements && formData.step3.equipements.length > 0) {
+    equipementsDiv.innerHTML = '<div class="flex flex-wrap gap-1 sm:gap-2">' +
+      formData.step3.equipements.map(eq => 
+        `<span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">${eq}</span>`
+      ).join('') + '</div>';
+  } else {
+    equipementsDiv.innerHTML = '<p class="text-gray-500 italic">Aucun équipement sélectionné</p>';
+  }
+  
+  // Documents
+  document.getElementById('recap-photos').textContent = formData.step3.photos || '0';
+  document.getElementById('recap-justificatifs').textContent = formData.step3.justificatifs || '0';
+  
+  // Date de soumission
+  const now = new Date();
+  document.getElementById('dateSoumission').textContent = 
+    now.toLocaleDateString('fr-FR') + ' à ' + now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  
+  // Numéro de référence aléatoire
+  document.getElementById('referenceNumber').textContent = 
+    Math.floor(1000 + Math.random() * 9000);
+}
+
+function updateStep() {
+  // Masquer toutes les étapes
+  steps.forEach((s, i) => s.classList.toggle('hidden', i + 1 !== current));
+
+  // Mettre à jour l'affichage de l'étape courante
+  const progressPercent = Math.round((current / 4) * 100);
+  
+  // Desktop
+  currentStepEl.textContent = current;
+  currentTitleEl.textContent = titles[current - 1];
+  progressBar.style.width = `${progressPercent}%`;
+  
+  // Mobile
+  currentStepMobileEl.textContent = current;
+  currentTitleMobileEl.textContent = titles[current - 1];
+  progressBarMobile.style.width = `${progressPercent}%`;
+  progressPercentMobile.textContent = `${progressPercent}%`;
+
+  // Gérer la visibilité des éléments de navigation
+  if (current === 4) {
+    // Étape récapitulatif : cacher navigation principale, montrer boutons étape 4
+    navigationZone.classList.add('hidden');
+    step4Buttons.classList.remove('hidden');
+    updateRecap();
+    btnSoumettre.disabled = !consentementLegal.checked;
+  } else if (current === 5) {
+    // Étape finale : tout cacher sauf le contenu de l'étape 5
+    navigationZone.classList.add('hidden');
+    step4Buttons.classList.add('hidden');
+  } else {
+    // Étape 1-3 : montrer navigation principale, cacher boutons étape 4
+    navigationZone.classList.remove('hidden');
+    step4Buttons.classList.add('hidden');
+    
+    // Configurer les boutons selon l'étape
+    if (current === 3) {
+      actionBtn.textContent = "Vérifier et continuer →";
+      prevBtn.classList.remove('hidden');
+    } else if (current === 2) {
+      actionBtn.textContent = "Suivant →";
+      prevBtn.classList.remove('hidden');
+    } else if (current === 1) {
+      actionBtn.textContent = "Suivant →";
+      prevBtn.classList.add('hidden');
+    }
+  }
+
+  // Mettre à jour les indicateurs visuels
+  updateStepIndicators();
+}
+
+function updateStepIndicators() {
+  // Desktop sidebar
+  document.querySelectorAll('[id^="sidebarStep"]').forEach((item, i) => {
+    const active = i + 1 === current;
+    item.classList.toggle('opacity-60', !active);
+    item.classList.toggle('text-primary', active);
+    item.classList.toggle('font-medium', active);
+    const circle = item.querySelector('div:first-child');
+    circle.classList.toggle('bg-primary', active);
+    circle.classList.toggle('text-white', active);
+    circle.classList.toggle('bg-gray-300', !active);
+    circle.classList.toggle('text-gray-600', !active);
+  });
+
+  // Mobile steps
+  document.querySelectorAll('[id^="mobileStep"]').forEach((item, i) => {
+    const active = i + 1 === current;
+    if (active) {
+      item.classList.add('bg-primary/5', 'border-primary/30');
+      item.classList.remove('border-gray-200', 'opacity-70');
+      const circle = item.querySelector('div:first-child');
+      circle.classList.add('bg-primary', 'text-white');
+      circle.classList.remove('bg-gray-200', 'text-gray-600');
+    } else {
+      item.classList.remove('bg-primary/5', 'border-primary/30');
+      item.classList.add('border-gray-200', 'opacity-70');
+      const circle = item.querySelector('div:first-child');
+      circle.classList.remove('bg-primary', 'text-white');
+      circle.classList.add('bg-gray-200', 'text-gray-600');
+    }
+  });
+}
+
+// Événements
+actionBtn.addEventListener('click', () => {
+  if (current < 4) {
+    current++;
+    updateStep();
+  }
+});
+
+prevBtn.addEventListener('click', () => {
+  if (current > 1) {
+    current--;
+    updateStep();
+  }
+});
+
+btnModifier.addEventListener('click', () => {
+  current = 1; // Retour à la première étape
+  updateStep();
+});
+
+btnSoumettre.addEventListener('click', () => {
+  if (!consentementLegal.checked) {
+    alert("Veuillez accepter les conditions avant de soumettre.");
+    return;
+  }
+  
+  // Simulation d'envoi au serveur
+  current = 5;
+  updateStep();
+});
+
+consentementLegal.addEventListener('change', () => {
+  if (btnSoumettre) {
+    btnSoumettre.disabled = !consentementLegal.checked;
+  }
+});
+
+// Initialisation
+updateStep();
+
+// Ajuster la hauteur du main en fonction du header
+function adjustMainPadding() {
+  const header = document.querySelector('header');
+  const progressBar = document.querySelector('[class*="fixed top-["]');
+  const main = document.querySelector('main');
+  
+  if (header && progressBar && main) {
+    const headerHeight = header.offsetHeight;
+    const progressHeight = progressBar.offsetHeight;
+    const totalHeight = headerHeight + progressHeight;
+    
+    // Ajuster le padding-top dynamiquement
+    main.style.paddingTop = `${totalHeight + 24}px`;
+  }
+}
+
+// Exécuter au chargement et au redimensionnement
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+</script>
+
+</body>
+</html>
